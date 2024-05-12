@@ -1,0 +1,27 @@
+.orders-page {
+    padding: 20px;
+  }
+  
+  .controls {
+    margin-bottom: 20px;
+  }
+  
+  .controls button {
+    margin-right: 8px;
+  }
+  
+  .order-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .btn-reject {
+    color: red;
+    margin-right: 8px;
+  }
+  
+  .btn-accept {
+    color: green;
+  }
+  
