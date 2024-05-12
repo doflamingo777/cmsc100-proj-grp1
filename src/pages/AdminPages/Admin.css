@@ -1,0 +1,85 @@
+/* Drawer */
+.drawer {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    width: 200px;
+    height: 100%;
+    background-color: #252B42;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  }
+  
+  .drawer-open {
+    width: 200px;
+  }
+  
+  .drawer-closed {
+    width: 0;
+  }
+  
+  .drawer-button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 24px;
+    color: white;
+    background: none;
+  }
+
+
+  .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20%;
+    transition: 0.5s ease;
+  }
+
+  .drawer > p {
+    padding-right: 20px;
+  }
+  
+  .drawer-content {
+    margin-left: 20px;
+    margin-top: 20px;
+    transition: 0.5s;
+  }
+  
+  .drawer-content p {
+    /* padding-left: 20px; */
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    background-color: #252B42;
+    /* height: 50px; */
+    color: #fff;
+    margin: -10px;
+}
+
+
+.navbar-logo {
+    padding: 0 20px;
+    font-size: 24px;
+    margin-left: auto;
+}
+
+.navbar-toggle {
+    transition: 0.5s;
+    margin: 5px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    
+  }
+  
