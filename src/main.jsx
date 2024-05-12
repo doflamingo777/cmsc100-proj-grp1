@@ -28,11 +28,13 @@ const router = createBrowserRouter([
   { path: '/checkoutpage', element: <CheckOutPage /> },
   { path: '/orderconfirmationpage', element: <OrderConfirmationPage /> },
   { path: '/userprofilepage', element: <UserProfilePage /> },
-  { path: '/admindashboardpage', element: <AdminDashboardPage /> },
-  { path: '/usermanagementpage', element: <UserManagementPage /> },
-  { path: '/productlistadminpage', element: <ProductListAdminPage /> },
-  { path: '/orderfulfillmentpage', element: <OrderFulfillmentPage /> },
-  { path: '/salesreportpage', element: <SalesReportPage /> },
+  { path: '/admindashboardpage', element: <AdminDashboardPage />, children: [
+    { path: 'usermanagementpage', element: <UserManagementPage /> },
+    { path: 'productlistadminpage', element: <ProductListAdminPage /> },
+    { path: 'orderfulfillmentpage', element: <OrderFulfillmentPage /> },
+    { path: 'salesreportpage', element: <SalesReportPage /> },
+
+  ]},
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -14,10 +14,10 @@ export default function Root() {
           <li><Link to={'/orderconfirmationpage'}>Order Confirmation</Link></li>
           <li><Link to={'/userprofilepage'}>User Profile</Link></li>
           <li><Link to={'/admindashboardpage'}>Admin Dashboard</Link></li>
-          <li><Link to={'/usermanagementpage'}>User Management</Link></li>
-          <li><Link to={'/productlistadminpage'}>Product List Admin</Link></li>
-          <li><Link to={'/orderfulfillmentpage'}>Order Fulfillment</Link></li>
-          <li><Link to={'/salesreportpage'}>Sales Report</Link></li>
+          <li><Link to={'/admindashboardpage/usermanagementpage'}>User Management</Link></li>
+          <li><Link to={'/admindashboardpage/productlistadminpage'}>Product List Admin</Link></li>
+          <li><Link to={'/admindashboardpage/orderfulfillmentpage'}>Order Fulfillment</Link></li>
+          <li><Link to={'/admindashboardpage/salesreportpage'}>Sales Report</Link></li>
           </ul>
         </nav>
         <Outlet/>
