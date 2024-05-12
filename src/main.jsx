@@ -14,7 +14,7 @@ import UserProfilePage from './pages/CustomerPages/UserProfilePage';
 import AdminDashboardPage from './pages/AdminPages/AdminDashboardPage';
 import UserManagementPage from './pages/AdminPages/UserManagementPage';
 import ProductListAdminPage from './pages/AdminPages/ProductListAdminPage';
-import OrderFulfillmentPage from './pages/AdminPages/OrderFulFillmentPage';
+import OrderFulfillmentPage from './pages/AdminPages/OrderFulfillmentPage';
 import SalesReportPage from './pages/AdminPages/SalesReportPage';
 
 const router = createBrowserRouter([
