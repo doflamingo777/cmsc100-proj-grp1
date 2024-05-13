@@ -16,12 +16,13 @@ import UserManagementPage from './pages/AdminPages/UserManagementPage';
 import ProductListAdminPage from './pages/AdminPages/ProductListAdminPage';
 import OrderFulfillmentPage from './pages/AdminPages/OrderFulfillmentPage';
 import SalesReportPage from './pages/AdminPages/SalesReportPage';
+import AddProductPage from './pages/AdminPages/AddProductPage';
 
 const router = createBrowserRouter([
   { path: '/', element: <Root />, children: [
-    {path: '/', element: <Home />,}
+    {path: '/', element: <Home />,},
+    { path: 'login', element: <LoginDetails /> },
   ]},
-  { path: '/login', element: <LoginDetails /> },
   { path: '/register', element: <RegisterDetails /> },
   {path: '/productlistpage', element: <ProductListPage />},
   { path: '/shoppingcartpage', element: <ShoppingCartPage /> },
@@ -30,7 +31,8 @@ const router = createBrowserRouter([
   { path: '/userprofilepage', element: <UserProfilePage /> },
   { path: '/admindashboardpage', element: <AdminDashboardPage />, children: [
     { path: 'usermanagementpage', element: <UserManagementPage /> },
-    { path: 'productlistadminpage', element: <ProductListAdminPage /> },
+    { path: 'productlistadminpage', element: <ProductListAdminPage />},
+    { path: 'productlistadminpage/addproductpage', element: <AddProductPage />},
     { path: 'orderfulfillmentpage', element: <OrderFulfillmentPage /> },
     { path: 'salesreportpage', element: <SalesReportPage /> },
 
