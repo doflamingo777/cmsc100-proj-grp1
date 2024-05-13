@@ -1,0 +1,170 @@
+.container{
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px;
+}
+
+.page-header > * {
+  flex-grow: 1;
+}
+
+.top-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px;
+  width: 100%;
+}
+
+.searchInput {
+  position: relative;
+  display: inline-block;
+  margin: 8px;
+  border-radius: 15px;
+  width: 100%;
+  height: 45px;
+  border: 0px;
+  padding-left:3%;
+  background-color: #EFEFEF;
+  
+}
+
+.page-header > div > i {
+  color: #00B2EA;
+  position: absolute;
+  max-width: fit-content;
+  margin: 0px;
+  border-radius: 2px;
+  padding: 0px;
+  cursor: pointer;
+  border: 0px;
+  margin-right: 23px
+}
+
+.searchBar {
+  display: flex;
+  justify-content: flex-end;
+  align-items:center;
+  width: 100%;
+}
+
+input:focus {
+  outline-color: #00B2EA;
+}
+
+select:focus {
+  outline-color: #00B2EA;
+}
+
+select {
+  appearance: none;
+  color: #838383;
+}
+
+.order-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  max-width: 100%; 
+  background-color: var(--background-color);
+  border-radius: 15px;
+  padding: 0px;
+}
+
+.order-container-inside {
+  display: flex;
+  max-width: 100%; 
+  background-color: #F4F1F1;
+  box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  margin-bottom: 15px;
+  padding: 7px;
+}
+
+.order-box {
+  display: flex;
+  list-style-type: none;
+  padding: 0px;
+  align-content: flex-start;
+  margin: 0;
+  transition: box-shadow 0.5s ease;
+}
+
+
+.order-details {
+  /* display: flex; */
+  flex-direction: row;
+  align-items: center;
+  color: var(--primary);
+  font-size: 1.25rem; /* Smaller title size */
+  text-align: center;
+  align-content: center;
+  width: 300px;
+}
+
+/* *{
+  border: 1px solid red;
+} */
+
+.order-details > p {
+  font-size: 80%;
+  margin: 0px;
+}
+
+.order-details > h2 {
+  margin-top: 13px;
+  margin-bottom: -22px;
+  font-size: 140%;
+}
+
+.email {
+  color:#00B2EA;
+  /* font-size: 10px; */
+}
+
+.acceptButton {
+  border: none;
+  border-radius: 31px;
+  background-color: #00B2EA;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.rejectButton {
+  border: none;
+  border-radius: 31px;
+  background-color: #FF0615;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.acceptButton:hover, .rejectButton:hover {
+  background-color: #0077A8; /* Change background color on hover */
+}
+
+.acceptButton:active, .rejectButton:active {
+  background-color: #005A7D; /* Change background color when button is clicked */
+}
+
+.order-buttons{
+  display: flex;
+  margin-top: 15px;
+  justify-content: center;
+  color: white;
+  margin-bottom: 15px;
+}
+
+

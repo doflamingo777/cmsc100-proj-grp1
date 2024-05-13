@@ -1,0 +1,107 @@
+.add-product-button {
+    background-color: #00B2EA;
+    border-radius: 15px;
+    color: white;
+    max-width: 100%;
+    display: flex;
+    /* justify-content: space-evenly; */ 
+    width: 48%;
+    padding: 0px;
+    margin-left: 7px;
+    height: 50px;
+    align-items: center;
+    justify-content: space-evenly;
+    text-decoration: none; 
+    transition: background-color 0.3s ease; 
+  }
+  
+  .add-product-button:hover {
+    background-color: #0077a3; /* Change color on hover */
+  }
+  
+  .add-product-container {
+    /* font-size: 30px; */
+    display: flex;
+    /* align-items: center; */
+    /* align-content: center; */
+    /* justify-content: space-evenly; */
+    
+  }
+
+  .add-product-container > i {
+    font-size: 33px;
+  }
+
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px; 
+    overflow: hidden; 
+    box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .product-table th,
+  .product-table td {
+    /* kung ano mas pleasing na design of lines (bottom only)*/
+    border-bottom: 1px solid #ddd;  
+    /* lahat may border line  */
+    /* border: 1px solid #ddd;    */
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .product-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    font-size: 22px;
+  }
+
+  .product {
+    display: flex;
+    align-items: center;
+  }
+  .product-image {
+    max-width: 80px;
+    margin-right: 10px;
+  }
+  
+  .product-name {
+    font-weight:500;
+  }
+  
+  .product-type {
+    color: #555;
+  }
+  
+  .product-price {
+    color: #007bff;
+  }
+  
+  .product-quantity {
+    color: #28a745;
+  }
+  
+  .product-desc {
+    /* color: #6c757d; */
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    width: 25%;
+  }
+
+  .product-actions {
+    color: #00B2EA;
+    width: 7%;
+    margin: 10px;
+  }
+
+  
+  /* Hover effect */
+  .product-table tbody tr:hover {
+    background-color: #f9f9f9;
+  }
+
+
+  
+  /* * {
+    border: 1px solid red;
+  } */

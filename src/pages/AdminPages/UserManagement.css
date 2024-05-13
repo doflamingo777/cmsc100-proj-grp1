@@ -1,0 +1,117 @@
+.container{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.searchInput {
+    position: relative;
+    display: inline-block;
+    margin: 8px;
+    border-radius: 15px;
+    width: 100%;
+    height: 45px;
+    border: 0px;
+    padding-left:3%;
+    background-color: #EFEFEF;
+    
+  }
+  
+.page-header > div > i {
+    color: #00B2EA;
+    position: absolute;
+    max-width: fit-content;
+    margin: 0px;
+    border-radius: 2px;
+    padding: 0px;
+    cursor: pointer;
+    border: 0px;
+    margin-right: 23px
+}
+
+.searchBar {
+    display: flex;
+    justify-content: flex-end;
+    align-items:center;
+    width: 100%;
+}
+
+input:focus {
+    outline-color: #00B2EA;
+}
+
+select:focus {
+    outline-color: #00B2EA;
+}
+
+select {
+    appearance: none;
+    color: #838383;
+}
+
+.totalUsers {
+    display:flex;
+    justify-content: center;
+    background-color: #00B2EA;
+    color: white;
+    padding: 10px;
+    width: 40%;
+    border-radius: 15px; 
+}
+
+.user-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-width: 100%; 
+    background-color: var(--background-color);
+    border-radius: 15px;
+    padding: 0px;
+}
+
+.user-container-inside {
+    display: flex;
+    max-width: 100%; 
+    background-color: #F4F1F1;
+    box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    margin-bottom: 15px;
+    padding: 7px;
+}
+
+.user-box {
+    display: flex;
+    list-style-type: none;
+    padding: 0px;
+    align-content: flex-start;
+    margin: 0;
+    transition: box-shadow 0.5s ease;
+  }
+
+
+.user-details {
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    color: var(--primary);
+    font-size: 1.25rem; /* Smaller title size */
+    text-align: center;
+    align-content: center;
+    width: 300px;
+}
+
+.user-details > h2 {
+    margin-top: 13px;
+    margin-bottom: -22px;
+    font-size: 140%;
+}
+
+.email {
+    color:#00B2EA;
+    /* font-size: 10px; */
+}
