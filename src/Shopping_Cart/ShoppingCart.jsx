@@ -5,16 +5,6 @@ import { useState } from 'react';
 import './ShopCart.css';
 
 function ShoppingCart() {
-
-    // instantiations of variables
-    const navs = [
-      {name: "Appliances", url: "#", id: 1}, 
-      {name: "Groceries", url: "#", id: 2}, 
-      {name: "Gadgets", url: "#", id: 3},
-      {name: "Clothing", url: "#", id: 4},
-    ];
-  
-    // all the products listed 
     const products = [
       { 
         id: 1, 
@@ -106,17 +96,9 @@ function ShoppingCart() {
         price: 200,
         image: 'https://www.sony-africa.com/image/c040a43d6d969ef8b7db26f3f41baf92?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF'
       },
-      {
-        id: 16,
-        name: 'This Kid',
-        price: 500,
-        image: 'https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/402129700_6792534717505132_7650712588900785622_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHKAOidwfYtjb4HnGuBCuEvaJGYIh0DjgJokZgiHQOOAr2p76mjKZpN76ho34HMQnXGEnc8yb_w6IxSNlNWXDoL&_nc_ohc=jnyM7sHuLYUAb61ZiAE&_nc_ht=scontent.fmnl17-1.fna&oh=00_AfAF1BfKyDR8YVoZDvTBrlntP5x1aoK0e4JaJjsJqhbmvA&oe=66325BFB'
-      },
     ];
   
     const [cartItems, setCartItems] = useState([]);
-  
-    // const [cartItems, setCartItems] = useState([{products[0], quantity: 1}, {products[5], quantity: 1}, {products[10, quantity: 1}], {products[15, quantity: 1}]])
   
     const addToCart = (product) => {
       const checkItem = cartItems.findIndex(item => item.id === product.id);
@@ -125,11 +107,12 @@ function ShoppingCart() {
         const currShopCart = [...cartItems];
         currShopCart[checkItem].quantity += 1;
         setCartItems(currShopCart);
+        console.log("Cart Items:", cartItems);
+
       } else {
         setCartItems([...cartItems, { ...product, quantity: 1 }]);
       }
     };
-  
   
     const removeFromCart = (productId) => {
       setCartItems(cartItems.filter(item => item.id !== productId));
@@ -146,7 +129,6 @@ function ShoppingCart() {
               ))}
             </div>
             <Cart cartItems={cartItems} removeFromCart={removeFromCart}/>
-            
           </div>
         </div>
       </div>

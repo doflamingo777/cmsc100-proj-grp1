@@ -137,7 +137,93 @@ button:hover {
     padding: 10px;
     text-align: center; 
 }
-  
+
+.buongCheckout {
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid blue; */
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    /* border: 2px solid yellow; */
+    width: 100%;
+}
+
+.checkoutItems {
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
+    text-align: center;
+    align-items: center;
+    display: flex;
+    /* border: 1px solid blue; */
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+    margin: 5px;
+    margin-left: 250px;
+    margin-right: 100px;
+    max-width: 100%;
+    /* justify-items: stretch; */
+    /* width: min-content; */
+    
+}
+
+.eachItem {
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    /* text-align: center; */
+    /* flex-direction: row; */
+    padding: 15px;
+    width: 100%;
+    min-height: 200px;
+    /* border: 1px solid black; */
+    /* align-items: start; */
+    justify-content: space-between;
+}
+
+.checkoutImg {
+    max-width: 150px;
+    padding: 10px;
+    /* padding-right: 150px; */
+    /* border: 5px solid red; */
+}
+
+.placeOrder {
+    display: flex;
+    flex-direction: row-reverse;
+    /* flex-wrap: wrap-reverse; */
+    align-items: start;
+    /* align-content: center; */
+    /* border: 3px solid darkmagenta; */
+    /* border: 1px solid red; */
+}
+
+.ssCheckout {
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
+    max-width: 300px;
+    /* margin-left: 20px; */
+    margin-right: 70px;
+    margin-top: 50px;
+}
+
+.finalDiv {
+    /* border: 1px solid red; */
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.delItem {
+    max-width: 25px;
+}
+
 /* *{
     border: 1px solid red;
 } */

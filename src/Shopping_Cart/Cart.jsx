@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Checkout from './CheckOutPage';
 
 function Cart({ cartItems, removeFromCart }) {
-
     const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
     const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -10,6 +11,7 @@ function Cart({ cartItems, removeFromCart }) {
             <h2>Shopping Cart</h2>
             <p>Total Quantity: {totalQuantity}</p>
             <p>Total Price: {totalPrice}</p>
+            <Link to={{ pathname: "/checkout" }} onClick={Checkout(cartItems)} className="button"> Checkout </Link>
             <div className="cartItems">
                 {cartItems.map(item => (
                     <div key={item.id} className="cartItem">
