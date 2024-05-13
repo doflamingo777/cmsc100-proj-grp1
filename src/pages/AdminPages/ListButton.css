@@ -1,0 +1,57 @@
+.list-tile-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: white 5px;
+    /* flex-shrink: 2; */
+    padding-left: 15px;
+  }
+
+  .arrow-down {
+    margin-left: auto;
+    padding-right: 15px;
+  }
+
+  .list-tile-button > p {
+    padding-left: 8px;
+  }
+
+  .list-tile-button > i {
+    font-size: 22px;
+  }
+
+  .list-tile-button:hover {
+    background-color: #4169e183; /* Example hover background color */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: 0.5s ease;
+    border-radius: 15px;
+}
+  .list-tile-open {
+    color: #c9d6fd;
+    transition: 0.3s ease;
+    background-color: #4169e183;
+    border-radius: 15px;
+  }
+
+  .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0%;
+    transition: 0.5s ease;
+  }
+
+  .dropdown-link  {
+    /* padding-right: 15px; */
+    margin-bottom: 15px;
+  }
+
+  .dropdown-link-text {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s ease;
+  }
+
+  .dropdown-link-text:hover {
+    color: #A0B8FF;
+  }
