@@ -6,9 +6,14 @@ import Root from './pages/Root';
 import LoginDetails from './pages/Login/Login';
 import Home from './pages/Home/Home';
 import RegisterDetails from './pages/Register/Register';
-import ShoppingCartPage from './pages/CustomerPages/ShoppingCartPage';
+
+import ShoppingCart from './Shopping_Cart/ShoppingCart';
+import CheckOutPage from './Shopping_Cart/CheckOutPage';
+import Checkout from './Shopping_Cart/CheckOutPage';
+
+//import ShoppingCartPage from './pages/CustomerPages/ShoppingCartPage';
 import ProductListPage from './pages/CustomerPages/ProductListPage';
-import CheckOutPage from './pages/CustomerPages/CheckOutPage';
+//import CheckOutPage from './pages/CustomerPages/CheckOutPage';
 import OrderConfirmationPage from './pages/CustomerPages/OrderConfirmationPage';
 import UserProfilePage from './pages/CustomerPages/UserProfilePage';
 import AdminDashboardPage from './pages/AdminPages/AdminDashboardPage';
@@ -18,6 +23,7 @@ import OrderFulfillmentPage from './pages/AdminPages/OrderFulfillmentPage';
 import SalesReportPage from './pages/AdminPages/SalesReportPage';
 import AddProductPage from './pages/AdminPages/AddProductPage';
 
+
 const router = createBrowserRouter([
   { path: '/', element: <Root />, children: [
     {path: '/', element: <Home />,},
@@ -25,8 +31,8 @@ const router = createBrowserRouter([
   ]},
   { path: '/register', element: <RegisterDetails /> },
   {path: '/productlistpage', element: <ProductListPage />},
-  { path: '/shoppingcartpage', element: <ShoppingCartPage /> },
-  { path: '/checkoutpage', element: <CheckOutPage /> },
+ // { path: '/shoppingcartpage', element: <ShoppingCartPage /> },
+  //{ path: '/checkoutpage', element: <CheckOutPage /> },
   { path: '/orderconfirmationpage', element: <OrderConfirmationPage /> },
   { path: '/userprofilepage', element: <UserProfilePage /> },
   { path: '/admindashboardpage', element: <AdminDashboardPage />, children: [
@@ -37,6 +43,14 @@ const router = createBrowserRouter([
     { path: 'salesreportpage', element: <SalesReportPage /> },
 
   ]},
+
+  { path: '/login', element: <LoginDetails /> },
+  { path: '/register', element: <RegisterDetails /> },
+  
+  { path: '/shopcart', element: <ShoppingCart/> },
+  { path: '/checkout', element: <Checkout/>}
+
+
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
