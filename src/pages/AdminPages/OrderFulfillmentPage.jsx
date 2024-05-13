@@ -1,44 +1,60 @@
-// import React from 'react';
-// import './OrderFulfillmentPage.css';
 
-// function OrderCard({ order }) {
-//   return (
-//     <div className="order-card">
-//       <h5>{order.customerName}</h5>
-//       {order.products.map((product, index) => (
-//         <p key={index}>{product.name} - Qty: {product.qty} - Price: {product.price}</p>
-//       ))}
-//       <button className="btn-reject">Reject</button>
-//       <button className="btn-accept">Accept</button>
-//     </div>
-//   );
-// }
+import React from 'react';
 
-// function OrderFulfillmentPage({ orders }) {
-//   return (
-//     <div className="orders-page">
-//       <h3>ORDERS</h3>
-//       <div className="controls">
-//         <button>Reject All</button>
-//         <button>Accept All</button>
-//         <input type="text" placeholder="Search a customer" />
-//       </div>
-//       <div className="orders-container">
-//         {orders.map((order) => (
-//           <OrderCard key={order.id} order={order} />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
+const data = [
+  {
+    transactionId: "TXN001",
+    productId: "PROD001",
+    orderQuantity: 2,
+    orderStatus: 0,
+    email: "user1@example.com",
+    dateOrdered: "2024-05-13",
+    time: "10:00 AM"
+  },
+  {
+    transactionId: "TXN002",
+    productId: "PROD002",
+    orderQuantity: 1,
+    orderStatus: 0,
+    email: "user2@example.com",
+    dateOrdered: "2024-05-14",
+    time: "11:30 AM"
+  },
+  // Add more data as needed
+];
 
-// export default OrderFulfillmentPage;
-
-
-export default function OrderFulfillmentPage() {
+const DisplayData = () => {
   return (
-    <>
-      <p> Order Fulfillment Page </p>
-    </>
-  )
-}
+    <div>
+      <h2>Transaction Data</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Transaction ID</th>
+            <th>Product ID</th>
+            <th>Order Quantity</th>
+            <th>Order Status</th>
+            <th>Email</th>
+            <th>Date Ordered</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index}>
+              <td>{item.transactionId}</td>
+              <td>{item.productId}</td>
+              <td>{item.orderQuantity}</td>
+              <td>{item.orderStatus === 0 ? 'Pending' : item.orderStatus === 1 ? 'Completed' : 'Canceled'}</td>
+              <td>{item.email}</td>
+              <td>{item.dateOrdered}</td>
+              <td>{item.time}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default DisplayData;
