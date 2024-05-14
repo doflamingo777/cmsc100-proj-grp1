@@ -136,10 +136,11 @@ button:hover {
     margin: 10px;
     padding: 10px;
     text-align: center; 
+    
 }
 
-.buongCheckout {
-    font-family: 'Courier New', Courier, monospace;
+.buongCheckout{
+    font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -148,6 +149,7 @@ button:hover {
     /* justify-content: center; */
     /* border: 2px solid yellow; */
     width: 100%;
+    
 }
 
 .checkoutItems {
@@ -167,7 +169,6 @@ button:hover {
     max-width: 100%;
     /* justify-items: stretch; */
     /* width: min-content; */
-    
 }
 
 .eachItem {
@@ -179,12 +180,14 @@ button:hover {
     align-items: center;
     /* text-align: center; */
     /* flex-direction: row; */
+    flex-direction: row;
     padding: 15px;
     width: 100%;
     min-height: 200px;
     /* border: 1px solid black; */
     /* align-items: start; */
-    justify-content: space-between;
+    justify-content: space-around;
+    /* border: 2px solid red; */
 }
 
 .checkoutImg {
@@ -212,18 +215,124 @@ button:hover {
     /* margin-left: 20px; */
     margin-right: 70px;
     margin-top: 50px;
+    /* border: 1px solid green; */
 }
 
 .finalDiv {
     /* border: 1px solid red; */
     justify-content: center;
     align-items: flex-start;
+    min-width: auto;
 }
 
 .delItem {
     max-width: 25px;
 }
 
+.whole-order{
+    border: 1px solid blue;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: 70px;
+    margin-top: 50px;
+    max-width: 450px;
+    min-width: 280px;
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
+}
+
+.selPayMethod{
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid blue; */
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    /* border: 2px solid yellow; */
+    width: 100%;
+}
+
+.mode-of-payment1, .mode-of-payment2{
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
+    margin-top: 10px;
+    padding: 5px;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* .orderSummary{
+    margin: 0;
+} */
+
+.orderSummText{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    /* border: 1px solid red; */
+    margin: 0;
+    margin-top: 20px;
+}
+
+.orderAddress {
+    display:flex;
+    flex-direction: column;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+    /* border: 1px solid green; */
+    /* justify-content: start; */
+}
+
+.inputAddress {
+    margin: 0px;
+    /* border: 1px solid red; */
+}
+
+.totPriceBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    /* max-height: 10vb; */
+}
+
+/* .orderLine {
+    margin0: 0;
+} */
+
+
 /* *{
     border: 1px solid red;
 } */
+
+/* .buttonSummPart {
+    align-items: center;
+    align-content: center;
+} */
+
+.PlaceOrderNow {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+    display: flex;
+    /* border: 2px solid blue; */
+    justify-items: stretch;
+    /* min-width: 33.3vb; */
+    text-align: center;
+    display: flex;
+    /* align-content: center; */
+}
+
+.OrderButt {
+    /* border: 2px solid green; */
+    text-align: center;
+}
