@@ -1,3 +1,4 @@
+const router = require("./router.js")
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -10,11 +11,11 @@ const SECRET_KEY = 'secretkey';
 
 //connect to express server
 const app = express();
-
-
+app.use(cors());
+router(app);
 //connect to mongodb
 //create a .env
-             //mongodb+srv://jngregorio1:bryan22@cluster5173.afcyvk6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster5173
+            //  mongodb+srv://jngregorio1:bryan22@cluster5173.afcyvk6.mongodb.net/UsersDB?retryWrites=true&w=majority&appName=Cluster5173
 const dbURI = 'mongodb+srv://jngregorio1:bryan22@cluster5173.afcyvk6.mongodb.net/UsersDB?retryWrites=true&w=majority&appName=Cluster5173'
 mongoose
 .connect(dbURI, {
@@ -22,8 +23,8 @@ mongoose
     useUnifiedTopology: true
 })
 .then(() => {
-    app.listen(5173, () => {
-        console.log('Server is connected to port 5173 and connected to MongoDB');
+    app.listen(3000, () => {
+        console.log('Server is connected to port 3000 and connected to MongoDB');
     });
 })
 
@@ -68,6 +69,7 @@ app.get('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
     try{
         const {email, password} = req.body
+        console.log(req.body)
         const user = await User.findOne({email})
         if(!user){
             return res.status(401).json({error: 'Invalid credentials'})
