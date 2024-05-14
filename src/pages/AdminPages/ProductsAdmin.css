@@ -6,9 +6,9 @@
     display: flex;
     /* justify-content: space-evenly; */ 
     width: 48%;
+    max-width: 45%;
     padding: 0px;
     margin-left: 7px;
-    height: 50px;
     align-items: center;
     justify-content: space-evenly;
     text-decoration: none; 
@@ -20,12 +20,8 @@
   }
   
   .add-product-container {
-    /* font-size: 30px; */
     display: flex;
-    /* align-items: center; */
-    /* align-content: center; */
-    /* justify-content: space-evenly; */
-    
+    margin: 7px;
   }
 
   .add-product-container > i {
@@ -91,9 +87,17 @@
   .product-actions {
     color: #00B2EA;
     width: 7%;
-    margin: 10px;
   }
-
+  
+  .product-actions > i{
+    margin: 6px;
+    transition: 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .product-actions > i:hover{
+    color: #0077a3;
+  }
   
   /* Hover effect */
   .product-table tbody tr:hover {
