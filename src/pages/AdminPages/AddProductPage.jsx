@@ -78,7 +78,7 @@ export default function AddProductPage() {
           </div>
           <div className="button-row">
 
-        <Link className="final-delete-product">
+        <Link to = "/admindashboardpage/productlistadminpage" className="final-delete-product">
           <h2 className="add-product-container">
             CANCEL
           </h2>
