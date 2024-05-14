@@ -14,7 +14,7 @@ export default function UserManagementPage() {
     // Fetch users from the server when the component mounts
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/getUser');
+        const response = await axios.get('http://localhost:3000/users');
         const test = setUsers(response.data); // Update state with users data
         console.log(response.data)
       } catch (error) {

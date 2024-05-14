@@ -1,21 +1,9 @@
-const { getUser  } = require('./controller/AdminController/admincontroller.js');
-const {  } = require('./controller/UserController/shopping.js');
+const { registerUser, loginUser, getAllUsers } = require('./controller/usercontroller');
 
 const router = (app) => {
-    //riggs
-    app.get('/getUser', getUser);
-
-
-
-
-    //LJ
-
-
-    //bryan
-
-
-    //jonz
-
+    app.post('/register', registerUser);  
+    app.post('/login', loginUser);       
+    app.get('/users', getAllUsers);       
 };
 
 module.exports = router;

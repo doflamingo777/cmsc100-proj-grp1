@@ -1,20 +1,58 @@
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginDetails() {
   // login details
+  const [users, setUsers] = useState([])
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    fetchUsers();
+  }, [])
+
+  const fetchUsers = () =>{
+    axios
+    .get('http://localhost:3000/users')
+    .then((res) => 
+      console.log(res.data))
+    .catch((error) => console.error('Error fetching users:', error));
+  }
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios
+      .post('http://localhost:3000/login', 
+      {email, password})
+      const token = response.data.token
+      alert('Login successful')
+      setEmail('')
+      setPassword('')
+      fetchUsers()
+      navigate('/userprofilepage')
+      window.location.reload()
+      localStorage.setItem('token', token)
+    } catch (error) {
+      console.log('Login Error:', error)
+    }
+  }
+
   
 
   return (
-    <div className='login-page'>
-      <h1>Login Page</h1>
+    <div className='login-container'>
+      <h1>Login</h1>
       <p>Welcome to Login Page</p>
       <div className='forms-container'>
-        <form className='login-form'>
-            <label className='login-label'>Email:</label><br />
-            <input type="email" id='login' name='login' placeholder='Email'/><br/>
-            <label className='login-label'>Password:</label><br />
-            <input type="text" id='password' name='password' placeholder='Password'/>
+        <form className='login-form' onSubmit={handleLogin}>
+            <input type="email" id='email' name='email' placeholder='Email Address' value={email} onChange={(e) => setEmail(e.target.value)}/><br/>
+            <input type="password" id='password' name='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}/><br/>
+            <button className='color-red' type='submit'>Login</button>
         </form>
-        <button>Login</button>
+
       </div>
     </div>
   )

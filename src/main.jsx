@@ -27,7 +27,7 @@ import AddProductPage from './pages/AdminPages/AddProductPage';
 const router = createBrowserRouter([
   { path: '/', element: <Root />, children: [
     {path: '/', element: <Home />,},
-    { path: 'login', element: <LoginDetails /> },
+    { path: '/login', element: <LoginDetails /> },
   ]},
   { path: '/register', element: <RegisterDetails /> },
   {path: '/productlistpage', element: <ProductListPage />},
