@@ -11,6 +11,7 @@ const SECRET_KEY = 'secretkey';
 
 //connect to express server
 const app = express();
+
 app.use(cors());
 router(app);
 //connect to mongodb
@@ -34,7 +35,7 @@ mongoose
 
 //middleware
 app.use(bodyParser.json())
-app.use(cors())
+
 
 
 

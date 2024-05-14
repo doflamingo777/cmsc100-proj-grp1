@@ -1,5 +1,5 @@
 
-const user = require('./models/userSchema');
+const user = require('../../models/userSchema');
 
 const getUser = async (req, res) => {
     try {
@@ -12,9 +12,6 @@ const getUser = async (req, res) => {
     }
 };
 
-
 module.exports = {
-    register,
-    login,
     getUser
 };
