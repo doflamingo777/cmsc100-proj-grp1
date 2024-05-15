@@ -23,9 +23,10 @@ import OrderFulfillmentPage from './pages/AdminPages/OrderFulfillmentPage';
 import SalesReportPage from './pages/AdminPages/SalesReportPage';
 import AddProductPage from './pages/AdminPages/AddProductPage';
 
-
-const router = createBrowserRouter([
-  { path: '/', element: <Root />, children: [
+const isUserSignedIn = !!localStorage.getItem('token')
+const router = createBrowserRouter(
+  
+  [{ path: '/', element: <Root />, children: [
     {path: '/', element: <Home />,},
     { path: '/login', element: <LoginDetails /> },
   ]},
