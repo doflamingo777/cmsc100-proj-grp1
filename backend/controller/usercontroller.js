@@ -48,4 +48,15 @@ const loginUser = async (req, res) => {
     }
 };
 
-module.exports = { loginUser, registerUser, getAllUsers };
+// delete User
+const deleteUser = async (req, res) => {
+    try{
+        const deleted = await User.deleteOne({_id: req.body._id})
+        // console.log(deleted)
+    } catch(error){
+        console.error("Error fetching users:", error.message);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+module.exports = { loginUser, registerUser, getAllUsers, deleteUser };
