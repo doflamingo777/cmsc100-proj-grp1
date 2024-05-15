@@ -72,6 +72,12 @@ select {
     background-color: var(--background-color);
     border-radius: 15px;
     padding: 0px;
+
+}
+
+.user-container-inside:hover {
+    background-color: #e6f9ff;
+    /* padding: 15px; */
 }
 
 .user-container-inside {
@@ -82,17 +88,47 @@ select {
     border-radius: 15px;
     margin-bottom: 15px;
     padding: 7px;
+    transition: 0.3s ease;
 }
 
 .user-box {
+    position: relative;
     display: flex;
     list-style-type: none;
-    padding: 0px;
+    padding: 8px;
+    padding-top: 12px;
     align-content: flex-start;
     margin: 0;
     transition: box-shadow 0.5s ease;
   }
 
+  .right-icon, .left-icon{
+    position: absolute;
+    top: 0;
+    right:0px;
+    border-radius: 6px;
+    padding: 3px;
+    height: fit-content;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    transition: 0.4s ease;
+    cursor: pointer;
+  }
+
+  .left-icon {
+    right: 37px;
+    background-color: #00B2EA;
+    /* font-size: 40px; */
+  }
+
+  .right-icon:hover {
+    background-color:rgb(205, 2, 2) ;
+  }
+  
+  .left-icon:hover {
+    background-color:#0087b0
+  }
 
 .user-details {
     /* display: flex; */
@@ -115,3 +151,58 @@ select {
     color:#00B2EA;
     /* font-size: 10px; */
 }
+
+.confirmation-pop-up {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+  }
+  
+  .confirmation-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .confirmation-box p {
+    margin-bottom: 20px;
+  }
+  
+  
+  .confirmation-buttons button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .confirmation-buttons button:first-child {
+    background-color: #00B2EA; 
+    color: #fff;
+    transition: 0.3s ease;
+  }
+
+  .confirmation-buttons button:first-child:hover {
+    background-color: #0087b0;
+
+  }
+
+  
+  .confirmation-buttons button:last-child {
+      background-color: #ff0000;
+      color: #fff;
+    }
+    
+    .confirmation-buttons button:last-child:hover {
+        background-color:rgb(205, 2, 2) ;
+    }
