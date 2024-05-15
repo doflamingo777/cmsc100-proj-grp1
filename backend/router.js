@@ -1,5 +1,5 @@
 const { registerUser, loginUser, getAllUsers, deleteUser } = require('./controller/usercontroller');
-const { getAllProduct, addProduct } = require('./controller/shopping.js');
+const { getAllProduct, addProduct, deleteProduct } = require('./controller/shopping.js');
   
 const router = (app) => {
     app.post('/register', registerUser);  
@@ -10,6 +10,7 @@ const router = (app) => {
   //jonz
     app.get('/getAllProduct', getAllProduct);
     app.post('/addProduct', addProduct);
+    app.post('/deleteProduct', deleteProduct);
 };
 
 module.exports = router;  

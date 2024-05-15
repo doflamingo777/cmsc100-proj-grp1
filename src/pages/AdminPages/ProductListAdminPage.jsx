@@ -1,89 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import { Link } from "react-router-dom";
 import "./ProductsAdmin.css"
 
 export default function ProductListAdminPage() {
   const [selectedSort, setSelectedSort] = useState('');
+  const [products, setProducts] = useState([]);
+  const [showConfirmation, setShowConfirmation] = useState(false); //for showing pop-upp message
+  const [productToDelete, setProductToDelete] = useState(null); // State to store product to delete for the pop-up
 
   const handleSelectChange = (event) => {
     setSelectedSort(event.target.value);
   };
 
-  //dummy data
-  const products = [
-    { 
-      id: 1, 
-      name: 'Laptop', 
-      type: 'Crops',
-      quantity: 50,
-      price: 999, 
-      image: 'https://i5.walmartimages.com/seo/Lenovo-IdeaPad-3i-14-Laptop-Intel-Core-i5-1235U-8GB-RAM-512GB-SSD-Windows-11-Home-Arctic-Grey-82RJ0007US_2636a308-dc1c-4235-a1f3-cc826ed59556.6790f1aa7755583035b970d4f8ea4526.jpeg',
-      desc: "Lorem ipsum dolor lap top intel core it 8 gb ram 512 gb sd winwos Arctic Grey Intel Core Laptop PC Thank YOu" 
-    },
-    { 
-      id: 2, 
-      name: 'Phone', 
-      type: 'Crops',
-      quantity: 50,
-      price: 299, 
-      image: 'https://www.compex.com.ph/cdn/shop/products/REALME-R6_4GB_8GB_CometBlue_26243e61-1726-4532-9bec-23295bc971b4_1200x1200.jpg?v=1597041228',
-      desc: "Lorem ipsum dolor"  
-    },
-    { 
-      id: 3, 
-      name: 'iPhone',
-      type: 'Crops',
-      quantity: 50, 
-      price: 1099, 
-      image: 'https://powermaccenter.com/cdn/shop/files/iPhone_15_Pro_Max_Natural_Titanium_PDP_Image_Position-1__en-US_3295c924-7c21-417d-870c-32bee7f1e310_1445x.jpg?v=1695861436',
-      desc: "Lorem ipsum dolor"  
-    },
-    { 
-      id: 4, 
-      name: 'Headset',
-      type: 'Crops',
-      quantity: 50, 
-      price: 75, 
-      image: 'https://jblstore.com.ph/cdn/shop/files/JBLTune520BT_Blue_1_600x.png?v=1689752682',
-      desc: "Lorem ipsum dolor"  
-    },
-    { 
-      id: 5, 
-      name: 'Keyboard',
-      type: 'Crops',
-      quantity: 50, 
-      price: 150, 
-      image: 'https://d1rlzxa98cyc61.cloudfront.net/catalog/product/cache/1801c418208f9607a371e61f8d9184d9/1/8/181502_2022_1.jpg',
-      desc: "Lorem ipsum dolor" 
-    },
-    { 
-      id: 6, 
-      name: 'Mouse',
-      type: 'Crops',
-      quantity: 50, 
-      price: 50, 
-      image: 'https://cdn.arstechnica.net/wp-content/uploads/2021/11/High_Resolution_JPG-POP-Mouse-Wave-1.jpg',
-      desc: "Lorem ipsum dolor" 
-    },
-    {
-      id: 7,
-      name: 'Smart Watch',
-      type: 'Crops',
-      quantity: 50,
-      price: 199,
-      image: 'https://down-ph.img.susercontent.com/file/ph-11134207-7qul5-lj24q2lz6waud0',
-      desc: "Lorem ipsum dolor" 
-    },
-    {
-      id: 8,
-      name: 'Smart Watch',
-      type: 'Crops',
-      quantity: 50,
-      price: 199,
-      image: 'https://down-ph.img.susercontent.com/file/ph-11134207-7qul5-lj24q2lz6waud0',
-      desc: "Lorem ipsum dolor" 
-    },
-  ];
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/getAllProduct');
+      setProducts(response.data);
+      // console.log(products);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  //deleting a product
+  const handleDeleteClick = (products) => {
+    console.log(products);
+    setProductToDelete(products);
+    setShowConfirmation(true);
+  };
+
+  //confirm delete
+  const confirmDelete = async () => {
+    try {
+      setShowConfirmation(false);
+      const deleteResponse = await axios.post('http://localhost:3000/deleteProduct', { _id: productToDelete._id });
+      console.log(deleteResponse);
+      fetchproductss();
+    } catch (error) {
+      console.error('Error: ', error)
+    }
+  };
+
+    //cancel delete
+    const cancelDelete = () => {
+      setShowConfirmation(false);
+      setUserToDelete(null);
+    };
+
+  useEffect(() => {
+    //constantly fetch products from database
+    fetchProducts();
+  }, [products]);
 
   return (
     <div className="container">
@@ -133,14 +101,14 @@ export default function ProductListAdminPage() {
               </td>
               <td>{product.type}</td>
               <td>${product.price}</td>
-              <td>{product.quantity}</td>
+              <td>{product.qty}</td>
               <td className="product-desc">{product.desc}</td>
               <td className="product-actions">
               <Link to = "addproductpage" className="product-actions">
                 <i className = "material-icons">edit</i>
               
               </Link>
-              <Link to = "addproductpage" className="product-actions">
+              <Link onClick={() => handleDeleteClick(product)}className="product-actions">
                 <i className = "material-icons">delete</i>
               </Link>
               </td>
@@ -148,6 +116,18 @@ export default function ProductListAdminPage() {
           ))}
         </tbody>
       </table>
+            {/* Confirmation Pop-up */}
+            {showConfirmation && (
+        <div className="confirmation-pop-up">
+          <div className="confirmation-box">
+            <p>Are you sure you want to delete {productToDelete.name}?</p>
+            <div className="confirmation-buttons">
+              <button onClick={confirmDelete}>Yes</button>
+              <button onClick={cancelDelete}>No</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
