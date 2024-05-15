@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
 //     producttype: {type: Number, required: true},
 //     productqty: {type: Number, required: true}
 // })
-
+//bbl drizzy
 const Product = mongoose.model('Product', productSchema)
 
 module.exports = Product

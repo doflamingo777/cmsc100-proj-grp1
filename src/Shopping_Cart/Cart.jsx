@@ -6,7 +6,7 @@ function Cart({ cartItems, removeFromCart }) {
     const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
     const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
-    
+    //bbl drizzy
     
 
     return (

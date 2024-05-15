@@ -54,7 +54,7 @@ function ShoppingCart() {
       }
     };
 
-    const addProduct = (event) => {
+    const addProd = (event) => {
       axios
       .post('http://localhost:3000/addProduct', { id, name, price, image })
       .then(() => {
@@ -70,8 +70,15 @@ function ShoppingCart() {
       setCartItems(cartItems.filter(item => item.id !== productId));
     };
 
-    const setProductDeets = (event) => {
-      console.log(event)
+    const setProductDeets = (prod) => {
+      console.log(prod)
+      setId(prod.id)
+      console.log(id)
+      console.log("==========================================")
+      setName(prod.name)
+      setPrice(prod.price)
+      setImage(prod.image)
+      addProd()
     }
   
     // the whole body of the website
@@ -84,7 +91,7 @@ function ShoppingCart() {
                 <>
                 <Card key={product.id} product={product} addProduct={() => {addProduct}} onAddToCart={addToCart} />
                 {/* <button onClick={setId(product.id)}>SET</button> */}
-                <button value={[product.id, product.name, product.price, product.image]} onClick={(e) => setProductDeets(e.target.value)
+                <button onClick={() => setProductDeets(product)
                 
               }>HERE</button>
                 </>

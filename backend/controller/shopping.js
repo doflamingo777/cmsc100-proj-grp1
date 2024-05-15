@@ -11,7 +11,7 @@ const getAllProduct = async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 };
-
+//bbl drizzy
 // save new product
 const addProduct = async (req, res) => {
     console.log("hatsUP")

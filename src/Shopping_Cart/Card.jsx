@@ -8,6 +8,7 @@ function Card({ product, addProduct, onAddToCart }) {
     console.log(test);
   };
 
+    //bbl drizzy
   return (
     <div className="card">
       <img className="card-image" src={product.image} alt={product.name} />

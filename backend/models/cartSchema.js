@@ -14,7 +14,7 @@ const cartSchema = new mongoose.Schema({
 //     producttype: {type: Number, required: true},
 //     productqty: {type: Number, required: true}
 // })
-
+//bbl drizzy
 const oncart = mongoose.model('oncart', cartSchema)
 
 module.exports = oncart
