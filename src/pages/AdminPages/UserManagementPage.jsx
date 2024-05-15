@@ -98,10 +98,19 @@ export default function UserManagementPage() {
       {showConfirmation && (
         <div className="confirmation-pop-up">
           <div className="confirmation-box">
-            <p>Are you sure you want to delete {userToDelete.firstname} {userToDelete.lastname}?</p>
-            <div className="confirmation-buttons">
-              <button onClick={confirmDelete}>Yes</button>
-              <button onClick={cancelDelete}>No</button>
+            <div className="confirmation-header">
+              <h3>Delete user?</h3>
+            </div>
+            <div>
+              <p>This will remove <span className="bold">
+                {userToDelete.firstname} {userToDelete.lastname}
+                </span>.
+                </p>
+              <div className="confirmation-buttons">
+                <button onClick={cancelDelete}>Cancel</button>
+                <button onClick={confirmDelete}>Delete</button>
+              </div>
+
             </div>
           </div>
         </div>
