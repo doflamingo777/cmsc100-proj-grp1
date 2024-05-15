@@ -1,8 +1,9 @@
-const { registerUser, loginUser, getAllUsers } = require('./controller/usercontroller');
+const { registerUser, loginUser, getAllUsers, deleteUser } = require('./controller/usercontroller');
 
 const router = (app) => {
     app.post('/register', registerUser);  
-    app.post('/login', loginUser);       
+    app.post('/login', loginUser); 
+    app.post('/deleteUser', deleteUser);      
     app.get('/users', getAllUsers);       
 };
 
