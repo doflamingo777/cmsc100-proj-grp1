@@ -1,11 +1,13 @@
-const { getUser  } = require('./controller/AdminController/admincontroller.js');
-const { getAllProduct, addProduct } = require('./controller/UserController/shopping.js');
+const { registerUser, loginUser, getAllUsers, deleteUser } = require('./controller/usercontroller');
+const { getAllProduct, addProduct } = require('./controller/shopping.js');
 
 const router = (app) => {
     //riggs
-    app.get('/getUser', getUser);
 
-
+    app.post('/register', registerUser);  
+    app.post('/login', loginUser); 
+    app.post('/deleteUser', deleteUser);      
+    app.get('/users', getAllUsers);   
     //LJ
     
     //bryan
