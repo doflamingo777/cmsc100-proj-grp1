@@ -120,10 +120,19 @@ export default function ProductListAdminPage() {
             {showConfirmation && (
         <div className="confirmation-pop-up">
           <div className="confirmation-box">
-            <p>Are you sure you want to delete {productToDelete.name}?</p>
-            <div className="confirmation-buttons">
-              <button onClick={confirmDelete}>Yes</button>
-              <button onClick={cancelDelete}>No</button>
+            <div className="confirmation-header">
+              <h3>Delete product?</h3>
+            </div>
+            <div>
+              <p>This will remove <span className="bold">
+                {productToDelete.name} 
+                </span>.
+                </p>
+              <div className="confirmation-buttons">
+                <button onClick={cancelDelete}>Cancel</button>
+                <button onClick={confirmDelete}>Delete</button>
+              </div>
+
             </div>
           </div>
         </div>
