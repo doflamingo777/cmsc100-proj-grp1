@@ -1,12 +1,19 @@
 import React from 'react';
-// import { useParams } from 'react-router-dom';
 import placeOrder from './image/screenshot.png';
 // import { useState } from 'react';
-// import Cart from './Cart';
 import PlaceOrderTab from './PlaceOrder';
 
 const Checkout = ( props ) => {
 
+  
+  //bbl drizzy
+
+
+
+  const removeFromCart = (productId) => {
+    setCartItems(cartItems.filter(item => item.id !== productId));
+  };
+  
     const products = [
         { 
           id: 1, 
