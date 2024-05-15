@@ -5,30 +5,55 @@ import "./UserManagement.css"; // Import the CSS file
 export default function UserManagementPage() {
   const [users, setUsers] = useState([]);
   const [selectedSort, setSelectedSort] = useState('');
+  const [showConfirmation, setShowConfirmation] = useState(false); //for showing pop-upp message
+  const [userToDelete, setUserToDelete] = useState(null); // State to store user to delete for the pop-up
 
   const handleSelectChange = (event) => {
     setSelectedSort(event.target.value);
   };
 
+  //fetching user
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/users');
+      setUsers(response.data);
+      // console.log(users);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
+  //deleting a user
+  const handleDeleteClick = (user) => {
+    setUserToDelete(user);
+    setShowConfirmation(true);
+  };
+
+  //confirm delete
+  const confirmDelete = async () => {
+    try {
+      setShowConfirmation(false);
+      const deleteResponse = await axios.post('http://localhost:3000/deleteUser', { _id: userToDelete._id });
+      console.log(deleteResponse);
+      fetchUsers();
+    } catch (error) {
+      console.error('Error: ', error)
+    }
+  };
+
+  //cancel delete
+  const cancelDelete = () => {
+    setShowConfirmation(false);
+    setUserToDelete(null);
+  };
+
+  // showConfirmation is for fetching when deleting (oks to), users is for fetching user in general
+  // pero infinite loop ginagawa ng users so it might be heavy on the network traffic
   useEffect(() => {
-    // Fetch users from the server when the component mounts
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/getUser');
-        const test = setUsers(response.data); // Update state with users data
-        console.log(response.data)
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-
+    //constantly fetch user from database
     fetchUsers();
-
-    // Clean up function
-    return () => {
-      // Optionally, perform cleanup or cancel any pending requests
-    };
-  }, []); // Empty dependency array ensures the effect runs only once on component mount
+  }, [showConfirmation, users]);
+  
 
   return (
     <div className="container">
@@ -52,7 +77,7 @@ export default function UserManagementPage() {
       </div>
       <p>Selected option: {selectedSort}</p>
 
-      {/* user details */}
+      {/* User details */}
       <div className="user-container">
         {users.map((item, index) => (
           <div className="user-container-inside" key={index}>
@@ -60,12 +85,27 @@ export default function UserManagementPage() {
               <li className="user-details">
                 <h2>{item.firstname}  {item.lastname}</h2>
                 <p className="email">{item.email}</p>
-                <p>Total no. of orders: {item.orders}</p>
+                <p>Username: {item.username}</p>
               </li>
+              <i className="material-icons right-icon" onClick={() => handleDeleteClick(item)}>close</i>
+              <i className="material-icons left-icon">edit</i>
             </ul>
           </div>
         ))}
       </div>
+
+      {/* Confirmation Pop-up */}
+      {showConfirmation && (
+        <div className="confirmation-pop-up">
+          <div className="confirmation-box">
+            <p>Are you sure you want to delete {userToDelete.firstname} {userToDelete.lastname}?</p>
+            <div className="confirmation-buttons">
+              <button onClick={confirmDelete}>Yes</button>
+              <button onClick={cancelDelete}>No</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
