@@ -1,5 +1,6 @@
 const product = require('../models/productSchema.js');
 const cart = require('../models/cartSchema.js');
+const Product = require('../models/productSchema.js');
 
 const getAllProduct = async (req, res) => {
     try {
@@ -29,7 +30,19 @@ const addProduct = async (req, res) => {
 	}
 }
 
+// delete Product
+const deleteProduct = async (req, res) => {
+    try{
+        const deleted = await Product.deleteOne({_id: req.body._id})
+        // console.log(deleted)
+    } catch(error){
+        console.error("Error fetching product:", error.message);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
 module.exports = {
     getAllProduct,
     addProduct,
+    deleteProduct,
 };
