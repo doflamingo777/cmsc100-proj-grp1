@@ -15,20 +15,22 @@ const getAllProduct = async (req, res) => {
 //bbl drizzy
 // save new product
 const addProduct = async (req, res) => {
-    console.log("hatsUP")
-    console.log(req.body)
-    
-	const { id, name, price, image } = req.body
-	const oncart = new cart({id, name, price, image })
-	await oncart.save()
+    console.log("hatsUP");
+    console.log(req.body);
+
+    const { id, name, price, image, desc, qty, type } = req.body;
+    console.log(id, name, price, image, desc, qty, type);
+
+    const oncart = new cart({ id, name, price, image, desc, qty, type });
+    const result = await oncart.save();
     console.log(result);
 
-	if (result._id) {
-		res.send({ success: true })
-	} else {
-		res.send({ success: false })
-	}
-}
+    if (result._id) {
+        res.send({ success: true });
+    } else {
+        res.send({ success: false });
+    }
+};
 
 // delete Product
 const deleteProduct = async (req, res) => {

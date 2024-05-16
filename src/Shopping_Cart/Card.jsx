@@ -1,14 +1,10 @@
-function Card({ product, addProduct, onAddToCart }) {
+import React from "react";
 
+function Card({ product, onAddToCart }) {
   const handleClick = () => {
     onAddToCart(product);
-    // console.log("TEST");
-    console.log(product)
-    const test = addProduct(product);
-    console.log(test);
   };
 
-    //bbl drizzy
   return (
     <div className="card">
       <img className="card-image" src={product.image} alt={product.name} />
