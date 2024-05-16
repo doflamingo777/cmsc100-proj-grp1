@@ -5,6 +5,9 @@ const cartSchema = new mongoose.Schema({
     name: {type: String, required: true},
     price: {type: Number, required: true},
     image: {type: String, required: true},
+    desc: {type: String, required: true},           //added desc
+    type: {type: Number, required: true},           //added type    
+    qty: {type: String, required: true},
 })
 
 // const cart = new mongoose.Schema({
@@ -16,5 +19,6 @@ const cartSchema = new mongoose.Schema({
 // })
 //bbl drizzy
 const oncart = mongoose.model('oncart', cartSchema)
+const onGod = mongoose.model('user', cartSchema).collection("shoppingcarts")
 
 module.exports = oncart

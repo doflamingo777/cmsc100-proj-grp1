@@ -15,20 +15,22 @@ const getAllProduct = async (req, res) => {
 //bbl drizzy
 // save new product
 const addProduct = async (req, res) => {
-    console.log("hatsUP")
-    console.log(req.body)
-    
-	const { id, name, price, image } = req.body
-	const oncart = new cart({id, name, price, image })
-	await oncart.save()
+    console.log("hatsUP");
+    console.log(req.body);
+
+    const { id, name, price, image, desc, qty, type } = req.body;
+    console.log(id, name, price, image, desc, qty, type);
+
+    const oncart = new cart({ id, name, price, image, desc, qty, type });
+    const result = await oncart.save();
     console.log(result);
 
-	if (result._id) {
-		res.send({ success: true })
-	} else {
-		res.send({ success: false })
-	}
-}
+    if (result._id) {
+        res.send({ success: true });
+    } else {
+        res.send({ success: false });
+    }
+};
 
 // delete Product
 const deleteProduct = async (req, res) => {
@@ -41,8 +43,32 @@ const deleteProduct = async (req, res) => {
     }
 }
 
+const updateProductQuantities = async (req, res) => {
+    try {
+        const { productId } = req.body;
+
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).send("Product not found");
+        }
+
+        // Update quantities
+        product.soldqty += 1;
+        product.qty -= 1;
+
+        await product.save();
+
+        res.send(product);
+    } catch (error) {
+        console.error("Error updating product quantities:", error);
+        res.status(500).send("Internal Server Error");
+    }
+};
+
 module.exports = {
     getAllProduct,
     addProduct,
     deleteProduct,
+    updateProductQuantities,
 };
