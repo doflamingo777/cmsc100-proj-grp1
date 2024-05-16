@@ -11,6 +11,10 @@ function ShoppingCart() {
     const [name, setName] = useState(['']);
     const [price, setPrice] = useState(['']);
     const [image, setImage] = useState(['']);
+    const [desc, setDesc] = useState(['']);
+    const [qty, setQty] = useState(['']);
+    const [type, setType] = useState(['']);
+    
 
     const [products, setProducts] = useState([]);
     const [cartItems, setCartItems] = useState([]);
@@ -38,7 +42,7 @@ function ShoppingCart() {
       return () => {
         // Optionally, perform cleanup or cancel any pending requests
       };
-    }, []); // Empty dependency array ensures the effect runs only once on component mount
+    },); // Empty dependency array ensures the effect runs only once on component mount
   
     const addToCart = (product) => {
       const checkItem = cartItems.findIndex(item => item.id === product.id);
@@ -54,17 +58,20 @@ function ShoppingCart() {
       }
     };
 
-    const addProd = (event) => {
+    const addProd = (product) => {
+      console.log("Adding product:", product);
+  
       axios
-      .post('http://localhost:3000/addProduct', { id, name, price, image })
-      .then(() => {
-        alert('Added to Cart')
-        navigate('/shopcart')
-      })
-      .catch((error) => {
-          console.log('Unable to add')
-      })
-    }
+        .post('http://localhost:3000/addProduct', product)
+        .then(() => {
+          alert('Product added successfully');
+          // Ensure navigate is defined and used correctly if needed
+          // navigate('/shopcart');
+        })
+        .catch((error) => {
+          console.log('Unable to add product:', error);
+        });
+    };
 
     const removeFromCart = (productId) => {
       setCartItems(cartItems.filter(item => item.id !== productId));
@@ -72,14 +79,35 @@ function ShoppingCart() {
 
     const setProductDeets = (prod) => {
       console.log(prod)
-      setId(prod.id)
-      console.log(id)
+      console.log(prod.id)
       console.log("==========================================")
+
+      setId(prod.id)
       setName(prod.name)
       setPrice(prod.price)
       setImage(prod.image)
-      addProd()
+      setDesc(prod.desc)
+      setQty(prod.qty)
+      setType(prod.type)
+      
+      const obj = {
+        id: prod.id,
+        name: prod.name,
+        price: prod.price,
+        image: prod.image,
+        desc: prod.desc,
+        qty: prod.qty,
+        type: prod.type
+      };
+    
+      console.log(obj);
+      addProd(obj)
     }
+    
+    const handleAddToCartAndSetDeets = (product) => {
+      setProductDeets(product);
+      addToCart(product);
+    };
   
     // the whole body of the website
     return (
@@ -88,13 +116,11 @@ function ShoppingCart() {
           <div className='mainCont'>
             <div className="goods">
               {products.map(product => (
-                <>
-                <Card key={product.id} product={product} addProduct={() => {addProduct}} onAddToCart={addToCart} />
-                {/* <button onClick={setId(product.id)}>SET</button> */}
-                <button onClick={() => setProductDeets(product)
-                
-              }>HERE</button>
-                </>
+                <Card 
+                  key={product.id} 
+                  product={product} 
+                  onAddToCart={() => handleAddToCartAndSetDeets(product)} 
+                />
               ))}
             </div>
             <Cart cartItems={cartItems} removeFromCart={removeFromCart}/>
