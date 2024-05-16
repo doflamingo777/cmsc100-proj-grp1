@@ -21,7 +21,7 @@ export default function RegisterDetails() {
     axios
     .get('http://localhost:3000/users')
     .then((res) => 
-      console.log(res.data))
+      setUsers(res.data))
     .catch((error) => console.error('Error fetching users:', error));
   }
 
@@ -52,7 +52,8 @@ export default function RegisterDetails() {
       <p>Welcome to Register Page</p>
       <div className='forms-container'>
         <form className='login-form' onSubmit={handleRegister}>
-            <input type="text" id='fname' name='firstname' placeholder='First Name' value={firstname} onChange={(e) => setFirstname(e.target.value)}/><br/>
+            <input className=''
+            type="text" id='fname' name='firstname' placeholder='First Name' value={firstname} onChange={(e) => setFirstname(e.target.value)}/><br/>
             <input type="text" id='lname' name='lastname' placeholder='Last Name' value={lastname} onChange={(e) => setLastname(e.target.value)}/><br/>
             <input type="text" id='uname' name='username' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)}/><br/>
             <input type="tel" id='phone' name='phone' placeholder='Mobile Number' pattern="09[0-9]{9}" required value={phone} onChange={(e) => setPhone(e.target.value)}/><br/>

@@ -5,19 +5,29 @@ import { useNavigate } from 'react-router-dom';
 export default function LoginDetails() {
   // login details
   const [users, setUsers] = useState([])
+  const [admins, setAdmin] = useState([])
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
     fetchUsers();
+    fetchAdmins();
   }, [])
 
   const fetchUsers = () =>{
     axios
     .get('http://localhost:3000/users')
     .then((res) => 
-      console.log(res.data))
+      setUsers(res.data))
+    .catch((error) => console.error('Error fetching users:', error));
+  }
+
+  const fetchAdmins = () =>{
+    axios
+    .get('http://localhost:3000/showAdmin')
+    .then((res) => 
+      setAdmin(res.data))
     .catch((error) => console.error('Error fetching users:', error));
   }
 
@@ -27,14 +37,22 @@ export default function LoginDetails() {
       const response = await axios
       .post('http://localhost:3000/login', 
       {email, password})
-      const token = response.data.token
+      const token = response.data.token //token is for authentication
+      const userType = response.data.userType; // user type can be user or admin
       alert('Login successful')
       setEmail('')
       setPassword('')
-      fetchUsers()
-      navigate('/userprofilepage')
-      window.location.reload()
+
       localStorage.setItem('token', token)
+      localStorage.setItem('userType', userType);
+      
+      if (response.data.userType === 'admin') {
+        navigate('/admindashboardpage');
+      } else {
+        navigate('/userprofilepage');
+      }
+      window.location.reload()
+      
     } catch (error) {
       console.log('Login Error:', error)
     }
