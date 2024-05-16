@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./OrderFulfillmentPage.css"; // Import the CSS file
+import axios from 'axios';
 
 export default function OrderFulfillmentPage() {
   const [selectedSort, setSelectedSort] = useState('');
+  const [ orderTransaction, setOrderTransaction ] = useState([]);
 
   const handleSelectChange = (event) => {
     setSelectedSort(event.target.value);
@@ -15,46 +17,61 @@ export default function OrderFulfillmentPage() {
     2: "Canceled"
   };
 
-  //dummy data for order transactions
-  const data = [
-    {
-      transactionId: "TXN001",
-      productId: "PROD001",
-      orderQuantity: 2,
-      orderStatus: 0,
-      email: "user1@example.com",
-      dateOrdered: "2024-05-13",
-      time: "10:00 AM"
-    },
-    {
-      transactionId: "TXN002",
-      productId: "PROD002",
-      orderQuantity: 1,
-      orderStatus: 0,
-      email: "user2@example.com",
-      dateOrdered: "2024-05-14",
-      time: "11:30 AM"
-    },
-    {
-      transactionId: "TXN003",
-      productId: "PROD003",
-      orderQuantity: 1,
-      orderStatus: 0,
-      email: "user3@example.com",
-      dateOrdered: "2024-05-14",
-      time: "11:30 AM"
-    },
-    {
-      transactionId: "TXN004",
-      productId: "PROD004",
-      orderQuantity: 1,
-      orderStatus: 0,
-      email: "user4@example.com",
-      dateOrdered: "2024-05-14",
-      time: "11:30 AM"
-    },
-  ];
+  const fetchOrderTransactions = async () => {
+    try {
+      // Fetch order transactions from the backend
+      const response = await axios.get('http://localhost:3000/getAllOrderTransactions');
+      setOrderTransaction(response.data);
+    } catch (error) {
+      console.error('Error fetching order transactions:', error);
+    }
+  };
+  
 
+  //dummy data for order transactions
+  // //const data = [
+  //   {
+  //     transactionId: "TXN001",
+  //     productId: "PROD001",
+  //     orderQuantity: 2,
+  //     orderStatus: 0,
+  //     email: "user1@example.com",
+  //     dateOrdered: "2024-05-13",
+  //     time: "10:00 AM"
+  //   },
+  //   {
+  //     transactionId: "TXN002",
+  //     productId: "PROD002",
+  //     orderQuantity: 1,
+  //     orderStatus: 0,
+  //     email: "user2@example.com",
+  //     dateOrdered: "2024-05-14",
+  //     time: "11:30 AM"
+  //   },
+  //   {
+  //     transactionId: "TXN003",
+  //     productId: "PROD003",
+  //     orderQuantity: 1,
+  //     orderStatus: 0,
+  //     email: "user3@example.com",
+  //     dateOrdered: "2024-05-14",
+  //     time: "11:30 AM"
+  //   },
+  //   {
+  //     transactionId: "TXN004",
+  //     productId: "PROD004",
+  //     orderQuantity: 1,
+  //     orderStatus: 0,
+  //     email: "user4@example.com",
+  //     dateOrdered: "2024-05-14",
+  //     time: "11:30 AM"
+  //   },
+  // ];
+
+  useEffect(() => {
+    fetchOrderTransactions();
+  }
+  , []); 
     return (
       <div className="container">
         {/* header */}
@@ -72,7 +89,7 @@ export default function OrderFulfillmentPage() {
 
         {/* user details */}
         <div className="order-container">
-          {data.map((item, index) => (
+          {orderTransaction.map((item, index) => (
             <div className="order-container-inside">
               <ul className="order-box">
                   <li key={index} className="order-details">

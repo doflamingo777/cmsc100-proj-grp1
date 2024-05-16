@@ -8,16 +8,10 @@ const productSchema = new mongoose.Schema({
     desc: {type: String, required: true},           //added desc
     type: {type: Number, required: true},           //added type    
     qty: {type: String, required: true},            //added qty
+    soldqty : {type: Number, required: true},       //added soldqty
 })
 
-// const productSchema = new mongoose.Schema({
-//     productid: {type: String, required: true},
-//     productname: {type: String, required: true},
-//     prooductdesc: {type: String, required: true},
-//     producttype: {type: Number, required: true},
-//     productqty: {type: Number, required: true}
-// })
-//bbl drizzy
+
 const Product = mongoose.model('products', productSchema)
 
 module.exports = Product
