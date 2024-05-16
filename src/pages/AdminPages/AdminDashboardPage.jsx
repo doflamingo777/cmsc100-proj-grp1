@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ListButton from "./ListButton";
 import "./Admin.css"; // Import the CSS file
 import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // dinagdag ni bryan
 
 export default function AdminDashboardPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -10,8 +11,21 @@ export default function AdminDashboardPage() {
     setDrawerOpen(!drawerOpen);
   };
 
+
+  //-------------------
+  //Dinagdag ko muna -Bryan
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+    window.location.reload();
+  };
+  //-------------------
+
   return (
     <>
+     
       {/* Navbar */}
       <nav className="navbar">
         <button
@@ -21,6 +35,12 @@ export default function AdminDashboardPage() {
         >
           ☰
         </button>
+
+        {/*dinagdag ni bryan for testing*/}
+        <button onClick={handleSignOut}>Sign Out</button>
+        
+
+
         <div className="navbar-logo">Logo</div>
       </nav>
 
@@ -50,7 +70,7 @@ export default function AdminDashboardPage() {
           drawerOpen={drawerOpen}
         />
       </div>
-
+          
       {/* Content */}
       <div
         className="drawer-content"
