@@ -41,8 +41,32 @@ const deleteProduct = async (req, res) => {
     }
 }
 
+const updateProductQuantities = async (req, res) => {
+    try {
+        const { productId } = req.body;
+
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).send("Product not found");
+        }
+
+        // Update quantities
+        product.soldqty += 1;
+        product.qty -= 1;
+
+        await product.save();
+
+        res.send(product);
+    } catch (error) {
+        console.error("Error updating product quantities:", error);
+        res.status(500).send("Internal Server Error");
+    }
+};
+
 module.exports = {
     getAllProduct,
     addProduct,
     deleteProduct,
+    updateProductQuantities,
 };
