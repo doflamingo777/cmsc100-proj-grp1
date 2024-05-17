@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams} from "react-router-dom";
 import "./AddProducts.css";
 import useCustomNavigate from "./useCustomNavigate";
 import axios from "axios";
 
 export default function AddProductPage() {
+  let { existingProductId } = useParams();
+
   const [image, setImage] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [tempImageUrl, setTempImageUrl] = useState("");
+  const [tempName, setTempName] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -18,6 +21,24 @@ export default function AddProductPage() {
   });
   const [errors, setErrors] = useState({}); //for errors
   const navigateBack = useCustomNavigate(); //for going back
+
+  const fetchAProduct = async () => {
+    try {
+      if (existingProductId) {
+      const response = await axios.get(`http://localhost:3000/getAProduct?id=${existingProductId}`)
+      
+        setFormData(response.data[0]);
+        setImage(response.data[0].image);
+        setTempName(response.data[0].name)
+    }
+  } catch(error) {
+      console.error('Error fetching product:', error);
+    };
+  }
+  
+  useEffect(() => {
+    fetchAProduct();
+}, [existingProductId]);
 
   const handleAddImageClick = () => {
     setShowConfirmation(true);
@@ -52,20 +73,34 @@ export default function AddProductPage() {
       .post('http://localhost:3000/addNewProduct', product)
       .then(() => {
         alert('Product added successfully');
-        // Ensure navigate is defined and used correctly if needed
-        // navigate('/shopcart');
       })
       .catch((error) => {
         console.log('Unable to add product:', error);
       });
   };
 
+  const editProd = (product) => {
+    console.log("Updating product:", product);
+    axios
+      .post('http://localhost:3000/editAProduct', product)
+      .then(() => {
+        alert('Product updated successfully');
+      })
+      .catch((error) => {
+        console.log('Unable to add product:', error);
+      });
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validateFormData(formData);
     if (Object.keys(errors).length === 0) {
-      console.log(formData);
-      addProd(formData)
+      if(existingProductId) {
+        editProd(formData);
+        console.log("meron");
+      }else{
+        addProd(formData);
+      }
       navigateBack();
     } else {
       setErrors(errors);
@@ -81,6 +116,7 @@ export default function AddProductPage() {
 
 
   const validateFormData = (data) => {
+    console.log(data.qty.toString().trim());
     const errors = {};
     if (!data.name.trim()) {
       errors.name = "name is required";
@@ -98,12 +134,12 @@ export default function AddProductPage() {
       errors.image = "image is required";
     }
 
-    if (!data.qty.trim()) {
+    if (!data.qty.toString().trim()) {
       errors.qty = "quantity is required";
     } else if (!/^\d+$/.test(data.qty)) {
       errors.qty = "quantity must be a number";
     }
-    if (!data.price.trim()) {
+    if (!data.price.toString().trim()) {
       errors.price = "price is required";
     } else if (!/^\d+(\.\d{1,2})?$/.test(data.price)) {
       errors.price = "price must be a valid number";
@@ -115,7 +151,7 @@ export default function AddProductPage() {
     <div className="container">
       {/* header */}
       <div className="page-header">
-        <h1>ADD A PRODUCT</h1>
+        <h1>{!existingProductId ? 'ADD A PRODUCT' : `EDIT PRODUCT ${tempName}` }</h1>
       </div>
       {/* content */}
       <form onSubmit={handleSubmit}>
@@ -206,7 +242,7 @@ export default function AddProductPage() {
                 <h2 className="add-product-container">CANCEL</h2>
               </Link>
               <button type="submit" className="final-add-product">
-                <h2 className="add-product-container">ADD PRODUCT</h2>
+                <h2 className="add-product-container">{existingProductId ? 'EDIT PRODUCT':'ADD PRODUCT'}</h2>
               </button>
             </div>
           </div>

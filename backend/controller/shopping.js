@@ -13,6 +13,21 @@ const getAllProduct = async (req, res) => {
     }
 };
 
+//find a product using it's object ID
+const getAProduct = async (req, res) => {
+    try {
+        const objectId = req.query.id;
+        const productDetails = await product.find({_id: objectId});
+        // console.log(productDetails);
+        res.send(productDetails);
+    }catch(error) {
+        console.error("Error fetching product details:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+
+
 const getAllCheckOut = async (req, res) => {
     try {
         const userEmail = req.user._id; // get the user's id
@@ -104,6 +119,29 @@ const addNewProduct = async (req, res) => {
     }
 };
 
+const editAProduct = async (req, res) => {
+    console.log(req.body);
+
+    const { id, name, price, image, desc, qty, type } = req.body;
+
+    const newProduct = new product({ id, name, price, image, desc, qty, type });
+    const result = await Product.updateOne({_id: req.body._id},{$set: {
+        name: newProduct.name,
+        price: newProduct.price,
+        image: newProduct.image,
+        desc: newProduct.desc,
+        qty: newProduct.qty,
+    }});
+    console.log(result);
+
+
+    if (result._id) {
+        res.send({ success: true });
+    } else {
+        res.send({ success: false });
+    }
+};
+
 // delete Product
 const deleteProduct = async (req, res) => {
     try{
@@ -157,5 +195,7 @@ module.exports = {
     deleteProductCart,
     updateProductQuantities,
     addNewProduct,
-    getAllCheckOut
+    getAllCheckOut,
+    getAProduct,
+    editAProduct
 };

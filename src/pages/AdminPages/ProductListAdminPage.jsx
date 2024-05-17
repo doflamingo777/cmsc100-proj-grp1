@@ -104,7 +104,7 @@ export default function ProductListAdminPage() {
               <td>{product.qty}</td>
               <td className="product-desc">{product.desc}</td>
               <td className="product-actions">
-              <Link to = "addproductpage" className="product-actions">
+              <Link to = {`addproductpage/${product._id}`} className="product-actions" >
                 <i className = "material-icons">edit</i>
               
               </Link>
