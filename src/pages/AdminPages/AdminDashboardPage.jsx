@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom"; // dinagdag ni bryan
 
 export default function AdminDashboardPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const mail = localStorage.getItem('email');
+  console.log(mail)
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
@@ -41,7 +42,7 @@ export default function AdminDashboardPage() {
         
 
 
-        <div className="navbar-logo">Logo</div>
+        <div className="navbar-logo">farm-to-table</div>
       </nav>
 
       {/* Drawer */}

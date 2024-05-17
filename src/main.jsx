@@ -23,14 +23,19 @@ import OrderFulfillmentPage from './pages/AdminPages/OrderFulfillmentPage';
 import SalesReportPage from './pages/AdminPages/SalesReportPage';
 import AddProductPage from './pages/AdminPages/AddProductPage';
 
+
+
+
+  
 const router = createBrowserRouter(
   
   [{ path: '/', element: <Root />,
    children: [
     {path: '/', element: <Home />,},
-    { path: '/login', element: <LoginDetails /> },
-    { path: '/register', element: <RegisterDetails /> }
+    
   ]},
+  { path: '/login', element: <LoginDetails /> },
+  { path: '/register', element: <RegisterDetails /> },
   {path: '/productlistpage', element: <ProductListPage />},
   { path: '/orderconfirmationpage', element: <OrderConfirmationPage /> },
   { path: '/userprofilepage', element: <UserProfilePage /> },

@@ -65,8 +65,11 @@
 
 .navbar-logo {
     padding: 0 20px;
-    font-size: 24px;
+    
     margin-left: auto;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3em;
+    color: white;
 }
 
 .navbar-toggle {
