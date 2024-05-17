@@ -49,7 +49,8 @@ export default function LoginDetails() {
       if (response.data.userType === 'admin') {
         navigate('/admindashboardpage');
       } else {
-        navigate('/userprofilepage');
+        // navigate('/userprofilepage');
+        navigate('/shopcart');
       }
       window.location.reload()
       
