@@ -27,51 +27,23 @@ export default function OrderFulfillmentPage() {
     }
   };
   
+  const acceptOrder = async (transactionId) => {
+    try {
+        const response = await axios.post('http://localhost:3000/acceptOrder', { transactionId });
+        console.log(response.data);
+        fetchOrderTransactions(); // Refresh the list of transactions
+    } catch (error) {
+        console.error('Error accepting order:', error);
+    }
+  };
 
-  //dummy data for order transactions
-  // //const data = [
-  //   {
-  //     transactionId: "TXN001",
-  //     productId: "PROD001",
-  //     orderQuantity: 2,
-  //     orderStatus: 0,
-  //     email: "user1@example.com",
-  //     dateOrdered: "2024-05-13",
-  //     time: "10:00 AM"
-  //   },
-  //   {
-  //     transactionId: "TXN002",
-  //     productId: "PROD002",
-  //     orderQuantity: 1,
-  //     orderStatus: 0,
-  //     email: "user2@example.com",
-  //     dateOrdered: "2024-05-14",
-  //     time: "11:30 AM"
-  //   },
-  //   {
-  //     transactionId: "TXN003",
-  //     productId: "PROD003",
-  //     orderQuantity: 1,
-  //     orderStatus: 0,
-  //     email: "user3@example.com",
-  //     dateOrdered: "2024-05-14",
-  //     time: "11:30 AM"
-  //   },
-  //   {
-  //     transactionId: "TXN004",
-  //     productId: "PROD004",
-  //     orderQuantity: 1,
-  //     orderStatus: 0,
-  //     email: "user4@example.com",
-  //     dateOrdered: "2024-05-14",
-  //     time: "11:30 AM"
-  //   },
-  // ];
+  
 
   useEffect(() => {
     fetchOrderTransactions();
   }
-  , []); 
+, []); 
+
     return (
       <div className="container">
         {/* header */}
@@ -100,7 +72,7 @@ export default function OrderFulfillmentPage() {
                     <p>Date Ordered: {item.dateOrdered} </p>
                     <p>Time Ordered: {item.time}</p>
                     <div className="order-buttons">
-                      <button className="acceptButton">ACCEPT</button>
+                      <button className="acceptButton" onClick={() => acceptOrder(item.productId)}>ACCEPT</button>
                       <button className="rejectButton">REJECT</button>
                     </div>
                   </li>

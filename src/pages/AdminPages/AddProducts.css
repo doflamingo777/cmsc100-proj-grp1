@@ -45,6 +45,11 @@
     
 }
 
+.add-product-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
 .add-product-image {
     max-width: fit-content;
 }
@@ -212,5 +217,57 @@
     background-color: #a30000; /* Change color on hover */
   }
   
-
+  .image-text > p{
+    margin-bottom: 10px;
+  }
   
+  .image-link {
+    border-radius: 6px;
+    border: 1px solid gainsboro;
+    padding: 13px;
+    width: 320px;
+    margin-bottom: 10px;
+  }
+
+  .image-link:focus {
+    outline-color: royalblue;
+  }
+  
+
+.fade-prompt {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: rgba(255, 0, 0, 0.8); 
+  color: white;
+  border-radius: 5px;
+  animation: fadeOut 3s forwards; 
+  z-index: 1000; 
+}
+
+/* animation for the error prompt */
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  65% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.success-prompt {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: rgba(11, 224, 61, 0.8); 
+  color: white;
+  border-radius: 5px;
+  animation: fadeOut 3s forwards; 
+  z-index: 1000; 
+}
+
+/* animation for the error prompt */
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  65% { opacity: 1; }
+  100% { opacity: 0; }
+}

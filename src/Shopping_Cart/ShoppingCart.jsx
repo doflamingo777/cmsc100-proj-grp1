@@ -7,17 +7,19 @@ import axios from 'axios';
 
 function ShoppingCart() {
 
-    const [id, setId] = useState(['']);
-    const [name, setName] = useState(['']);
-    const [price, setPrice] = useState(['']);
-    const [image, setImage] = useState(['']);
-    const [desc, setDesc] = useState(['']);
-    const [qty, setQty] = useState(['']);
-    const [type, setType] = useState(['']);
-    
+  const [id, setId] = useState(['']);
+  const [name, setName] = useState(['']);
+  const [price, setPrice] = useState(['']);
+  const [image, setImage] = useState(['']);
+  const [desc, setDesc] = useState(['']);
+  const [qty, setQty] = useState(['']);
+  const [type, setType] = useState(['']);
+  
 
-    const [products, setProducts] = useState([]);
-    const [cartItems, setCartItems] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+
+    // const [prodDelete, setProductToDelete] = useState(null);
     // const [selectedSort, setSelectedSort] = useState('');
   
     // const handleSelectChange = (event) => {
@@ -42,8 +44,10 @@ function ShoppingCart() {
       return () => {
         // Optionally, perform cleanup or cancel any pending requests
       };
-    },); // Empty dependency array ensures the effect runs only once on component mount
-  
+    }); // Empty dependency array ensures the effect runs only once on component mount
+    
+
+    // ADD ITEMS INTO CART VISUALLY (HINDI NAG REREFLECT SA DATABASE)
     const addToCart = (product) => {
       const checkItem = cartItems.findIndex(item => item.id === product.id);
   
@@ -64,7 +68,7 @@ function ShoppingCart() {
       axios
         .post('http://localhost:3000/addProduct', product)
         .then(() => {
-          alert('Product added successfully');
+          // alert('Product added successfully');
           // Ensure navigate is defined and used correctly if needed
           // navigate('/shopcart');
         })
@@ -77,6 +81,7 @@ function ShoppingCart() {
       setCartItems(cartItems.filter(item => item.id !== productId));
     };
 
+    // Sets the detils ng items
     const setProductDeets = (prod) => {
       console.log(prod)
       console.log(prod.id)
@@ -103,18 +108,19 @@ function ShoppingCart() {
       console.log(obj);
       addProd(obj)
     }
-    
+
     const handleAddToCartAndSetDeets = (product) => {
       setProductDeets(product);
       addToCart(product);
     };
+  
   
     // the whole body of the website
     return (
       <div className="appContainer">
         <div className="main-content">
           <div className='mainCont'>
-            <div className="goods">
+          <div className="goods">
               {products.map(product => (
                 <Card 
                   key={product.id} 

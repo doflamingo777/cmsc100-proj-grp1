@@ -52,12 +52,16 @@ export default function LoginDetails() {
       const mail = localStorage.getItem('email');
       console.log(mail)
 
-      /*if (response.data.userType === 'admin') {
+      if (response.data.userType === 'admin') {
         navigate('/admindashboardpage');
       } else {
-        navigate('/userprofilepage');
-      }*/
-      /*window.location.reload();*/
+
+        // navigate('/userprofilepage');
+        navigate('/shopcart');
+      }
+      window.location.reload()
+      
+
     } catch (error) {
       console.log('Login Error:', error);
     }
