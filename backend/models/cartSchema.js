@@ -19,6 +19,6 @@ const cartSchema = new mongoose.Schema({
 // })
 //bbl drizzy
 const oncart = mongoose.model('oncart', cartSchema)
-// const onGod = mongoose.model('user', cartSchema).collection("shoppingcarts")
+
 
 module.exports = oncart

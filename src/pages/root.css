@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+@import url('https://cdn-uicons.flaticon.com/2.3.0/uicons-brands/css/uicons-brands.css');
+@import url('https://cdn-uicons.flaticon.com/2.3.0/uicons-brands/css/uicons-brands.css');
+@import url('https://cdn-uicons.flaticon.com/2.3.0/uicons-brands/css/uicons-brands.css');
+
+
+
+#root {
+  margin: 0;
+}
+
+
+
+.top-bar {
+  text-align: center;
+  background-color: #252B42;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.top-bar .contact-info {
+  display: flex;
+  align-items: center;
+}
+
+.top-bar .contact-info span {
+  margin-right: 50px;
+}
+
+.top-bar .contact-info .icon {
+  margin-right: 5px;
+  background-color: white;
+
+}
+
+.top-bar i{
+  color: white;
+  text-decoration: none;
+  size: 1rem;
+  font-size: 1rem;
+}
+
+.top-bar a{
+  color: white;
+  text-decoration: none;
+  padding-right: 30px;
+  
+}
+
+.root-container {
+  background-color: #252B42;
+  margin: 0;
+  padding: 0;
+  top: 0;
+}
+
+.root-container nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #252b423e;
+  padding: 10px 20px;
+}
+
+.root-container nav .nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3em;
+  color: white;
+}
+
+.root-container ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.root-container ul li {
+  margin: 0 10px;
+  font-size: 15px;
+}
+
+.root-container ul li a {
+  text-decoration: none;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.root-container ul li a:hover {
+  background-color: #6682ff;
+  color: white;
+}
+
+.root-container ul li a.active {
+  background-color: #ff3333;
+  color: white;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
