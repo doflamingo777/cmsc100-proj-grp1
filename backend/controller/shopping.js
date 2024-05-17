@@ -12,6 +12,17 @@ const getAllProduct = async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 };
+
+const getAllCheckOut = async (req, res) => {
+    try {
+        const productDetails = await cart.find(); // Assuming product.find() returns product details
+        // console.log(productDetails);
+        res.send(productDetails); // Send product details as response
+    } catch (error) {
+        console.error("Error fetching product details:", error);
+        res.status(500).send("Internal Server Error");
+    }
+};
 //bbl drizzy
 // save new product
 const addProduct = async (req, res) => {
@@ -62,6 +73,18 @@ const deleteProduct = async (req, res) => {
     }
 }
 
+// delete Product
+const deleteProductCart = async (req, res) => {
+    try{
+        const deleted = await cart.deleteOne({_id: req.body._id})
+        console.log(deleted)
+        console.log("Delete Product")
+    } catch(error){
+        console.error("Error fetching product:", error.message);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
 const updateProductQuantities = async (req, res) => {
     try {
         const { productId } = req.body;
@@ -89,6 +112,8 @@ module.exports = {
     getAllProduct,
     addProduct,
     deleteProduct,
+    deleteProductCart,
     updateProductQuantities,
     addNewProduct,
+    getAllCheckOut
 };
