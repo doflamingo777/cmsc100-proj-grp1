@@ -1,5 +1,5 @@
 const { registerUser, loginUser, getAllUsers, deleteUser } = require('./controller/usercontroller');
-const { getAllProduct, addProduct, deleteProduct } = require('./controller/shopping.js');
+const { getAllProduct, addProduct, deleteProduct, updateProductQuantities } = require('./controller/shopping.js');
 const { getAllOrderTransactions } = require('./controller/transactionController');
 
 const router = (app) => {
@@ -15,6 +15,7 @@ const router = (app) => {
 
   // lj
     app.get('/getAllOrderTransactions', getAllOrderTransactions);
+    app.post('/updateProductQuantities', updateProductQuantities);
 };
 
 module.exports = router;  

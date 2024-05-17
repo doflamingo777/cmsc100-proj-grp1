@@ -72,6 +72,18 @@ export default function OrderFulfillmentPage() {
     fetchOrderTransactions();
   }
   , []); 
+
+  const handleAccept = async (productId) => {
+    try {
+      const response = await axios.post('http://localhost:3000/updateProductQuantities', { productId });
+      console.log('Updated product:', response.data);
+      // Optionally refresh the list of order transactions
+      fetchOrderTransactions();
+    } catch (error) {
+      console.error('Error updating product quantities:', error);
+    }
+  };
+
     return (
       <div className="container">
         {/* header */}
@@ -100,7 +112,7 @@ export default function OrderFulfillmentPage() {
                     <p>Date Ordered: {item.dateOrdered} </p>
                     <p>Time Ordered: {item.time}</p>
                     <div className="order-buttons">
-                      <button className="acceptButton">ACCEPT</button>
+                      <button className="acceptButton" onClick={() => handleAccept(item.productId)}>ACCEPT</button>
                       <button className="rejectButton">REJECT</button>
                     </div>
                   </li>
