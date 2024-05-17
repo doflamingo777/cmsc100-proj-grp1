@@ -32,6 +32,25 @@ const addProduct = async (req, res) => {
     }
 };
 
+// save new product to products collection
+const addNewProduct = async (req, res) => {
+    console.log("hatsUP");
+    console.log(req.body);
+
+    const { id, name, price, image, desc, qty, type } = req.body;
+    console.log(id, name, price, image, desc, qty, type);
+
+    const newProduct = new product({ id, name, price, image, desc, qty, type });
+    const result = await newProduct.save();
+    console.log(result);
+
+    if (result._id) {
+        res.send({ success: true });
+    } else {
+        res.send({ success: false });
+    }
+};
+
 // delete Product
 const deleteProduct = async (req, res) => {
     try{
@@ -71,4 +90,5 @@ module.exports = {
     addProduct,
     deleteProduct,
     updateProductQuantities,
+    addNewProduct,
 };

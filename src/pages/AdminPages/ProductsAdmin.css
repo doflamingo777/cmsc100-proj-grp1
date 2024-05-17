@@ -57,12 +57,13 @@
     align-items: center;
   }
   .product-image {
-    max-width: 80px;
-    margin-right: 10px;
+    max-width: 7.5rem;
+    margin-right: 15px;
   }
   
   .product-name {
     font-weight:500;
+    font-size: 1.4rem;
   }
   
   .product-type {

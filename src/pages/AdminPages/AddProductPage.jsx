@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./AddProducts.css";
 import useCustomNavigate from "./useCustomNavigate";
+import axios from "axios";
 
 export default function AddProductPage() {
-  const [selectedSort, setSelectedSort] = useState("");
   const [image, setImage] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [tempImageUrl, setTempImageUrl] = useState("");
   const [formData, setFormData] = useState({
-    productName: "",
-    productQuantity: "",
-    productType: "",
-    productPrice: "",
-    productDescription: "",
-    imageUrl: "" 
+    name: "",
+    price: "",
+    desc: "",
+    qty: "",
+    type: "",
+    image: ""
   });
   const [errors, setErrors] = useState({}); //for errors
   const navigateBack = useCustomNavigate(); //for going back
@@ -25,7 +25,7 @@ export default function AddProductPage() {
 
   const handleConfirmImage = () => {
     setImage(tempImageUrl);
-    setFormData({ ...formData, imageUrl: tempImageUrl }); 
+    setFormData({ ...formData, image: tempImageUrl }); 
     setShowConfirmation(false);
   };
 
@@ -45,11 +45,27 @@ export default function AddProductPage() {
     });
   };
 
+  const addProd = (product) => {
+    console.log("Adding product:", product);
+
+    axios
+      .post('http://localhost:3000/addNewProduct', product)
+      .then(() => {
+        alert('Product added successfully');
+        // Ensure navigate is defined and used correctly if needed
+        // navigate('/shopcart');
+      })
+      .catch((error) => {
+        console.log('Unable to add product:', error);
+      });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validateFormData(formData);
     if (Object.keys(errors).length === 0) {
       console.log(formData);
+      addProd(formData)
       navigateBack();
     } else {
       setErrors(errors);
@@ -66,31 +82,31 @@ export default function AddProductPage() {
 
   const validateFormData = (data) => {
     const errors = {};
-    if (!data.productName.trim()) {
-      errors.productName = "name is required";
+    if (!data.name.trim()) {
+      errors.name = "name is required";
     }
     
-    if(data.productType == '' ) {
-      errors.productType = "type is required";
+    if(data.type == '' ) {
+      errors.type = "type is required";
     }
     
-    if(!data.productDescription.trim() ) {
-      errors.productDescription = "description is required";
+    if(!data.desc.trim() ) {
+      errors.desc = "description is required";
     }
-    if(!data.imageUrl.trim() ) {
-      console.log(data.imageUrl)
-      errors.imageUrl = "image is required";
+    if(!data.image.trim() ) {
+      console.log(data.image)
+      errors.image = "image is required";
     }
 
-    if (!data.productQuantity.trim()) {
-      errors.productQuantity = "quantity is required";
-    } else if (!/^\d+$/.test(data.productQuantity)) {
-      errors.productQuantity = "quantity must be a number";
+    if (!data.qty.trim()) {
+      errors.qty = "quantity is required";
+    } else if (!/^\d+$/.test(data.qty)) {
+      errors.qty = "quantity must be a number";
     }
-    if (!data.productPrice.trim()) {
-      errors.productPrice = "price is required";
-    } else if (!/^\d+(\.\d{1,2})?$/.test(data.productPrice)) {
-      errors.productPrice = "price must be a valid number";
+    if (!data.price.trim()) {
+      errors.price = "price is required";
+    } else if (!/^\d+(\.\d{1,2})?$/.test(data.price)) {
+      errors.price = "price must be a valid number";
     }
     return errors;
   };
@@ -123,23 +139,23 @@ export default function AddProductPage() {
           <div className="box-container">
             <div className="form-row">
               <div className="input-group">
-                <label htmlFor="productName">Product Name</label>
+                <label htmlFor="name">Product Name</label>
                 <input
                   type="text"
-                  id="productName"
-                  name="productName"
-                  value={formData.productName}
+                  id="name"
+                  name="name"
+                  value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Enter product name"
                 />
               </div>
               <div className="input-group">
-                <label htmlFor="productQuantity">Product Quantity</label>
+                <label htmlFor="qty">Product Quantity</label>
                 <input
                   type="text"
-                  id="productQuantity"
-                  name="productQuantity"
-                  value={formData.productQuantity}
+                  id="qty"
+                  name="qty"
+                  value={formData.qty}
                   onChange={handleInputChange}
                   placeholder="Enter product quantity"
                 />
@@ -147,36 +163,39 @@ export default function AddProductPage() {
             </div>
             <div className="form-row">
               <div className="input-group">
-                <label htmlFor="productType">Product Type</label>
+                <label htmlFor="type">Product Type</label>
                 <select
-                  id="productType"
-                  name="productType"
-                  value={formData.productType}
+                  id="type"
+                  name="type"
+                  value={formData.type}
                   onChange={handleInputChange}
                 >
                   <option value="">Select Type</option>
-                  <option value="type1">Type 1</option>
-                  <option value="type2">Type 2</option>
+                  <option value="1">Staple</option>
+                  <option value="2">Fruits and Vegetables</option>
+                  <option value="3">Livestock</option>
+                  <option value="4">Seafood</option>
+                  <option value="5">Others</option>
                 </select>
               </div>
               <div className="input-group">
-                <label htmlFor="productPrice">Product Price</label>
+                <label htmlFor="price">Product Price</label>
                 <input
                   type="text"
-                  id="productPrice"
-                  name="productPrice"
-                  value={formData.productPrice}
+                  id="price"
+                  name="price"
+                  value={formData.price}
                   onChange={handleInputChange}
                   placeholder="Enter product price"
                 />
               </div>
             </div>
             <div className="description-input">
-              <label htmlFor="productDescription">Product Description</label>
+              <label htmlFor="desc">Product Description</label>
               <textarea
-                id="productDescription"
-                name="productDescription"
-                value={formData.productDescription}
+                id="desc"
+                name="desc"
+                value={formData.desc}
                 onChange={handleInputChange}
                 rows="5"
                 placeholder="Enter product description"
@@ -226,7 +245,7 @@ export default function AddProductPage() {
 
       {/* {Object.keys(errors).length === 0 && (
         <div className="success-prompt">
-          <p>Successfully added {formData.productName}</p>
+          <p>Successfully added {formData.name}</p>
         </div>
       )} */}
     </div>
