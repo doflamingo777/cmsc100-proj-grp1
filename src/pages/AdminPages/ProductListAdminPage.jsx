@@ -6,6 +6,7 @@ import "./ProductsAdmin.css"
 export default function ProductListAdminPage() {
   const [selectedSort, setSelectedSort] = useState('');
   const [products, setProducts] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false); //for showing pop-upp message
   const [productToDelete, setProductToDelete] = useState(null); // State to store product to delete for the pop-up
 
@@ -21,6 +22,9 @@ export default function ProductListAdminPage() {
     setSelectedSort(event.target.value);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
   const sortProducts = (products, option) => {
     return products.sort((productA, productB) => {
       switch (option) {
@@ -63,6 +67,12 @@ export default function ProductListAdminPage() {
       }
     });
   };
+  //filter and sorting products for searching
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const sortedProducts = sortProducts(filteredProducts, selectedSort); //this will now be the new array of products that i will map to display
 
   const fetchProducts = async () => {
     try {
@@ -102,7 +112,7 @@ export default function ProductListAdminPage() {
   useEffect(() => {
     //constantly fetch products from database
     fetchProducts();
-  }, [selectedSort]);
+  }, [selectedSort, products]);
 
   return (
     <div className="container">
@@ -115,7 +125,8 @@ export default function ProductListAdminPage() {
           </h2>
         </Link>
         <div className="searchBar">
-          <input type="text" placeholder="Search a product" className="searchInput"></input>
+          <input type="text" placeholder="Search a product" className="searchInput" value={searchValue}
+            onChange={handleSearchChange}></input>
           <i className="material-icons searchIcon">search</i>
         </div>
         <div className="searchBar">
@@ -146,7 +157,7 @@ export default function ProductListAdminPage() {
           </tr>
         </thead>
         <tbody>
-          {products.map(product => (
+          {sortedProducts.map(product => (
             <tr key={product._id}>
               <td>
                 <div className="product">
