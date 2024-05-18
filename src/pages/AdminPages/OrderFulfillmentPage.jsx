@@ -28,6 +28,8 @@ export default function OrderFulfillmentPage() {
   };
   
   const acceptOrder = async (transactionId) => {
+
+    console.log("this is transactionId: ", transactionId)
     try {
         const response = await axios.post('http://localhost:3000/acceptOrder', { transactionId });
         console.log(response.data);

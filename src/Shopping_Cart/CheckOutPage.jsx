@@ -53,7 +53,7 @@ const Checkout = () => {
   return (
     <div className='finalDiv'>
       <div className='placeOrder'>
-        <PlaceOrderTab className="ssCheckout" />
+        <PlaceOrderTab cartItems={( cartItems )} className="ssCheckout" />
         <div className='buongCheckout'>
           <h1>Checkout</h1>
           <div className='checkoutItems'>
