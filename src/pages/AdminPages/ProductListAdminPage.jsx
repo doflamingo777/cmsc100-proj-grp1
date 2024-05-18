@@ -144,8 +144,10 @@ export default function ProductListAdminPage() {
           <i className="material-icons searchIcon">keyboard_arrow_down</i>
         </div>
       </div>
+      
       {/* product table */}
-      <table className="product-table">
+
+      <table className="product-table-list">
         <thead>
           <tr>
             <th>Product</th>
@@ -160,21 +162,21 @@ export default function ProductListAdminPage() {
           {sortedProducts.map(product => (
             <tr key={product._id}>
               <td>
-                <div className="product">
-                  <img src={product.image} alt={product.name} className="product-image" />
-                  <span className="product-name">{product.name}</span>
+                <div className="product-list">
+                  <img src={product.image} alt={product.name} className="product-image-list" />
+                  <span className="product-name-list">{product.name}</span>
                 </div>
               </td>
               <td>{productTypeMap[product.type]}</td>
               <td>${product.price}</td>
               <td>{product.qty}</td>
-              <td className="product-desc">{product.desc}</td>
-              <td className="product-actions">
-              <Link to = {`addproductpage/${product._id}`} className="product-actions" >
+              <td className="product-desc-list">{product.desc}</td>
+              <td className="product-actions-list">
+              <Link to = {`addproductpage/${product._id}`} className="product-actions-list" >
                 <i className = "material-icons">edit</i>
               
               </Link>
-              <Link onClick={() => handleDeleteClick(product)}className="product-actions">
+              <Link onClick={() => handleDeleteClick(product)}className="product-actions-list">
                 <i className = "material-icons">delete</i>
               </Link>
               </td>

@@ -129,13 +129,14 @@
   background-color: rgb(238, 234, 234);
 }
 
-h2 {
+
+/* h2 {
   margin-left: 10%;
 }
 
 h1 {
   margin: 5%;
-}
+} */
 
 .total-sales {
   font-weight: bold;

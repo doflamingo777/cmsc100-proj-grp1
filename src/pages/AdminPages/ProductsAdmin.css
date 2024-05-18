@@ -28,16 +28,18 @@
     font-size: 33px;
   }
 
-  .product-table {
-    width: 100%;
+  
+  .product-table-list {
+    width: 98%;
+    margin: auto;
     border-collapse: collapse;
     border-radius: 15px; 
     overflow: hidden; 
     box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.15);
   }
   
-  .product-table th,
-  .product-table td {
+  .product-table-list th,
+  .product-table-list td {
     /* kung ano mas pleasing na design of lines (bottom only)*/
     border-bottom: 1px solid #ddd;  
     /* lahat may border line  */
@@ -46,22 +48,22 @@
     text-align: left;
   }
   
-  .product-table th {
+  .product-table-list th {
     background-color: #f2f2f2;
     font-weight: bold;
     font-size: 22px;
   }
 
-  .product {
+  .product-list {
     display: flex;
     align-items: center;
   }
-  .product-image {
+  .product-image-list {
     max-width: 7.5rem;
     margin-right: 15px;
   }
   
-  .product-name {
+  .product-name-list {
     font-weight:500;
     font-size: 1.4rem;
   }
@@ -78,30 +80,30 @@
     color: #28a745;
   }
   
-  .product-desc {
+  .product-desc-list {
     /* color: #6c757d; */
     /* display: flex; */
     /* flex-wrap: wrap; */
     width: 25%;
   }
 
-  .product-actions {
+  .product-actions-list {
     color: #00B2EA;
     width: 7%;
   }
   
-  .product-actions > i{
+  .product-actions-list > i{
     margin: 6px;
     transition: 0.3s ease;
     cursor: pointer;
   }
   
-  .product-actions > i:hover{
+  .product-actions-list > i:hover{
     color: #0077a3;
   }
   
   /* Hover effect */
-  .product-table tbody tr:hover {
+  .product-table-list tbody tr:hover {
     background-color: #f9f9f9;
   }
 
