@@ -6,35 +6,42 @@ import "./SalesReportPage.css"
 export default function SalesReportPage() {
   const [selectedSort, setSelectedSort] = useState('');
   const [products, setProducts] = useState([]);
-  const [showConfirmation, setShowConfirmation] = useState(false); //for showing pop-upp message
+  const [groupedTransactions, setGroupedTransactions] = useState([]); // State for grouped transactions data
+  const [showConfirmation, setShowConfirmation] = useState(false); // For showing pop-up message
 
-  const handleSelectChange = (event) => {
+  const handleSelectChange = async (event) => {
     setSelectedSort(event.target.value);
+    const groupBy = event.target.value;
+
+    if (groupBy) {
+        try {
+            const response = await axios.get(`http://localhost:3000/group-transactions?groupBy=${groupBy}`);
+            setGroupedTransactions(response.data);
+        } catch (error) {
+            console.error('Error fetching grouped transactions:', error);
+        }
+    } else {
+        setGroupedTransactions([]); // Clear the grouped data if no specific grouping is selected
+    }
   };
 
   const fetchProducts = async () => {
     try {
       const response = await axios.get('http://localhost:3000/getAllProduct');
       setProducts(response.data);
-      // console.log(products);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
   };
 
-
-
   useEffect(() => {
-    //constantly fetch products from database
     fetchProducts();
-  }, [products]);
+  }, []);
 
   return (
     <div className="container">
-      {/* header */}
       <div className="page-header">
         <h1> SALES </h1>
-
         <div className="summaryBar">
           <select id="my-select" value={selectedSort} onChange={handleSelectChange} className="searchInput select-with-arrow">
             <option value="">View Summary of Transactions by:</option>
@@ -44,7 +51,7 @@ export default function SalesReportPage() {
           </select>
         </div>
       </div>
-      {/* product table */}
+
       <table className="product-table">
         <thead>
           <tr>
@@ -69,12 +76,38 @@ export default function SalesReportPage() {
               <td>{product.soldqty}</td>
               <td>${product.price}</td>
               <td className="product-desc">{product.sales}</td>
-              <td className="product-actions">
-              </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {/* Display grouped transactions if any */}
+      {groupedTransactions.length > 0 && (
+          <div>
+              <h2>Grouped Sales Data ({selectedSort})</h2>
+              <table className="grouped-transactions-table">
+                  <thead>
+                      <tr>
+                          <th>Period</th>
+                          <th>Product ID</th>
+                          <th>Total Orders</th>
+                          <th>Total Quantity</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {groupedTransactions.map((group, index) => (
+                          <tr key={index}>
+                              <td>{group._id.period}</td> {/* Adjusted to access period from _id */}
+                              <td>{group._id.productId}</td> {/* Adjusted to access productId from _id */}
+                              <td>{group.totalOrders}</td>
+                              <td>{group.totalQuantity}</td>
+                          </tr>
+                      ))}
+                  </tbody>
+              </table>
+          </div>
+      )}
+
     </div>
   );
 }
