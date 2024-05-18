@@ -23,7 +23,6 @@ const router = (app) => {
     app.post('/editAProduct', editAProduct);
 
   // lj
-
     app.get('/getAllOrderTransactions', getAllOrderTransactions);
     app.post('/acceptOrder', acceptOrder);
     app.get('/group-transactions', groupTransactions);

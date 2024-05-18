@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-
 export default function LoginDetails() {
   // login details
   const [users, setUsers] = useState([]);
