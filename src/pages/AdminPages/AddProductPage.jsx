@@ -26,7 +26,8 @@ export default function AddProductPage() {
     try {
       if (existingProductId) {
       const response = await axios.get(`http://localhost:3000/getAProduct?id=${existingProductId}`)
-      
+        
+      console.log(response.data[1]);
         setFormData(response.data[0]);
         setImage(response.data[0].image);
         setTempName(response.data[0].name)
