@@ -74,10 +74,50 @@ const acceptOrder = async (req, res) => {
     }
 };
 
-module.exports = acceptOrder;
+const groupTransactions = async (req, res) => {
+    const { groupBy } = req.query; // Expected to be 'weekly', 'monthly', or 'yearly'
+
+    let groupOperator;
+    if (groupBy === 'weekly') {
+        groupOperator = { $week: "$dateOrdered" };
+    } else if (groupBy === 'monthly') {
+        groupOperator = { $month: "$dateOrdered" };
+    } else if (groupBy === 'yearly') {
+        groupOperator = { $year: "$dateOrdered" };
+    } else {
+        return res.status(400).send('Invalid group by option');
+    }
+
+    try {
+        const groupedData = await ordertransactions.aggregate([
+            {
+                $group: {
+                    _id: {
+                        period: groupOperator, // Use directly instead of wrapping in an object
+                        productId: "$productId"
+                    },
+                    totalOrders: { $sum: 1 },
+                    totalQuantity: { $sum: "$orderQuantity" }
+                }
+            },
+            {
+                $sort: { "_id.period": 1, "_id.productId": 1 } // Ensure sorting is adjusted as needed
+            }
+        ]);
+
+        res.json(groupedData);
+    } catch (error) {
+        console.error('Error in grouping transactions:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+
+
 
 
 module.exports = {
     getAllOrderTransactions,
     acceptOrder,
+    groupTransactions,
 };
