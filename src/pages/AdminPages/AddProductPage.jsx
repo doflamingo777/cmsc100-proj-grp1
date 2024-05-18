@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';   
 import { Link, useParams} from "react-router-dom";
 import "./AddProducts.css";
 import useCustomNavigate from "./useCustomNavigate";
@@ -17,7 +18,8 @@ export default function AddProductPage() {
     desc: "",
     qty: "",
     type: "",
-    image: ""
+    image: "",
+    id: ""
   });
   const [errors, setErrors] = useState({}); //for errors
   const navigateBack = useCustomNavigate(); //for going back
@@ -46,7 +48,7 @@ export default function AddProductPage() {
 
   const handleConfirmImage = () => {
     setImage(tempImageUrl);
-    setFormData({ ...formData, image: tempImageUrl }); 
+    setFormData(prevFormData => ({ ...prevFormData, image: tempImageUrl }));
     setShowConfirmation(false);
   };
 
@@ -60,10 +62,10 @@ export default function AddProductPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData(prevFormData => ({
+      ...prevFormData,
       [name]: value
-    });
+    }));
   };
 
   const addProd = (product) => {
@@ -99,7 +101,16 @@ export default function AddProductPage() {
         editProd(formData);
         console.log("meron");
       }else{
-        addProd(formData);
+        const random = uuidv4().replace(/-/g, '');
+        const letters = random.replace(/[^a-zA-Z]/g, '').substring(0, 2).toUpperCase();
+        const numbers = random.replace(/[^0-9]/g, '').substring(0, 3)
+        //adds the P letter at the start to indicate that it's and id for products
+        const finalRandomizeID = `P${letters}${numbers}`; 
+        //add the random generated id to the forms
+        const updatedFormData = { ...formData, id: finalRandomizeID };
+        setFormData(updatedFormData);
+        
+        addProd(updatedFormData);
       }
       navigateBack();
     } else {
