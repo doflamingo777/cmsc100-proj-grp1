@@ -144,7 +144,9 @@ export default function ProductListAdminPage() {
           <i className="material-icons searchIcon">keyboard_arrow_down</i>
         </div>
       </div>
+      
       {/* product table */}
+
       <table className="product-table-list">
         <thead>
           <tr>
