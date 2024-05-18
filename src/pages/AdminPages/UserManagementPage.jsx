@@ -5,6 +5,7 @@ import "./UserManagement.css"; // Import the CSS file
 export default function UserManagementPage() {
   const [users, setUsers] = useState([]);
   const [selectedSort, setSelectedSort] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false); //for showing pop-upp message
   const [userToDelete, setUserToDelete] = useState(null); // State to store user to delete for the pop-up
 
@@ -12,17 +13,56 @@ export default function UserManagementPage() {
     setSelectedSort(event.target.value);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  const sortUsers = (users, option) => {
+    return users.sort((productA, productB) => {
+      switch (option) {
+        case 'nameAsc':
+          return productA.firstname.localeCompare(productB.firstname);
+        case 'nameDesc':
+          return productB.firstname.localeCompare(productA.firstname);
+        case 'emailAsc':
+          return productA.email.localeCompare(productB.email);
+        case 'emailDesc':
+          return productB.email.localeCompare(productA.email);
+        // // case 'productqtyAsc':
+        // //   return (
+        // //     productA.qty - productB.qty ||
+        // //     productA.name.localeCompare(productB.name)
+        // //   );
+        // // case 'productqtyDesc':
+        // //   return (
+        // //     productB.qty - productA.qty ||
+        // //     productB.name.localeCompare(productA.name)
+        // //   );
+        default:
+          return 0;
+      }
+    });
+  };
+
+  
   //fetching user
   const fetchUsers = async () => {
     try {
       const response = await axios.get('http://localhost:3000/users');
-      setUsers(response.data);
+      const usersSorted = sortUsers(response.data, selectedSort);
+      setUsers(usersSorted);
       // console.log(users);
     } catch (error) {
       console.error('Error fetching users:', error);
     }
   };
+  
+  //filter and sorting users for searching
+  const filteredUsers = users.filter(user =>
+    user.firstname.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
+  const sortedUsers = sortUsers(filteredUsers, selectedSort);
   //deleting a user
   const handleDeleteClick = (user) => {
     setUserToDelete(user);
@@ -52,7 +92,7 @@ export default function UserManagementPage() {
   useEffect(() => {
     //constantly fetch user from database
     fetchUsers();
-  }, [showConfirmation, users]);
+  }, [showConfirmation, users, selectedSort]);
   
 
   return (
@@ -61,14 +101,16 @@ export default function UserManagementPage() {
       <div className="page-header">
         <h1> USERS </h1>
         <div className="searchBar">
-          <input type="text" placeholder="Search a user" className="searchInput"></input>
+          <input type="text" placeholder="Search a user" className="searchInput" value={searchValue} onChange={handleSearchChange}></input>
           <i className="material-icons searchIcon">search</i>
         </div>
         <div className="searchBar">
           <select id="my-select" value={selectedSort} onChange={handleSelectChange} className="searchInput">
             <option value="">Sort by</option>
-            <option value="name">Name</option>
-            <option value="email">Email</option>
+            <option value="nameAsc">Name Ascending</option>
+            <option value="nameDesc">Name Descending</option>
+            <option value="emailAsc">Email Ascending</option>
+            <option value="emailDesc">Email Descending</option>
             <option value="orders">Number of orders</option>
           </select>
           <i className="material-icons searchIcon">keyboard_arrow_down</i>
@@ -79,7 +121,7 @@ export default function UserManagementPage() {
 
       {/* User details */}
       <div className="user-container">
-        {users.map((item, index) => (
+        {sortedUsers.map((item, index) => (
           <div className="user-container-inside" key={index}>
             <ul className="user-box">
               <li className="user-details">
