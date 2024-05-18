@@ -8,7 +8,8 @@ const productSchema = new mongoose.Schema({
     desc: {type: String, required: true},           //added desc
     type: {type: Number, required: true},           //added type    
     qty: {type: Number, required: true},            //added qty
-    soldqty : {type: Number, required: true, default: 0},       //added soldqty
+    soldqty : {type: Number, required: false, default: 0},       //added soldqty
+    sales: {type: Number, required: false, default: 0},         //added sales
 })
 
 
