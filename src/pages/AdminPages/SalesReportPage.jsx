@@ -105,7 +105,7 @@ export default function SalesReportPage() {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan="4" className="total-sales">Total Sales</td>
+              <td colSpan="3" className="total-sales">Total Sales</td>
               <td className="total-sales">{getTotalProductSales()}</td>
             </tr>
           </tfoot>
@@ -120,32 +120,31 @@ export default function SalesReportPage() {
             <thead>
               <tr>
                 <th>Period</th>
-                <th>Product ID</th>
+                <th>Product IDs</th>
                 <th>Total Orders</th>
-                <th>Total Quantity</th>
                 <th>Sales</th>
               </tr>
             </thead>
             <tbody>
               {groupedTransactions.map((group, index) => (
                 <tr key={index}>
-                  <td>{group._id.groupOperator}</td> {/* Adjusted to access period from _id */}
-                  <td>{group._id.productId}</td> {/* Adjusted to access productId from _id */}
+                  <td>{group.period}</td>
+                  <td>{group.productIds.join(", ")}</td>
                   <td>{group.totalOrders}</td>
-                  <td>{group.totalQuantity}</td>
-                  <td>{group._id.sales}</td>
+                  <td>{group.totalSales}</td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
               <tr>
-              <td colSpan="4" className="total-sales">Total Sales</td>
-              <td className="total-sales">{getTotalProductSales()}</td>
+                <td colSpan="3" className="total-sales">Total Sales</td>
+                <td className="total-sales">{getTotalProductSales()}</td>
               </tr>
             </tfoot>
           </table>
         </div>
       )}
+
     </div>
   );
 }
