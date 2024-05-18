@@ -7,6 +7,7 @@ import axios from 'axios';
 function Cart({ removeFromCart }) {
 
     const [cartItems, setCartItems] = useState([]);
+    // console.log("This is the Cart: ", cartItems)
 
     useEffect(() => {
         // Fetch products from the server when the component mounts

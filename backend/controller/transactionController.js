@@ -1,5 +1,7 @@
 const ordertransactions = require('../models/transactionSchema');
 const Product = require('../models/productSchema');
+const { v4: uuidv4 } = require('uuid');
+
 
 const getAllOrderTransactions = async (req, res) => {
     try {
@@ -15,7 +17,7 @@ const getAllOrderTransactions = async (req, res) => {
 const acceptOrder = async (req, res) => {
     try {
         const { transactionId } = req.body;
-        console.log(transactionId);
+        console.log("1st: ", transactionId);
 
         // Find the transaction using the transactionId from the request body
         const transaction = await ordertransactions.findOne({ productId: { $eq: transactionId } });
@@ -24,7 +26,7 @@ const acceptOrder = async (req, res) => {
         // Find the product associated with the transaction's productId
         const productItem = await Product.findOne({ id: { $eq: transaction.productId } });
         console.log("Product item:");
-        console.log(productItem);
+        console.log("2nd: ", productItem);
 
         // Check if the product exists
         if (!productItem) {
@@ -45,7 +47,7 @@ const acceptOrder = async (req, res) => {
         };
 
         console.log("Updated product:");
-        console.log(updatedProduct);
+        console.log("3rd: ", updatedProduct);
 
         // Update the product in the database
         await Product.updateOne(
@@ -112,12 +114,55 @@ const groupTransactions = async (req, res) => {
     }
 };
 
+// Function to generate a random 2-character transaction ID
+const generateTransactionId = () => {
+    const random = uuidv4().replace(/-/g, '');
+    const letters = random.replace(/[^a-zA-Z]/g, '').substring(0, 2).toUpperCase();
+    const numbers = random.replace(/[^0-9]/g, '').substring(0, 3)
+    //adds the P letter at the start to indicate that it's and id for products
+    const finalRandomizeID = `T${letters}${numbers}`; 
+    return finalRandomizeID;
+};
+
+// Example usage:
+console.log(generateTransactionId()); // e.g., "aZ", "4k", "X2"
 
 
+const addOrderTransac = async (req, res) => {
+    try {
+        const { id } = req.body;
 
+        // Generate random transaction ID
+        const transactionId = generateTransactionId();
+
+        // Create new order transaction
+        const newOrderTransaction = new ordertransactions({
+            transactionId: transactionId,
+            productId: id,
+            orderQuantity: 1,
+            orderStatus: 1, // Assuming status 1 for a new order
+            email: 'email@gmail.com',
+            dateOrdered: new Date(),
+            time: new Date().toLocaleTimeString()
+
+        });
+
+        // Save the order transaction to the database
+        const check = await newOrderTransaction.save();
+        console.log(check);
+
+        // Respond with success message
+        res.status(201).json({ message: 'Product added successfully', order: newOrderTransaction });
+    } catch (error) {
+        console.error('Error adding product:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
 
 module.exports = {
     getAllOrderTransactions,
     acceptOrder,
     groupTransactions,
+
+    addOrderTransac,
 };
