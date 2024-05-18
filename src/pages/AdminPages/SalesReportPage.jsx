@@ -41,6 +41,11 @@ export default function SalesReportPage() {
   // Filter products to exclude those with sales equal to 0
   const filteredProducts = products.filter(product => product.sales > 0);
 
+  // Calculate the total sales from filteredProducts
+  const getTotalProductSales = () => {
+    return filteredProducts.reduce((total, product) => total + product.sales, 0);
+  };
+
   // Function to get the heading text based on selectedSort
   const getHeadingText = (sortValue) => {
     switch (sortValue) {
@@ -98,6 +103,12 @@ export default function SalesReportPage() {
               </tr>
             ))}
           </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan="4" className="total-sales">Total Sales</td>
+              <td className="total-sales">{getTotalProductSales()}</td>
+            </tr>
+          </tfoot>
         </table>
       )}
 
@@ -126,6 +137,12 @@ export default function SalesReportPage() {
                 </tr>
               ))}
             </tbody>
+            <tfoot>
+              <tr>
+              <td colSpan="4" className="total-sales">Total Sales</td>
+              <td className="total-sales">{getTotalProductSales()}</td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       )}
