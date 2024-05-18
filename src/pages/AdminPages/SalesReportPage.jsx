@@ -7,7 +7,6 @@ export default function SalesReportPage() {
   const [selectedSort, setSelectedSort] = useState('');
   const [products, setProducts] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false); //for showing pop-upp message
-  const [productToDelete, setProductToDelete] = useState(null); // State to store product to delete for the pop-up
 
   const handleSelectChange = (event) => {
     setSelectedSort(event.target.value);
@@ -23,30 +22,7 @@ export default function SalesReportPage() {
     }
   };
 
-  //deleting a product
-  const handleDeleteClick = (products) => {
-    console.log(products);
-    setProductToDelete(products);
-    setShowConfirmation(true);
-  };
 
-  //confirm delete
-  const confirmDelete = async () => {
-    try {
-      setShowConfirmation(false);
-      const deleteResponse = await axios.post('http://localhost:3000/deleteProduct', { _id: productToDelete._id });
-      console.log(deleteResponse);
-      fetchproductss();
-    } catch (error) {
-      console.error('Error: ', error)
-    }
-  };
-
-    //cancel delete
-    const cancelDelete = () => {
-      setShowConfirmation(false);
-      setUserToDelete(null);
-    };
 
   useEffect(() => {
     //constantly fetch products from database
@@ -73,9 +49,9 @@ export default function SalesReportPage() {
         <thead>
           <tr>
             <th>Product</th>
-            <th>Type</th>
+            <th>Available</th>
+            <th>Sold</th>
             <th>Price</th>
-            <th>Quantity</th>
             <th>Sales</th>
             <th></th>
           </tr>
@@ -89,44 +65,16 @@ export default function SalesReportPage() {
                   <span className="product-name">{product.name}</span>
                 </div>
               </td>
-              <td>{product.type}</td>
-              <td>${product.price}</td>
               <td>{product.qty}</td>
-              <td className="product-desc">{product.desc}</td>
+              <td>{product.soldqty}</td>
+              <td>${product.price}</td>
+              <td className="product-desc">{product.sales}</td>
               <td className="product-actions">
-              <Link to = "addproductpage" className="product-actions">
-                <i className = "material-icons">edit</i>
-              
-              </Link>
-              <Link onClick={() => handleDeleteClick(product)}className="product-actions">
-                <i className = "material-icons">delete</i>
-              </Link>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-            {/* Confirmation Pop-up */}
-            {showConfirmation && (
-        <div className="confirmation-pop-up">
-          <div className="confirmation-box">
-            <div className="confirmation-header">
-              <h3>Delete product?</h3>
-            </div>
-            <div>
-              <p>This will remove <span className="bold">
-                {productToDelete.name} 
-                </span>.
-                </p>
-              <div className="confirmation-buttons">
-                <button onClick={cancelDelete}>Cancel</button>
-                <button onClick={confirmDelete}>Delete</button>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

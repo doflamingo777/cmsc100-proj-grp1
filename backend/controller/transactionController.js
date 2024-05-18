@@ -16,55 +16,66 @@ const acceptOrder = async (req, res) => {
     try {
         const { transactionId } = req.body;
         console.log(transactionId);
-        const transaction = await ordertransactions.findOne({productId: {$eq: transactionId}});
+
+        // Find the transaction using the transactionId from the request body
+        const transaction = await ordertransactions.findOne({ productId: { $eq: transactionId } });
         console.log(transaction);
 
-        // if (transaction.orderStatus != 0) { // Check if not already processed
-        //     return res.status(400).send('Order already processed');
-        // }
-
-        const productItem = await Product.findOne({ id: {$eq: transaction.productId} });
+        // Find the product associated with the transaction's productId
+        const productItem = await Product.findOne({ id: { $eq: transaction.productId } });
         console.log("Product item:");
         console.log(productItem);
 
+        // Check if the product exists
         if (!productItem) {
             console.error('Product with ID not found:', transaction.productId);
             return res.status(404).send('Product not found');
         }
 
-        // Update product quantities
+        // Calculate the updated product quantities and sales
+        const newSoldQty = productItem.soldqty + transaction.orderQuantity;
+        const newQty = productItem.qty - transaction.orderQuantity;
+        const newSales = newSoldQty * productItem.price;
+
+        // Update the product with new sold quantity, quantity, and sales
         const updatedProduct = {
-            soldqty: productItem.soldqty + transaction.orderQuantity,
-            qty: productItem.qty - transaction.orderQuantity // Assuming 'qty' is the inventory count
+            soldqty: newSoldQty,
+            qty: newQty,
+            sales: newSales
         };
 
         console.log("Updated product:");
         console.log(updatedProduct);
 
-        const test =  await Product.updateOne({ _id: productItem._id }, {
-            $set: {
-                soldqty: productItem.soldqty + transaction.orderQuantity,
-                qty: productItem.qty - transaction.orderQuantity // Assuming 'qty' is the inventory count
+        // Update the product in the database
+        await Product.updateOne(
+            { _id: productItem._id },
+            {
+                $set: updatedProduct
             }
-        });
-        console.log("TEST")
-        console.log(transaction);
+        );
 
         // Update transaction status to 'Completed' (1)
-        const updatedTransaction = {
-            orderStatus: 1
-        };
-        const updateResult = await transaction.updateOne({
-            $set: { orderStatus: 1 }
-        });
+        const updateResult = await ordertransactions.updateOne(
+            { _id: transaction._id },
+            { $set: { orderStatus: 1 } }
+        );
+
+        console.log("Product item:");
+        console.log(productItem);
+
         console.log('Transaction update result:', updateResult);
 
+        // Send success response
         res.send('Order accepted and product updated');
     } catch (error) {
         console.error('Error accepting order:', error.response ? error.response.data : error.message);
+        res.status(500).send('Internal Server Error');
     }
-    
 };
+
+module.exports = acceptOrder;
+
 
 module.exports = {
     getAllOrderTransactions,
