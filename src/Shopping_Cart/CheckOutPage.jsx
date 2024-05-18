@@ -17,7 +17,7 @@ const Checkout = () => {
       }
     };
     fetchProducts();
-  }, []); // Empty dependency array ensures the effect runs only once on component mount
+  },[]); // Empty dependency array ensures the effect runs only once on component mount
 
   // DELETE CART IN DATABASE
   const handleDeleteClick = async (product) => {
@@ -33,6 +33,7 @@ const Checkout = () => {
   const deleteProduct = async (product) => {
     try {
       console.log(product)
+      console.log(product._id)
       // console.log(produc)
       const deleteResponse = await axios.post('http://localhost:3000/deleteProductCart', { _id: product._id });
       console.log("Sup")

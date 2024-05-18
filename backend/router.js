@@ -21,7 +21,6 @@ const router = (app) => {
     app.post('/addNewProduct', addNewProduct);
 
   // lj
-
     app.get('/getAllOrderTransactions', getAllOrderTransactions);
     app.post('/acceptOrder', acceptOrder);
 

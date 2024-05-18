@@ -1,13 +1,76 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Checkout from './CheckOutPage';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function Cart({ cartItems, removeFromCart }) {
-    const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
-    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+function Cart({ removeFromCart }) {
 
-    //bbl drizzy
+    const [cartItems, setCartItems] = useState([]);
+
+    useEffect(() => {
+        // Fetch products from the server when the component mounts
+        const fetchProducts = async () => {
+          try {
+            const response = await axios.get('http://localhost:3000/getAllCheckOut');
+            console.log("================");
+            console.log(response);
+            console.log("================");
+            setCartItems(response.data); // Update state with products data
+          } catch (error) {
+            console.error('Error fetching products:', error);
+          }
+        };
+        fetchProducts();
+    },[]);
+
+    const [totalQuantity, setTotalQuantity] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    // const totalQuantity = 0
+    // const totalPrice = 0
+
+    useEffect(() => {
+        // Calculate total quantity and total price when cartItems changes
+        console.log("cartItems:", cartItems); // Debugging output
     
+        const newTotalQuantity = cartItems.reduce((total, item) => {
+            console.log("item.quantity:", 1); // Debugging output
+            return total + 1;
+        }, 0);
+    
+        const newTotalPrice = cartItems.reduce((total, item) => {
+            console.log("item.price:", item.price); // Debugging output
+            console.log("HELP ME ", item['price'])
+            return total + item['price'] * item['quantity'];
+        }, 0);
+    
+        setTotalQuantity(newTotalQuantity);
+        setTotalPrice(newTotalPrice);
+    }, [cartItems]);
+    
+    
+
+    // useEffect(() => {
+    //     // Calculate total quantity and total price when cartItems changes
+    //     // const newTotalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+    //     // const newTotalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
+
+    //     const newTotalQuantity = cartItems.map((product) => (
+    //     ))
+    //     // const newTotalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    //     const newTotalPrice = cartItems.map((product) => (
+    //         console.log(product.price)
+    //     ))
+
+    //     setTotalQuantity(newTotalQuantity);
+    //     setTotalPrice(newTotalPrice);
+    // }, [cartItems]);
+
+    // console.log("01239-1293-1239-1239120-39123-0912-03912-03912-039123-0129-219")
+    // console.log(cartItems)
 
     return (
         <div className="mainCart">
@@ -23,7 +86,8 @@ function Cart({ cartItems, removeFromCart }) {
                             <p className="cartItemPrice">${item.price}</p>
                             <p className="cartItemQuantity">Quantity: {item.quantity}</p>
                         </div>
-                        <button className="removeButton" onClick={() => removeFromCart(item.id)}>Remove</button>
+                        <button className="removeButton" onClick={() => removeFromCart(item._id)}>Remove</button>
+                        <button className="removeButton" onClick={() => console.log(item._id)}>Check</button>
                     </div>
                 ))}
             </div>

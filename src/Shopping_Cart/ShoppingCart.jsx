@@ -4,22 +4,21 @@ import Cart from './Cart.jsx';
 import { useState, useEffect } from 'react';
 import './ShopCart.css';
 import axios from 'axios';
+// import { deleteProduct } from '../../backend/controller/shopping.js';
 
 function ShoppingCart() {
 
-  const [id, setId] = useState(['']);
-  const [name, setName] = useState(['']);
-  const [price, setPrice] = useState(['']);
-  const [image, setImage] = useState(['']);
-  const [desc, setDesc] = useState(['']);
-  const [qty, setQty] = useState(['']);
-  const [type, setType] = useState(['']);
-  
+    const [id, setId] = useState(['']);
+    const [name, setName] = useState(['']);
+    const [price, setPrice] = useState(['']);
+    const [image, setImage] = useState(['']);
+    const [desc, setDesc] = useState(['']);
+    const [qty, setQty] = useState(['']);
+    const [type, setType] = useState(['']);
+    
 
-  const [products, setProducts] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
-
-    // const [prodDelete, setProductToDelete] = useState(null);
+    const [products, setProducts] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
     // const [selectedSort, setSelectedSort] = useState('');
   
     // const handleSelectChange = (event) => {
@@ -44,10 +43,8 @@ function ShoppingCart() {
       return () => {
         // Optionally, perform cleanup or cancel any pending requests
       };
-    }); // Empty dependency array ensures the effect runs only once on component mount
-    
-
-    // ADD ITEMS INTO CART VISUALLY (HINDI NAG REREFLECT SA DATABASE)
+    },); // Empty dependency array ensures the effect runs only once on component mount
+  
     const addToCart = (product) => {
       const checkItem = cartItems.findIndex(item => item.id === product.id);
   
@@ -68,7 +65,7 @@ function ShoppingCart() {
       axios
         .post('http://localhost:3000/addProduct', product)
         .then(() => {
-          // alert('Product added successfully');
+          console.log('Product added successfully');
           // Ensure navigate is defined and used correctly if needed
           // navigate('/shopcart');
         })
@@ -78,10 +75,27 @@ function ShoppingCart() {
     };
 
     const removeFromCart = (productId) => {
+      console.log(productId)
+      console.log("Help ME PLEASEEEEEE", productId)
       setCartItems(cartItems.filter(item => item.id !== productId));
     };
 
-    // Sets the detils ng items
+    const delFromCart = async (product) => {
+      try {
+        console.log(product)
+        console.log(product)
+        // console.log(produc)
+        const deleteResponse = await axios.post('http://localhost:3000/deleteProductCart', { _id: product });
+        console.log("Sup")
+        console.log(deleteResponse);
+        // fetchProducts();
+        // Optionally handle the response
+      } catch (error) {
+        console.error("Error deleting product:", error.message);
+        throw error; // Rethrow the error to be caught in handleDeleteClick
+      }
+    };
+
     const setProductDeets = (prod) => {
       console.log(prod)
       console.log(prod.id)
@@ -108,19 +122,24 @@ function ShoppingCart() {
       console.log(obj);
       addProd(obj)
     }
+    
+    const handleDeleteProduct = (product_id) => {
+      console.log("BOOM", product_id)
+      removeFromCart(product_id)
+      delFromCart(product_id)
+    }
 
     const handleAddToCartAndSetDeets = (product) => {
       setProductDeets(product);
       addToCart(product);
     };
   
-  
     // the whole body of the website
     return (
       <div className="appContainer">
         <div className="main-content">
           <div className='mainCont'>
-          <div className="goods">
+            <div className="goods">
               {products.map(product => (
                 <Card 
                   key={product.id} 
@@ -129,7 +148,7 @@ function ShoppingCart() {
                 />
               ))}
             </div>
-            <Cart cartItems={cartItems} removeFromCart={removeFromCart}/>
+            <Cart removeFromCart={handleDeleteProduct}/>
           </div>
         </div>
       </div>
