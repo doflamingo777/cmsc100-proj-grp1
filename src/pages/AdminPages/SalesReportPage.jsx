@@ -98,8 +98,8 @@ export default function SalesReportPage() {
                 </td>
                 <td>{product.qty}</td>
                 <td>{product.soldqty}</td>
-                <td>${product.price}</td>
-                <td className="product-desc">{product.sales}</td>
+                <td>₱{product.price}</td>
+                <td className="product-desc">₱{product.sales}</td>
               </tr>
             ))}
           </tbody>
@@ -131,14 +131,14 @@ export default function SalesReportPage() {
                   <td>{group.period}</td>
                   <td>{group.productIds.join(", ")}</td>
                   <td>{group.totalOrders}</td>
-                  <td>{group.totalSales}</td>
+                  <td>₱{group.totalSales}</td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
               <tr>
                 <td colSpan="3" className="total-sales">Total Sales</td>
-                <td className="total-sales">{getTotalProductSales()}</td>
+                <td className="total-sales">₱{getTotalProductSales()}</td>
               </tr>
             </tfoot>
           </table>
