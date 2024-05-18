@@ -14,14 +14,14 @@ export default function SalesReportPage() {
     const groupBy = event.target.value;
 
     if (groupBy) {
-        try {
-            const response = await axios.get(`http://localhost:3000/group-transactions?groupBy=${groupBy}`);
-            setGroupedTransactions(response.data);
-        } catch (error) {
-            console.error('Error fetching grouped transactions:', error);
-        }
+      try {
+        const response = await axios.get(`http://localhost:3000/group-transactions?groupBy=${groupBy}`);
+        setGroupedTransactions(response.data);
+      } catch (error) {
+        console.error('Error fetching grouped transactions:', error);
+      }
     } else {
-        setGroupedTransactions([]); // Clear the grouped data if no specific grouping is selected
+      setGroupedTransactions([]); // Clear the grouped data if no specific grouping is selected
     }
   };
 
@@ -38,6 +38,23 @@ export default function SalesReportPage() {
     fetchProducts();
   }, []);
 
+  // Filter products to exclude those with sales equal to 0
+  const filteredProducts = products.filter(product => product.sales > 0);
+
+  // Function to get the heading text based on selectedSort
+  const getHeadingText = (sortValue) => {
+    switch (sortValue) {
+      case 'weekly':
+        return 'Weekly Sales';
+      case 'monthly':
+        return 'Monthly Sales';
+      case 'yearly':
+        return 'Yearly Sales';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div className="container">
       <div className="page-header">
@@ -52,62 +69,66 @@ export default function SalesReportPage() {
         </div>
       </div>
 
-      <table className="product-table">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Available</th>
-            <th>Sold</th>
-            <th>Price</th>
-            <th>Sales</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(product => (
-            <tr key={product._id}>
-              <td>
-                <div className="product">
-                  <img src={product.image} alt={product.name} className="product-image" />
-                  <span className="product-name">{product.name}</span>
-                </div>
-              </td>
-              <td>{product.qty}</td>
-              <td>{product.soldqty}</td>
-              <td>${product.price}</td>
-              <td className="product-desc">{product.sales}</td>
+      {/* Conditionally render the product table */}
+      {!selectedSort && (
+        <table className="product-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Available</th>
+              <th>Sold</th>
+              <th>Price</th>
+              <th>Sales</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredProducts.map(product => (
+              <tr key={product._id}>
+                <td>
+                  <div className="product">
+                    <img src={product.image} alt={product.name} className="product-image" />
+                    <span className="product-name">{product.name}</span>
+                  </div>
+                </td>
+                <td>{product.qty}</td>
+                <td>{product.soldqty}</td>
+                <td>${product.price}</td>
+                <td className="product-desc">{product.sales}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       {/* Display grouped transactions if any */}
       {groupedTransactions.length > 0 && (
-          <div>
-              <h2>Grouped Sales Data ({selectedSort})</h2>
-              <table className="grouped-transactions-table">
-                  <thead>
-                      <tr>
-                          <th>Period</th>
-                          <th>Product ID</th>
-                          <th>Total Orders</th>
-                          <th>Total Quantity</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      {groupedTransactions.map((group, index) => (
-                          <tr key={index}>
-                              <td>{group._id.period}</td> {/* Adjusted to access period from _id */}
-                              <td>{group._id.productId}</td> {/* Adjusted to access productId from _id */}
-                              <td>{group.totalOrders}</td>
-                              <td>{group.totalQuantity}</td>
-                          </tr>
-                      ))}
-                  </tbody>
-              </table>
-          </div>
+        <div>
+          <h2>{getHeadingText(selectedSort)}</h2>
+          <table className="product-table">
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th>Product ID</th>
+                <th>Total Orders</th>
+                <th>Total Quantity</th>
+                <th>Sales</th>
+              </tr>
+            </thead>
+            <tbody>
+              {groupedTransactions.map((group, index) => (
+                <tr key={index}>
+                  <td>{group._id.groupOperator}</td> {/* Adjusted to access period from _id */}
+                  <td>{group._id.productId}</td> {/* Adjusted to access productId from _id */}
+                  <td>{group.totalOrders}</td>
+                  <td>{group.totalQuantity}</td>
+                  <td>{group._id.sales}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
-
     </div>
   );
 }
