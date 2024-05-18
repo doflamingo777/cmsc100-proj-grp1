@@ -22,10 +22,10 @@ function Cart({ removeFromCart }) {
           }
         };
         fetchProducts();
-    },[]);
+    },[cartItems]);
 
     const [totalQuantity, setTotalQuantity] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState();
 
     // const totalQuantity = 0
     // const totalPrice = 0
@@ -40,11 +40,11 @@ function Cart({ removeFromCart }) {
         }, 0);
     
         const newTotalPrice = cartItems.reduce((total, item) => {
-            console.log("item.price:", item.price); // Debugging output
-            console.log("HELP ME ", item['price'])
-            return total + item['price'] * item['quantity'];
+            // console.log("item.price:", item.price); // Debugging output
+            console.log("HELP ME ", item.price)
+            return total + (item.price * item.boughtQty);
         }, 0);
-    
+        console.log("dito:",newTotalPrice);
         setTotalQuantity(newTotalQuantity);
         setTotalPrice(newTotalPrice);
     }, [cartItems]);
@@ -84,7 +84,7 @@ function Cart({ removeFromCart }) {
                         <div className="cartItemDetails">
                             <h3 className="cartItemName">{item.name}</h3>
                             <p className="cartItemPrice">${item.price}</p>
-                            <p className="cartItemQuantity">Quantity: {item.quantity}</p>
+                            <p className="cartItemQuantity">Quantity: {item.boughtQty}</p>
                         </div>
                         <button className="removeButton" onClick={() => removeFromCart(item._id)}>Remove</button>
                         <button className="removeButton" onClick={() => console.log(item._id)}>Check</button>
