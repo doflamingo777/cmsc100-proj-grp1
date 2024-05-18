@@ -131,6 +131,7 @@ const editAProduct = async (req, res) => {
         image: newProduct.image,
         desc: newProduct.desc,
         qty: newProduct.qty,
+        type: newProduct.type,
     }});
     console.log(result);
 
