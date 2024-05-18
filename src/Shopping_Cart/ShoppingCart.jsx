@@ -50,12 +50,12 @@ function ShoppingCart() {
   
       if (checkItem !== -1) {
         const currShopCart = [...cartItems];
-        currShopCart[checkItem].quantity += 1;
+        currShopCart[checkItem].boughtQty += 1;
         setCartItems(currShopCart);
-        // console.log("Cart Items:", cartItems);
-
+        
       } else {
-        setCartItems([...cartItems, { ...product, quantity: 1 }]);
+        setCartItems([...cartItems, { ...product, boughtQty: 1 }]);
+        console.log("Cart Items:", cartItems);
       }
     };
 
@@ -96,32 +96,52 @@ function ShoppingCart() {
       }
     };
 
-    const setProductDeets = (prod) => {
-      console.log(prod)
-      console.log(prod.id)
-      console.log("==========================================")
-
-      setId(prod.id)
-      setName(prod.name)
-      setPrice(prod.price)
-      setImage(prod.image)
-      setDesc(prod.desc)
-      setQty(prod.qty)
-      setType(prod.type)
-      
-      const obj = {
-        id: prod.id,
-        name: prod.name,
-        price: prod.price,
-        image: prod.image,
-        desc: prod.desc,
-        qty: prod.qty,
-        type: prod.type
-      };
+    const setProductDeets = async (prod) => {
+      // console.log(prod);
     
-      console.log(obj);
-      addProd(obj)
-    }
+      try {
+        //check if the product already exists in the database
+        const response = await axios.get(`http://localhost:3000/getAProductForCarts?id=${prod.id}`);
+        const existingProduct = response.data.length > 0 ? response.data[0] : null;
+    console.log('hereasdsdaasdasd:',response.data);
+        if (existingProduct) {
+          //if the product exists, update its quantity
+          const updatedProduct = { ...existingProduct, boughtQty: existingProduct.boughtQty + 1 };
+          await axios.post('http://localhost:3000/editAProductForCarts', updatedProduct);
+          console.log('Product quantity updated:', updatedProduct);
+        } else {
+          //if the product does not exist, add it to the database and initialize
+          const newProduct = { ...prod, boughtQty: 1 };
+          addProd(newProduct);
+          console.log('Product added to the database:', newProduct);
+        }
+
+        //unncessary codes tinanggal ko -riggs
+
+        // // Update local state with product details
+        // setId(prod.id);
+        // setName(prod.name);
+        // setPrice(prod.price);
+        // setImage(prod.image);
+        // setDesc(prod.desc);
+        // setQty(prod.qty);
+        // setType(prod.type);
+    
+        // const obj = {
+        //   id: prod.id,
+        //   name: prod.name,
+        //   price: prod.price,
+        //   image: prod.image,
+        //   desc: prod.desc,
+        //   qty: prod.qty,
+        //   type: prod.type,
+        // };
+    
+        // console.log(obj);
+      } catch (error) {
+        console.error('Error checking or updating product:', error);
+      }
+    };
     
     const handleDeleteProduct = (product_id) => {
       console.log("BOOM", product_id)

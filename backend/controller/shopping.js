@@ -26,6 +26,21 @@ const getAProduct = async (req, res) => {
     }
 }
 
+//find a product using it's object ID
+const getAProductForCarts = async (req, res) => {
+    try {
+        const productID = req.query.id;
+
+        console.log('putanginasioldfjklasglksfga', productID)
+        const productDetails = await cart.find({id: productID});
+        // console.log(productDetails);
+        res.send(productDetails);
+    }catch(error) {
+        console.error("Error fetching product details:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
 
 
 const getAllCheckOut = async (req, res) => {
@@ -44,10 +59,10 @@ const addProduct = async (req, res) => {
     console.log("hatsUP");
     console.log(req.body);
 
-    const { id, name, price, image, desc, qty, type } = req.body;
+    const { id, name, price, image, desc, qty, type, boughtQty } = req.body;
     console.log(id, name, price, image, desc, qty, type);
 
-    const oncart = new cart({ id, name, price, image, desc, qty, type });
+    const oncart = new cart({ id, name, price, image, desc, qty, type, boughtQty });
     const result = await oncart.save();
     console.log(result);
 
@@ -90,6 +105,25 @@ const editAProduct = async (req, res) => {
         desc: newProduct.desc,
         qty: newProduct.qty,
         type: newProduct.type,
+    }});
+    console.log(result);
+
+
+    if (result._id) {
+        res.send({ success: true });
+    } else {
+        res.send({ success: false });
+    }
+};
+//edit a product in the oncarts
+const editAProductForCarts = async (req, res) => {
+    console.log(req.body);
+
+    const { id, name, price, image, desc, qty, type, boughtQty } = req.body;
+
+    const newProduct = new cart({ id, name, price, image, desc, qty, type, boughtQty });
+    const result = await cart.updateOne({_id: req.body._id},{$set: {
+        boughtQty: newProduct.boughtQty
     }});
     console.log(result);
 
@@ -156,5 +190,7 @@ module.exports = {
     addNewProduct,
     getAllCheckOut,
     getAProduct,
-    editAProduct
+    editAProduct,
+    getAProductForCarts,
+    editAProductForCarts
 };
