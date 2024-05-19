@@ -123,18 +123,9 @@ const groupTransactions = async (req, res) => {
     try {
         const groupedData = await ordertransactions.aggregate([
             {
-                $group: {
-                    _id: {
-                        period: groupOperator
-                    },
-                    productIds: { $addToSet: "$productId" },
-                    totalOrderQuantity: { $sum: "$orderQuantity" }  // Sum of orderQuantity for each period
-                }
-            },
-            {
                 $lookup: {
                     from: "products",
-                    localField: "productIds",
+                    localField: "productId",
                     foreignField: "id",
                     as: "productDetails"
                 }
@@ -146,12 +137,20 @@ const groupTransactions = async (req, res) => {
                 }
             },
             {
+                $addFields: {
+                    "computedSales": {
+                        $multiply: ["$orderQuantity", "$productDetails.price"]
+                    }
+                }
+            },
+            {
                 $group: {
-                    _id: "$_id",
-                    totalOrders: { $first: "$totalOrderQuantity" },  // Carrying forward the totalOrderQuantity from the first group
-                    productIds: { $addToSet: "$productDetails.id" },
-                    totalSoldQty: { $sum: "$productDetails.soldqty" },
-                    totalSales: { $sum: "$productDetails.sales" }
+                    _id: {
+                        period: groupOperator
+                    },
+                    totalOrders: { $sum: "$orderQuantity" },
+                    totalSales: { $sum: "$computedSales" },
+                    productIds: { $addToSet: "$productId" }
                 }
             },
             {
@@ -174,6 +173,7 @@ const groupTransactions = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
 
 
 
