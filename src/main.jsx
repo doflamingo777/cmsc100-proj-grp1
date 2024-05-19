@@ -11,7 +11,7 @@ import CheckOutPage from './Shopping_Cart/CheckOutPage';
 import Checkout from './Shopping_Cart/CheckOutPage';
 import ProductListPage from './pages/CustomerPages/ProductListPage';
 // import OrderConfirmationPage from './pages/CustomerPages/OrderConfirmationPage';
-// import UserProfilePage from './pages/CustomerPages/UserProfilePage';
+import UserProfilePage from './pages/CustomerPages/UserProfilePage';
 import Transactions from './Shopping_Cart/Transactions'
 import AdminDashboardPage from './pages/AdminPages/AdminDashboardPage';
 import UserManagementPage from './pages/AdminPages/UserManagementPage';
@@ -54,14 +54,14 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-  // {
-  //   path: '/userprofilepage',
-  //   element: (
-  //     <ProtectedRoute allowedRoles={['user']}>
-  //       <UserProfilePage />
-  //     </ProtectedRoute>
-  //   ),
-  // },
+  {
+    path: '/userprofilepage',
+    element: (
+      <ProtectedRoute allowedRoles={['user']}>
+        <UserProfilePage />
+      </ProtectedRoute>
+    ),
+  },
   {
     path: '/admindashboardpage',
     element: (

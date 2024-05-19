@@ -91,7 +91,7 @@ export default function Root() {
             <li><Link to={'/checkout'}>Check Out</Link></li>
             <li><Link to={'/userTransac'}>Transactions</Link></li>
             {/* <li><Link to={'/orderconfirmationpage'}>Order Confirmation</Link></li> */}
-            {/* {isUserLoggedIn && <li><Link to={'/userprofilepage'}>User Profile</Link></li>}
+            {isUserLoggedIn && <li><Link to={'/userprofilepage'}>User Profile</Link></li>}
             {/* {isUserLoggedIn && userType === 'user' &&
               <li><Link to={'/userprofilepage'}>User Profile</Link></li>} */}
             {isUserLoggedIn && userType === 'admin' && (
