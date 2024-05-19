@@ -28,22 +28,31 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/shopcart', element: ( <ProtectedRoute allowedRoles={['user',  'admin']}> <ShoppingCart />  </ProtectedRoute>),},
+      { path: '/checkout', 
+        element: ( 
+          <ProtectedRoute allowedRoles={['user', 'admin']}> 
+            <Checkout /> 
+          </ProtectedRoute>
+        )
+      },
+      { path: '/userTransac', 
+        element: ( 
+          <ProtectedRoute allowedRoles={['user', 'admin']}> 
+            <Transactions /> 
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: '/userprofilepage',
+        element: (
+          <ProtectedRoute allowedRoles={['user']}>
+            <UserProfilePage />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
-  { path: '/checkout', 
-    element: ( 
-      <ProtectedRoute allowedRoles={['user', 'admin']}> 
-        <Checkout /> 
-      </ProtectedRoute>
-    )
-  },
-  { path: '/userTransac', 
-    element: ( 
-      <ProtectedRoute allowedRoles={['user', 'admin']}> 
-        <Transactions /> 
-      </ProtectedRoute>
-    )
-  },
+  
   { path: '/login', element: <LoginDetails /> },
   { path: '/register', element: <RegisterDetails /> },
   {
@@ -51,14 +60,6 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute allowedRoles={['user', 'admin']}>
         <ProductListPage />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: '/userprofilepage',
-    element: (
-      <ProtectedRoute allowedRoles={['user']}>
-        <UserProfilePage />
       </ProtectedRoute>
     ),
   },

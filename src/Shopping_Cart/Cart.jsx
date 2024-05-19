@@ -84,7 +84,7 @@ function Cart({ removeFromCart }) {
                             <p className="cartItemQuantity">Quantity: {item.quantity}</p>
                         </div>
                         <button className="removeButton" onClick={() => removeFromCart(item.id)}>Remove</button>
-                        <button className="removeButton" onClick={() => console.log(item._id)}>Check</button>
+                        {/* <button className="removeButton" onClick={() => console.log(item._id)}>Check</button> */}
                     </div>
                 ))}
             </div>
