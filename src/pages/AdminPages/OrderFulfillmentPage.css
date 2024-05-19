@@ -77,6 +77,10 @@ select {
   padding: 0px;
 }
 
+.order-container h6{
+  margin-bottom: -15px;
+}
+
 .order-container-inside {
   display: flex;
   max-width: 100%; 
