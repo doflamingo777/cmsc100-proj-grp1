@@ -33,6 +33,8 @@ const router = (app) => {
     app.get('/group-transactions', groupTransactions);
     app.post('/addOrderTransac', addOrderTransac);
     app.post('/resetCart', resetCart)
+    
+    // app.get('/getUserTrans', getUserOrderTransactions);
 };
 
 module.exports = router;  
