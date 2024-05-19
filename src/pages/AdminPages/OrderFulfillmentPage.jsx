@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default function OrderFulfillmentPage() {
   const [selectedSort, setSelectedSort] = useState('');
-  const [ orderTransaction, setOrderTransaction ] = useState([]);
+  const [orderTransaction, setOrderTransaction] = useState([]);
 
   const handleSelectChange = (event) => {
     setSelectedSort(event.target.value);
@@ -21,71 +21,64 @@ export default function OrderFulfillmentPage() {
     try {
       // Fetch order transactions from the backend
       const response = await axios.get('http://localhost:3000/getAllOrderTransactions');
-      setOrderTransaction(response.data);
+      const filteredData = response.data.filter(item => item.orderStatus !== 1); // Filter out completed orders
+      setOrderTransaction(filteredData);
     } catch (error) {
       console.error('Error fetching order transactions:', error);
     }
   };
-  
-  const acceptOrder = async (transactionId) => {
 
-    console.log("this is transactionId: ", transactionId)
+  const acceptOrder = async (transactionId) => {
+    console.log("This is transactionId: ", transactionId);
     try {
-        const response = await axios.post('http://localhost:3000/acceptOrder', { transactionId });
-        console.log(response.data);
-        fetchOrderTransactions(); // Refresh the list of transactions
+      const response = await axios.post('http://localhost:3000/acceptOrder', { transactionId });
+      console.log(response.data);
+      fetchOrderTransactions(); // Refresh the list of transactions
     } catch (error) {
-        console.error('Error accepting order:', error);
+      console.error('Error accepting order:', error);
     }
   };
 
-  
-
   useEffect(() => {
     fetchOrderTransactions();
-  }
-, []); 
+  }, []);
 
-    return (
-      <div className="container">
-        {/* header */}
-        <div className="page-header">
-          <h1> ORDERS </h1>
-          <div className="top-buttons">
-            <button className="acceptButton">ACCEPT ALL</button>
-            <button className="rejectButton">REJECT ALL</button>
-          </div>
-          <div className="searchBar">
-            <input type="text" placeholder="Search a transaction" className="searchInput"></input>
-            <i className="material-icons searchIcon">search</i>
-          </div>
+  return (
+    <div className="container">
+      {/* header */}
+      <div className="page-header">
+        <h1>ORDERS</h1>
+        <div className="top-buttons">
+          <button className="acceptButton">ACCEPT ALL</button>
+          <button className="rejectButton">REJECT ALL</button>
         </div>
-
-        {/* user details */}
-        <div className="order-container">
-          {orderTransaction.map((item, index) => (
-            <div className="order-container-inside">
-              <ul className="order-box">
-                  <li key={index} className="order-details">
-                    <h2>{item.transactionId}</h2>
-                    <h4>{item.productId}</h4>
-                    <p>Order Status: {orderStatusMap[item.orderStatus]} </p>
-                    <p>Order Quantity: {item.orderQuantity} </p>
-                    <p>Date Ordered: {item.dateOrdered} </p>
-                    <p>Time Ordered: {item.time}</p>
-                    <div className="order-buttons">
-                      <button className="acceptButton" onClick={() => acceptOrder(item.productId)}>ACCEPT</button>
-                      <button className="rejectButton">REJECT</button>
-                    </div>
-                  </li>
-              </ul>
-            </div>
-
-          )
-          
-          )}
-          
-          </div>
+        <div className="searchBar">
+          <input type="text" placeholder="Search a transaction" className="searchInput"></input>
+          <i className="material-icons searchIcon">search</i>
+        </div>
       </div>
-    )
-  }
+
+      {/* order details */}
+      <div className="order-container">
+        {orderTransaction.map((item, index) => (
+          <div key={index} className="order-container-inside">
+            <ul className="order-box">
+              <li className="order-details">
+                <h2>{item.transactionId}</h2>
+                <h4>{item.productId}</h4>
+                <p>Order Status: {orderStatusMap[item.orderStatus]}</p>
+                <p>Order Quantity: {item.orderQuantity}</p>
+                <p>Date Ordered: {item.dateOrdered}</p>
+                <p>Time Ordered: {item.time}</p>
+                <div className="order-buttons">
+                  <button className="acceptButton" onClick={() => acceptOrder(item.transactionId)}>ACCEPT</button>
+                  <button className="rejectButton">REJECT</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
