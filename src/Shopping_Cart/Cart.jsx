@@ -8,6 +8,21 @@ function Cart({ removeFromCart }) {
 
     const [cartItems, setCartItems] = useState([]);
 
+    const delFromCart = async (product) => {
+        try {
+          // console.log(product)
+          // console.log(product)
+          const deleteResponse = await axios.post('http://localhost:3000/deleteProductCart', { productId: product.id,  user: product.user});
+          // console.log("Sup")
+          console.log(deleteResponse);
+          // fetchProducts();
+          // Optionally handle the response
+        } catch (error) {
+          console.error("Error deleting product:", error.message);
+          throw error;
+        }
+      };
+
     useEffect(() => {
         // Fetch products from the server when the component mounts
         const fetchProducts = async () => {
@@ -30,9 +45,13 @@ function Cart({ removeFromCart }) {
       
               if (product) {
                 //merge product details with cart item
+                // console.log(product,'hehe')
                 return { ...product, quantity: cartItem.quantity };
               } else {
-                //if product details are not found, keep the cart item as is
+                //if product details are not found, i should already delete that product in the users shopping cart to avoid conflict
+                const userCart = {id: cartItem.productId, user: user};
+                delFromCart(userCart)
+                console.log(cartItem.productId);
                 return cartItem;
               }
             });

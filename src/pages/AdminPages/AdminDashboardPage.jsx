@@ -3,6 +3,7 @@ import ListButton from "./ListButton";
 import "./Admin.css"; // Import the CSS file
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; // dinagdag ni bryan
+import ProfileDropdown from "./ProfileDropdown";
 
 export default function AdminDashboardPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -15,13 +16,7 @@ export default function AdminDashboardPage() {
 
   //-------------------
   //Dinagdag ko muna -Bryan
-  const navigate = useNavigate();
 
-  const handleSignOut = () => {
-    localStorage.removeItem('token');
-    navigate('/');
-    window.location.reload();
-  };
   //-------------------
 
   return (
@@ -38,11 +33,13 @@ export default function AdminDashboardPage() {
         </button>
 
         {/*dinagdag ni bryan for testing*/}
-        <button onClick={handleSignOut}>Sign Out</button>
+
         
 
 
-        <div className="navbar-logo">farm-to-table</div>
+        {/* <div className="navbar-logo">farm-to-table</div> */}
+        <ProfileDropdown />
+        
       </nav>
 
       {/* Drawer */}
