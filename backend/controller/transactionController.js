@@ -17,14 +17,13 @@ const getAllOrderTransactions = async (req, res) => {
 const acceptOrder = async (req, res) => {
     try {
         const { transactionId } = req.body;
-        console.log("1st: ", transactionId);
-
-        // Find the transaction using the transactionId from the request body
-        const transaction = await ordertransactions.findOne({ productId: { $eq: transactionId } });
-        console.log(transaction);
+        console.log("Transaction ID: ", transactionId);
+        
+        const transaction = await ordertransactions.findOne({ transactionId: { $eq: transactionId } });
+        console.log("Transaction: " ,transaction);
 
         // Find the product associated with the transaction's productId
-        const productItem = await Product.findOne({ id: { $eq: transaction.productId } });
+        const productItem = await Product.findOne({ id: transaction.productId });
         console.log("Product item:");
         console.log("2nd: ", productItem);
 
