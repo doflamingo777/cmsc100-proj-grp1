@@ -84,7 +84,9 @@ export default function OrderFulfillmentPage() {
           <div key={index} className="order-container-inside">
             <ul className="order-box">
               <li className="order-details">
+                <h6>Transaction ID:</h6>
                 <h2>{item.transactionId}</h2>
+                <h6 style={{ marginBottom: '-30px' }}>Product ID:</h6>
                 <h4>{item.productId}</h4>
                 <p>Order Status: {orderStatusMap[item.orderStatus]}</p>
                 <p>Order Quantity: {item.orderQuantity}</p>
