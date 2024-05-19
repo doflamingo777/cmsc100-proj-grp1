@@ -18,7 +18,7 @@ const acceptOrder = async (req, res) => {
     try {
         const { transactionId } = req.body;
         console.log("Transaction ID: ", transactionId);
-        
+
         const transaction = await ordertransactions.findOne({ transactionId: { $eq: transactionId } });
         console.log("Transaction: " ,transaction);
 
@@ -74,6 +74,37 @@ const acceptOrder = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
+const rejectOrder = async (req, res) => {
+    try {
+        const { transactionId } = req.body;
+        console.log("Transaction ID for rejection: ", transactionId);
+
+        // Find the transaction using the transactionId
+        const transaction = await ordertransactions.findOne({ transactionId: transactionId });
+        console.log("Transaction to reject: ", transaction);
+
+        if (!transaction) {
+            console.error('Transaction not found:', transactionId);
+            return res.status(404).send('Transaction not found');
+        }
+
+        // Update transaction status to 'Canceled' (2)
+        const updateResult = await ordertransactions.updateOne(
+            { _id: transaction._id },
+            { $set: { orderStatus: 2 } }
+        );
+
+        console.log('Transaction update result:', updateResult);
+
+        // Send success response
+        res.send('Order rejected and marked as canceled');
+    } catch (error) {
+        console.error('Error rejecting order:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
 
 const groupTransactions = async (req, res) => {
     const { groupBy } = req.query; // Expected to be 'weekly', 'monthly', or 'yearly'
@@ -191,7 +222,7 @@ const addOrderTransac = async (req, res) => {
 module.exports = {
     getAllOrderTransactions,
     acceptOrder,
+    rejectOrder,
     groupTransactions,
-
     addOrderTransac,
 };
