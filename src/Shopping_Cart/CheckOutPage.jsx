@@ -17,13 +17,13 @@ const Checkout = () => {
       }
     };
     fetchProducts();
-  },[]); // Empty dependency array ensures the effect runs only once on component mount
+  },);
 
   // DELETE CART IN DATABASE
   const handleDeleteClick = async (product) => {
     try {
-      console.log("Hello")
-      deleteProduct(product); // Wait for the delete operation to complete
+      console.log("handleDeleteClick: ", product)
+      deleteProduct(product);
       removeFromCart(product.id); // Remove the product from the cart
     } catch (error) {
       console.error("Error deleting product:", error.message);
@@ -42,7 +42,7 @@ const Checkout = () => {
       // Optionally handle the response
     } catch (error) {
       console.error("Error deleting product:", error.message);
-      throw error; // Rethrow the error to be caught in handleDeleteClick
+      throw error;
     }
   };
 
@@ -63,7 +63,7 @@ const Checkout = () => {
                 <img className="checkoutImg" src={item.image} alt={item.name} />
                 <h3 className="checkoutItemName">{item.name}</h3>
                 <p className="checkoutItemPrice">${item.price}</p>
-                <p className="checkoutItemQuantity">Quantity: {item.quantity}</p>
+                <p className="checkoutItemQuantity">Quantity: {item.boughtQty}</p>
                 <button className="button" onClick={() => handleDeleteClick(item)}>
                   <img className="delItem" src="https://static-00.iconduck.com/assets.00/trash-bin-icon-2048x2048-duca73jv.png" alt="Delete" />
                 </button>

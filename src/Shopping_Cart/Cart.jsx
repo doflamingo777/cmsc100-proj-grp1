@@ -7,16 +7,15 @@ import axios from 'axios';
 function Cart({ removeFromCart }) {
 
     const [cartItems, setCartItems] = useState([]);
-    // console.log("This is the Cart: ", cartItems)
 
     useEffect(() => {
         // Fetch products from the server when the component mounts
         const fetchProducts = async () => {
           try {
             const response = await axios.get('http://localhost:3000/getAllCheckOut');
-            console.log("================");
-            console.log(response);
-            console.log("================");
+            // console.log("================");
+            // console.log(response);
+            // console.log("================");
             setCartItems(response.data); // Update state with products data
           } catch (error) {
             console.error('Error fetching products:', error);
@@ -28,51 +27,24 @@ function Cart({ removeFromCart }) {
     const [totalQuantity, setTotalQuantity] = useState(0);
     const [totalPrice, setTotalPrice] = useState();
 
-    // const totalQuantity = 0
-    // const totalPrice = 0
-
     useEffect(() => {
-        // Calculate total quantity and total price when cartItems changes
-        console.log("cartItems:", cartItems); // Debugging output
+        console.log("cartItems:", cartItems);
     
         const newTotalQuantity = cartItems.reduce((total, item) => {
-            console.log("item.quantity:", 1); // Debugging output
+            console.log("item.quantity:", 1);
             return total + 1;
         }, 0);
     
         const newTotalPrice = cartItems.reduce((total, item) => {
             // console.log("item.price:", item.price); // Debugging output
-            console.log("HELP ME ", item.price)
+            // console.log("HELP ME ", item.price)
             return total + (item.price * item.boughtQty);
         }, 0);
-        console.log("dito:",newTotalPrice);
+        console.log("New total Price: ",newTotalPrice);
         setTotalQuantity(newTotalQuantity);
         setTotalPrice(newTotalPrice);
     }, [cartItems]);
     
-    
-
-    // useEffect(() => {
-    //     // Calculate total quantity and total price when cartItems changes
-    //     // const newTotalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
-    //     // const newTotalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-
-
-    //     const newTotalQuantity = cartItems.map((product) => (
-    //     ))
-    //     // const newTotalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-
-    //     const newTotalPrice = cartItems.map((product) => (
-    //         console.log(product.price)
-    //     ))
-
-    //     setTotalQuantity(newTotalQuantity);
-    //     setTotalPrice(newTotalPrice);
-    // }, [cartItems]);
-
-    // console.log("01239-1293-1239-1239120-39123-0912-03912-03912-039123-0129-219")
-    // console.log(cartItems)
-
     return (
         <div className="mainCart">
             <h2>Shopping Cart</h2>

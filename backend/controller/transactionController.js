@@ -203,7 +203,7 @@ const addOrderTransac = async (req, res) => {
             transactionId: transactionId,
             productId: id,
             orderQuantity: 1,
-            orderStatus: 1, // Assuming status 1 for a new order
+            orderStatus: 0,
             email: 'email@gmail.com',
             dateOrdered: new Date(),
             time: new Date().toLocaleTimeString()
