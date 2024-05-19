@@ -75,24 +75,23 @@ function ShoppingCart() {
     };
 
     const removeFromCart = (productId) => {
-      console.log(productId)
-      console.log("Help ME PLEASEEEEEE", productId)
+      // console.log(productId)
+      console.log("removeFrmCart: ", productId)
       setCartItems(cartItems.filter(item => item.id !== productId));
     };
 
     const delFromCart = async (product) => {
       try {
-        console.log(product)
-        console.log(product)
-        // console.log(produc)
+        // console.log(product)
+        // console.log(product)
         const deleteResponse = await axios.post('http://localhost:3000/deleteProductCart', { _id: product });
-        console.log("Sup")
+        // console.log("Sup")
         console.log(deleteResponse);
         // fetchProducts();
         // Optionally handle the response
       } catch (error) {
         console.error("Error deleting product:", error.message);
-        throw error; // Rethrow the error to be caught in handleDeleteClick
+        throw error;
       }
     };
 
@@ -100,10 +99,9 @@ function ShoppingCart() {
       // console.log(prod);
     
       try {
-        //check if the product already exists in the database
         const response = await axios.get(`http://localhost:3000/getAProductForCarts?id=${prod.id}`);
         const existingProduct = response.data.length > 0 ? response.data[0] : null;
-    console.log('hereasdsdaasdasd:',response.data);
+        // console.log('hereasdsdaasdasd:',response.data);
         if (existingProduct) {
           //if the product exists, update its quantity
           const updatedProduct = { ...existingProduct, boughtQty: existingProduct.boughtQty + 1 };
@@ -115,36 +113,13 @@ function ShoppingCart() {
           addProd(newProduct);
           console.log('Product added to the database:', newProduct);
         }
-
-        //unncessary codes tinanggal ko -riggs
-
-        // // Update local state with product details
-        // setId(prod.id);
-        // setName(prod.name);
-        // setPrice(prod.price);
-        // setImage(prod.image);
-        // setDesc(prod.desc);
-        // setQty(prod.qty);
-        // setType(prod.type);
-    
-        // const obj = {
-        //   id: prod.id,
-        //   name: prod.name,
-        //   price: prod.price,
-        //   image: prod.image,
-        //   desc: prod.desc,
-        //   qty: prod.qty,
-        //   type: prod.type,
-        // };
-    
-        // console.log(obj);
       } catch (error) {
         console.error('Error checking or updating product:', error);
       }
     };
     
     const handleDeleteProduct = (product_id) => {
-      console.log("BOOM", product_id)
+      console.log("handleDeleteProduct", product_id)
       removeFromCart(product_id)
       delFromCart(product_id)
     }

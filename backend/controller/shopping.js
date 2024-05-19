@@ -181,6 +181,17 @@ const updateProductQuantities = async (req, res) => {
     }
 };
 
+const resetCart = async (req, res) => {
+    try {
+        console.log("Twin ", req.body)
+        await cart.deleteMany({});
+        console.log("reset Cart Baby", req.body)
+    } catch (error) {
+        console.error("shoopping.js reset Cart error:", error);
+        res.status(500).send("shoopping.js reset Cart error");
+    }
+}
+
 module.exports = {
     getAllProduct,
     addProduct,
@@ -192,5 +203,6 @@ module.exports = {
     getAProduct,
     editAProduct,
     getAProductForCarts,
-    editAProductForCarts
+    editAProductForCarts,
+    resetCart,
 };
