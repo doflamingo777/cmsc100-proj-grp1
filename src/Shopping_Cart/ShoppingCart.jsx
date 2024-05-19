@@ -96,27 +96,41 @@ function ShoppingCart() {
     };
 
     const setProductDeets = async (prod) => {
-      // console.log(prod);
-    
       try {
+        // Fetch the product details
         const response = await axios.get(`http://localhost:3000/getAProductForCarts?id=${prod.id}`);
-        const existingProduct = response.data.length > 0 ? response.data[0] : null;
-        // console.log('hereasdsdaasdasd:',response.data);
-        if (existingProduct) {
-          //if the product exists, update its quantity
-          const updatedProduct = { ...existingProduct, boughtQty: existingProduct.boughtQty + 1 };
-          await axios.post('http://localhost:3000/editAProductForCarts', updatedProduct);
-          console.log('Product quantity updated:', updatedProduct);
-        } else {
-          //if the product does not exist, add it to the database and initialize
-          const newProduct = { ...prod, boughtQty: 1 };
-          addProd(newProduct);
-          console.log('Product added to the database:', newProduct);
+        // Fetch the user details
+        const responseUser = await axios.get(`http://localhost:3000/getAUser?email=${localStorage.getItem('email')}`);
+        const user = responseUser.data[0];
+        
+        if (!user) {
+          throw new Error('User not found');
         }
+        
+        // Check if the product exists in the user's cart
+        const existingProductIndex = user.shopping_cart.findIndex(
+          (item) => item.productId === prod.id
+        );
+    
+        if (existingProductIndex >= 0) {
+          // If the product exists in the cart, update its quantity
+          user.shopping_cart[existingProductIndex].quantity += 1;
+          console.log('Product quantity updated in cart:', user.shopping_cart[existingProductIndex]);
+          console.log(user.shopping_cart);
+        } else {
+          // If the product does not exist in the cart, add it
+          user.shopping_cart.push({ productId: prod.id, quantity: 1,  price: prod.price});
+          console.log('Product added to cart:', { productId: prod.id, quantity: 1 });
+        }
+        console.log('hereDSFKLKLFJADS:',user);
+        // Update the user in the database
+        await axios.post('http://localhost:3000/updateUserCart', user);
+        console.log('User cart updated successfully');
       } catch (error) {
-        console.error('Error checking or updating product:', error);
+        console.error('Error checking or updating product in cart:', error);
       }
     };
+    
     
     const handleDeleteProduct = (product_id) => {
       console.log("handleDeleteProduct", product_id)

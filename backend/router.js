@@ -1,4 +1,4 @@
-const { registerUser, loginUser, getAllUsers, deleteUser, showAdmin } = require('./controller/usercontroller');
+const { registerUser, loginUser, getAllUsers, deleteUser, showAdmin, getAUser, updateUserCart } = require('./controller/usercontroller');
 const { getAllProduct, addProduct, deleteProduct, addNewProduct, getAllCheckOut, deleteProductCart, getAProduct, editAProduct, getAProductForCarts, editAProductForCarts, resetCart } = require('./controller/shopping.js');
 
 const { getAllOrderTransactions, acceptOrder, rejectOrder, groupTransactions, addOrderTransac } = require('./controller/transactionController');
@@ -11,6 +11,8 @@ const router = (app) => {
     app.post('/deleteUser', deleteUser);      
     app.get('/users', getAllUsers);      
     app.get('/showAdmin', showAdmin);
+    app.get('/getAUser', getAUser); 
+    app.post('/updateUserCart', updateUserCart)     
   
   //jonz
     app.get('/getAllProduct', getAllProduct);
