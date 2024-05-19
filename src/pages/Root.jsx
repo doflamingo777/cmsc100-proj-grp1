@@ -57,7 +57,7 @@ export default function Root() {
       if (userType === 'admin') {
         navigate('/admindashboardpage');
       } else {
-        navigate('/userprofilepage');
+        navigate('/shopcart');
       }
     } else {
       navigate('/');

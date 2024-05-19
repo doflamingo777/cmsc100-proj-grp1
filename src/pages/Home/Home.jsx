@@ -15,9 +15,9 @@ export default function Home() {
           <p>
             Harvesting Freshness, 
             <br/>Nurturing Communities<br/>
-            <button className="home-button">
+            <a href='/login'><button className="home-button">
             Shop Now
-          </button>
+          </button></a>
           </p>
           
         </div>

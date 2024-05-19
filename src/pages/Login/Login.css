@@ -81,3 +81,21 @@
   color: #ffffff;
   font-size: 1em;
 }
+
+.login-footer{
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: #999;
+  display: flex;
+  justify-content: center;
+  
+
+}
+.login-footer a{
+margin-left: 5px;
+}
+.Back{
+  position: absolute;
+  top: 0;
+  margin-left: 2%;
+}

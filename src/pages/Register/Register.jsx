@@ -63,77 +63,85 @@ export default function RegisterDetails() {
       console.log('Unable to register:', error);
     }
   };
+  
+  const handleBack = () => {
+    navigate('/');
+    window.location.reload();
+  };
 
   return (
-    <div className='register-container'>
-      <h1>Register</h1>
-      <p>Welcome to Register Page</p>
-      <div className='register-form-container'>
-        <form className='register-form' onSubmit={handleRegister}>
-          <input
-            type="text"
-            id='fname'
-            name='firstname'
-            placeholder='First Name'
-            value={firstname}
-            onChange={(e) => setFirstname(e.target.value)}
-            required
-          /><br/>
-          <input
-            type="text"
-            id='mname'
-            name='middlename'
-            placeholder='Middle Name'
-            value={middlename}
-            onChange={(e) => setMiddlename(e.target.value)}
-          /><br/>
-          <input
-            type="text"
-            id='lname'
-            name='lastname'
-            placeholder='Last Name'
-            value={lastname}
-            onChange={(e) => setLastname(e.target.value)}
-            required
-          /><br/>
-          <input
-            type="text"
-            id='uname'
-            name='username'
-            placeholder='Username'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          /><br/>
-          <input
-            type="tel"
-            id='phone'
-            name='phone'
-            placeholder='Mobile Number'
-            pattern="09[0-9]{9}"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          /><br/>
-          <input
-            type="email"
-            id='email'
-            name='email'
-            placeholder='Email Address'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          /><br/>
-          <input
-            type="password"
-            id='password'
-            name='password'
-            placeholder='Password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          /><br/>
-          <button type='submit'>Register</button>
-        </form>
+    <div className='register-wrapper'>
+      <div className="background-image"></div>
+      <div className='register-container'>
+        <button className='Back' onClick={handleBack}>Back</button>
+        <h1>Register</h1>
+        <div className='register-form-container'>
+          <form className='register-form' onSubmit={handleRegister}>
+            <input
+              type="text"
+              id='fname'
+              name='firstname'
+              placeholder='First Name'
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
+              required
+            /><br/>
+            <input
+              type="text"
+              id='mname'
+              name='middlename'
+              placeholder='Middle Name'
+              value={middlename}
+              onChange={(e) => setMiddlename(e.target.value)}
+            /><br/>
+            <input
+              type="text"
+              id='lname'
+              name='lastname'
+              placeholder='Last Name'
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
+              required
+            /><br/>
+            <input
+              type="text"
+              id='uname'
+              name='username'
+              placeholder='Username'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            /><br/>
+            <input
+              type="tel"
+              id='phone'
+              name='phone'
+              placeholder='Mobile Number'
+              pattern="09[0-9]{9}"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            /><br/>
+            <input
+              type="email"
+              id='email'
+              name='email'
+              placeholder='Email Address'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            /><br/>
+            <input
+              type="password"
+              id='password'
+              name='password'
+              placeholder='Password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            /><br/>
+            <button type='submit'>Register</button>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 export default function LoginDetails() {
+
+  const handleBack = () => {
+    navigate('/');
+    window.location.reload();
+  };
   // login details
   const [users, setUsers] = useState([]);
   const [admins, setAdmin] = useState([]);
@@ -32,6 +37,13 @@ export default function LoginDetails() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    const existingUser = users.find(user => user.email === email);
+    const existingAdmin = admins.find(admin => admin.email === email);
+
+    if (!existingUser && !existingAdmin) {
+      alert('Email does not exist');
+      return;
+    }
     try {
       const response = await axios.post('http://localhost:3000/login', {
         email,
@@ -50,7 +62,7 @@ export default function LoginDetails() {
     
       const mail = localStorage.getItem('email');
       console.log(mail)
-
+      
       if (response.data.userType === 'admin') {
         navigate('/admindashboardpage');
       } else {
@@ -67,8 +79,9 @@ export default function LoginDetails() {
   };
 
   return (
-    <div className='login-container'>
     
+    <div className='login-container'>
+    <button className='Back' onClick={handleBack}>Back</button>
       <div className='forms-container'>
         <form className='login-form' onSubmit={handleLogin}>
           <h1>Login</h1>
@@ -94,9 +107,9 @@ export default function LoginDetails() {
           <button className='color-red' type='submit'>Login</button>
           
         </form>
-        <footer className="home-footer">
-        &copy; 2024 Farm-to-Table. All rights reserved.
-      </footer>
+        <div className="login-footer">
+        Not Yet Registered? <a href='/register'> Register</a>
+      </div>
       </div>
       
     </div>

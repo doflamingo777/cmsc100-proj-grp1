@@ -6,7 +6,7 @@ export default function AccountPage() {
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
-    navigate('/login');
+    navigate('/');
     window.location.reload();
   };
 
