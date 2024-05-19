@@ -1,6 +1,7 @@
 const ordertransactions = require('../models/transactionSchema');
 const Product = require('../models/productSchema');
 const { v4: uuidv4 } = require('uuid');
+const cart = require('../models/cartSchema.js');
 
 
 const getAllOrderTransactions = async (req, res) => {
@@ -223,29 +224,41 @@ const addOrderTransac = async (req, res) => {
         // Generate random transaction ID
         const transactionId = generateTransactionId();
 
+        // Retrieve product details from the database using the product ID from the request body
+        console.log('Product ID: ', id);
+        const productDetails = await Product.findOne({ id });
+
+        if (!productDetails) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        // Calculate sales
+        const sales = productDetails.price * quantity;
+        console.log("Sales: ", sales);
+
         // Create new order transaction
         const newOrderTransaction = new ordertransactions({
-            transactionId: transactionId,
+            transactionId,
             productId: id,
             orderQuantity: quantity,
             orderStatus: 0,
             email: mail,
             dateOrdered: new Date(),
             time: new Date().toLocaleTimeString(),
-            //sales: 0,
+            sales,
         });
 
         // Save the order transaction to the database
-        const check = await newOrderTransaction.save();
-        console.log(check);
+        const savedTransaction = await newOrderTransaction.save();
 
         // Respond with success message
-        res.status(201).json({ message: 'Product added successfully', order: newOrderTransaction });
+        res.status(201).json({ message: 'Product added successfully', order: savedTransaction });
     } catch (error) {
         console.error('Error adding product:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
 
 // const getUserOrderTransactions = async (req, res) => {
 //     try {
