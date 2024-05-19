@@ -19,6 +19,7 @@ function ShoppingCart() {
 
     const [products, setProducts] = useState([]);
     const [cartItems, setCartItems] = useState([]);
+    const [email, setEmail] = useState([]);
     // const [selectedSort, setSelectedSort] = useState('');
   
     // const handleSelectChange = (event) => {
@@ -30,8 +31,11 @@ function ShoppingCart() {
       const fetchProducts = async () => {
         try {
           const response = await axios.get('http://localhost:3000/getAllProduct');
+          const responseUser = await axios.get(`http://localhost:3000/getAUser?email=${localStorage.getItem('email')}`);
+
           setProducts(response.data); // Update state with products data
-          // console.log(response.data);
+          setEmail(responseUser.data[0]);
+          // console.log(responseUser.data);
         } catch (error) {
           console.error('Error fetching products:', error);
         }
@@ -75,7 +79,7 @@ function ShoppingCart() {
     };
 
     const removeFromCart = (productId) => {
-      // console.log(productId)
+      console.log('AHJAHAHAHAHAHAHHA',cartItems)
       console.log("removeFrmCart: ", productId)
       setCartItems(cartItems.filter(item => item.id !== productId));
     };
@@ -84,7 +88,7 @@ function ShoppingCart() {
       try {
         // console.log(product)
         // console.log(product)
-        const deleteResponse = await axios.post('http://localhost:3000/deleteProductCart', { _id: product });
+        const deleteResponse = await axios.post('http://localhost:3000/deleteProductCart', { productId: product.id,  user: product.user});
         // console.log("Sup")
         console.log(deleteResponse);
         // fetchProducts();
@@ -101,7 +105,7 @@ function ShoppingCart() {
         const response = await axios.get(`http://localhost:3000/getAProductForCarts?id=${prod.id}`);
         // Fetch the user details
         const responseUser = await axios.get(`http://localhost:3000/getAUser?email=${localStorage.getItem('email')}`);
-        const user = responseUser.data[0];
+        const user = email;
         
         if (!user) {
           throw new Error('User not found');
@@ -122,7 +126,8 @@ function ShoppingCart() {
           user.shopping_cart.push({ productId: prod.id, quantity: 1,  price: prod.price});
           console.log('Product added to cart:', { productId: prod.id, quantity: 1 });
         }
-        console.log('hereDSFKLKLFJADS:',user);
+        setCartItems(cartItems)
+        // console.log('hereDSFKLKLFJADS:',cartItems);
         // Update the user in the database
         await axios.post('http://localhost:3000/updateUserCart', user);
         console.log('User cart updated successfully');
@@ -135,7 +140,8 @@ function ShoppingCart() {
     const handleDeleteProduct = (product_id) => {
       console.log("handleDeleteProduct", product_id)
       removeFromCart(product_id)
-      delFromCart(product_id)
+      const productinCart = {id: product_id, user: email};
+      delFromCart(productinCart)
     }
 
     const handleAddToCartAndSetDeets = (product) => {

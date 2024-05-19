@@ -38,14 +38,14 @@ function Cart({ removeFromCart }) {
             });
       
             setCartItems(updatedCartItems); // Update state with the merged cart items
-            console.log('Updated cart items:', updatedCartItems);
+            // console.log('Updated cart items:', updatedCartItems);
           } catch (error) {
             console.error('Error fetching products or user:', error);
           }
         };
         
         fetchProducts();
-      }, []);
+      });
       
 
     const [totalQuantity, setTotalQuantity] = useState(0);
@@ -67,7 +67,7 @@ function Cart({ removeFromCart }) {
         // console.log("New total Price: ",newTotalPrice);
         setTotalQuantity(newTotalQuantity);
         setTotalPrice(newTotalPrice);
-    }, [cartItems]);
+    });
     
     return (
         <div className="mainCart">
@@ -83,7 +83,7 @@ function Cart({ removeFromCart }) {
                             <p className="cartItemPrice">${item.price}</p>
                             <p className="cartItemQuantity">Quantity: {item.quantity}</p>
                         </div>
-                        <button className="removeButton" onClick={() => removeFromCart(item._id)}>Remove</button>
+                        <button className="removeButton" onClick={() => removeFromCart(item.id)}>Remove</button>
                         <button className="removeButton" onClick={() => console.log(item._id)}>Check</button>
                     </div>
                 ))}
