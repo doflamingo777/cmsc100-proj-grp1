@@ -17,7 +17,7 @@ export default function TransacPage() {
         const user = responseUser.data[0];
         console.log("User Transactions.jsx: ", user);
 
-        const filteredData = response.data.filter(item => (item.orderStatus !== 1 & item.orderStatus !== 2) && item.email === userEmail); // Filter out completed orders
+        const filteredData = response.data.filter(item => item.email === user.email); // Filter out completed orders
         setOrderTransaction(filteredData);
         } catch (error) {
         console.error('Transaction.jsx error: ', error);
@@ -62,9 +62,12 @@ export default function TransacPage() {
                 <p>Order Quantity: {item.orderQuantity}</p>
                 <p>Date Ordered: {item.dateOrdered}</p>
                 <p>Time Ordered: {item.time}</p>
+                {item.orderStatus == 0 && (
                 <div className="order-buttons">
-                  <button className="rejectButton" onClick={() => cancel(item.transactionId)}>REJECT</button>
+                  <button className="rejectButton" onClick={() => cancel(item.transactionId)}>CANCEL</button>
                 </div>
+                )
+                }
               </li>
             </ul>
           </div>
