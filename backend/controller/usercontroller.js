@@ -30,6 +30,39 @@ const getAllUsers = async (req, res) => {
 	}
 };
 
+//find a product using it's object ID
+const getAUser = async (req, res) => {
+    try {
+        const emailLoggedIn = req.query.email;
+
+        console.log( emailLoggedIn)
+        const productDetails = await User.find({email: emailLoggedIn});
+        // console.log(productDetails);
+        res.send(productDetails);
+    }catch(error) {
+        console.error("Error fetching product details:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+const updateUserCart = async (req, res) => {
+    try {
+        const user = await User.findById(req.body._id);
+        console.log(req.body._id);
+        if (!user) {
+          return res.status(404).send('User not found');
+        }
+    
+        user.shopping_cart = req.body.shopping_cart;
+    
+        await user.save();
+        res.status(200).send('User cart updated successfully');
+      } catch (error) {
+        console.error('Error updating user cart:', error);
+        res.status(500).send('Internal server error');
+      }
+}
+
 
 
 const loginUser = async (req, res) => {
@@ -76,4 +109,4 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = { loginUser, registerUser, getAllUsers, deleteUser, showAdmin };
+module.exports = { loginUser, registerUser, getAllUsers, deleteUser, showAdmin, getAUser, updateUserCart };

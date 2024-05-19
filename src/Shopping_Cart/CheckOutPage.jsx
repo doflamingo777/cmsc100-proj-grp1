@@ -10,7 +10,7 @@ const Checkout = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:3000/getAllCheckOut');
-        console.log(response);
+        // console.log(response);
         setCartItems(response.data); // Update state with products data
       } catch (error) {
         console.error('Error fetching products:', error);
