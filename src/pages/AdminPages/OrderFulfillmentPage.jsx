@@ -31,13 +31,22 @@ export default function OrderFulfillmentPage() {
   const acceptOrder = async (transactionId) => {
     console.log("This is transactionId: ", transactionId);
     try {
-      const response = await axios.post('http://localhost:3000/acceptOrder', { transactionId });
-      console.log(response.data);
-      fetchOrderTransactions(); // Refresh the list of transactions
+        const response = await axios.post('http://localhost:3000/acceptOrder', { transactionId });
+        console.log(response.data);
+
+        // Check if the response indicates that the order was cancelled
+        if (response.data.cancelled) {
+            prompt(response.data.message);
+        } else {
+            console.log('Order accepted successfully');
+            fetchOrderTransactions(); // Refresh the list of transactions
+        }
     } catch (error) {
-      console.error('Error accepting order:', error);
+        console.error('Error accepting order:', error);
+        alert('An error occurred while accepting the order. Please try again.');
     }
-  };
+};
+
 
   const rejectOrder = async (transactionId) => {
     console.log("Rejecting transactionId: ", transactionId);
@@ -81,6 +90,7 @@ export default function OrderFulfillmentPage() {
                 <p>Order Quantity: {item.orderQuantity}</p>
                 <p>Date Ordered: {item.dateOrdered}</p>
                 <p>Time Ordered: {item.time}</p>
+                <p>Sales: </p>
                 <div className="order-buttons">
                   <button className="acceptButton" onClick={() => acceptOrder(item.transactionId)}>ACCEPT</button>
                   <button className="rejectButton" onClick={() => rejectOrder(item.transactionId)}>REJECT</button>

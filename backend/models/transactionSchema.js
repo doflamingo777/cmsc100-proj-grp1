@@ -7,7 +7,8 @@ const transactionSchema = new mongoose.Schema({
     orderStatus: {type: Number, required: true},
     email: {type: String, required: true},           
     dateOrdered: {type: Date, required: true, default: Date.now},             
-    time: {type: String, required: true, default: () => new Date().toLocaleTimeString()},          
+    time: {type: String, required: true, default: () => new Date().toLocaleTimeString()},   
+    //sales: {type: Number, required: true},   
 })
 
 

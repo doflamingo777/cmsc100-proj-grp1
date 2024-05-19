@@ -20,7 +20,12 @@ const acceptOrder = async (req, res) => {
         console.log("Transaction ID: ", transactionId);
 
         const transaction = await ordertransactions.findOne({ transactionId: { $eq: transactionId } });
-        console.log("Transaction: " ,transaction);
+        console.log("Transaction: ", transaction);
+
+        if (!transaction) {
+            console.error('Transaction not found with ID:', transactionId);
+            return res.status(404).send('Transaction not found');
+        }
 
         // Find the product associated with the transaction's productId
         const productItem = await Product.findOne({ id: transaction.productId });
@@ -31,6 +36,19 @@ const acceptOrder = async (req, res) => {
         if (!productItem) {
             console.error('Product with ID not found:', transaction.productId);
             return res.status(404).send('Product not found');
+        }
+
+        // Check if the product quantity is 0 or less
+        if (productItem.qty <= 0) {
+            console.error('Product is out of stock, cancelling the transaction:', transaction.productId);
+            
+            // Update transaction status to 'Cancelled' (assuming status 2 represents 'Cancelled')
+            await ordertransactions.updateOne(
+                { _id: transaction._id },
+                { $set: { orderStatus: 2 } }
+            );
+
+            return res.status(200).json({ message: 'This order transaction will be cancelled since the product is no longer available', cancelled: true });
         }
 
         // Calculate the updated product quantities and sales
@@ -56,7 +74,7 @@ const acceptOrder = async (req, res) => {
             }
         );
 
-        // Update transaction status to 'Completed' (1)
+        // Update transaction status to 'Completed' (assuming status 1 represents 'Completed')
         const updateResult = await ordertransactions.updateOne(
             { _id: transaction._id },
             { $set: { orderStatus: 1 } }
@@ -68,12 +86,14 @@ const acceptOrder = async (req, res) => {
         console.log('Transaction update result:', updateResult);
 
         // Send success response
-        res.send('Order accepted and product updated');
+        res.status(200).json({ message: 'Order accepted and product updated', cancelled: false });
     } catch (error) {
         console.error('Error accepting order:', error.response ? error.response.data : error.message);
         res.status(500).send('Internal Server Error');
     }
 };
+
+
 
 const rejectOrder = async (req, res) => {
     try {
@@ -212,8 +232,8 @@ const addOrderTransac = async (req, res) => {
             orderStatus: 0,
             email: 'email@gmail.com',
             dateOrdered: new Date(),
-            time: new Date().toLocaleTimeString()
-
+            time: new Date().toLocaleTimeString(),
+            //sales: 0,
         });
 
         // Save the order transaction to the database
