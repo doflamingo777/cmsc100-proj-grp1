@@ -123,6 +123,11 @@ const groupTransactions = async (req, res) => {
     try {
         const groupedData = await ordertransactions.aggregate([
             {
+                $match: {
+                    orderStatus: 1
+                }
+            },
+            {
                 $lookup: {
                     from: "products",
                     localField: "productId",
@@ -173,6 +178,7 @@ const groupTransactions = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
 
 
 
