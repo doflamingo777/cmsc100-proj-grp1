@@ -107,13 +107,13 @@ const rejectOrder = async (req, res) => {
 
 
 const groupTransactions = async (req, res) => {
-    const { groupBy } = req.query; // Expected to be 'weekly', 'monthly', or 'yearly'
+    const { groupBy } = req.query;
 
     let groupOperator;
     if (groupBy === 'weekly') {
-        groupOperator = { $concat: [ "Week ", { $toString: { $week: "$dateOrdered" } }, "th of ", { $toString: { $year: "$dateOrdered" } } ] };
+        groupOperator = { $concat: ["Week ", { $toString: { $week: "$dateOrdered" } }, "th of ", { $toString: { $year: "$dateOrdered" } }] };
     } else if (groupBy === 'monthly') {
-        groupOperator = { $concat: [ { $arrayElemAt: [ ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], { $subtract: [ { $month: "$dateOrdered" }, 1 ] } ] }, " of ", { $toString: { $year: "$dateOrdered" } } ] };
+        groupOperator = { $concat: [{ $arrayElemAt: [["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], { $subtract: [{ $month: "$dateOrdered" }, 1] }] }, " of ", { $toString: { $year: "$dateOrdered" } }] };
     } else if (groupBy === 'yearly') {
         groupOperator = { $toString: { $year: "$dateOrdered" } };
     } else {
@@ -128,7 +128,7 @@ const groupTransactions = async (req, res) => {
                         period: groupOperator
                     },
                     productIds: { $addToSet: "$productId" },
-                    totalOrders: { $sum: 1 }  // This reflects the number of transaction entries, modify in projection stage
+                    totalOrderQuantity: { $sum: "$orderQuantity" }  // Sum of orderQuantity for each period
                 }
             },
             {
@@ -140,21 +140,25 @@ const groupTransactions = async (req, res) => {
                 }
             },
             {
-                $unwind: "$productDetails"  // Unwind the products array for summing
+                $unwind: {
+                    path: "$productDetails",
+                    preserveNullAndEmptyArrays: true
+                }
             },
             {
                 $group: {
                     _id: "$_id",
+                    totalOrders: { $first: "$totalOrderQuantity" },  // Carrying forward the totalOrderQuantity from the first group
                     productIds: { $addToSet: "$productDetails.id" },
-                    totalSoldQty: { $sum: "$productDetails.soldqty" },  // Sum of soldqty from product details
-                    totalSales: { $sum: "$productDetails.sales" }  // Sum of sales from product details
+                    totalSoldQty: { $sum: "$productDetails.soldqty" },
+                    totalSales: { $sum: "$productDetails.sales" }
                 }
             },
             {
                 $project: {
                     period: "$_id.period",
                     productIds: 1,
-                    totalOrders: "$totalSoldQty",  // Renaming for clarity
+                    totalOrders: 1,
                     totalSales: 1
                 }
             },
@@ -163,15 +167,14 @@ const groupTransactions = async (req, res) => {
             }
         ]);
 
-        // Print statement to check the values
         console.log('Grouped Data:', JSON.stringify(groupedData, null, 2));
-
         res.json(groupedData);
     } catch (error) {
         console.error('Error in grouping transactions:', error);
         res.status(500).send('Internal Server Error');
     }
 };
+
 
 
 // Function to generate a random 2-character transaction ID
