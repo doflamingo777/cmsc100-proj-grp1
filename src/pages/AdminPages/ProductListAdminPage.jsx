@@ -168,7 +168,7 @@ export default function ProductListAdminPage() {
                 </div>
               </td>
               <td>{productTypeMap[product.type]}</td>
-              <td>${product.price}</td>
+              <td>₱{product.price}</td>
               <td>{product.qty}</td>
               <td className="product-desc-list">{product.desc}</td>
               <td className="product-actions-list">
