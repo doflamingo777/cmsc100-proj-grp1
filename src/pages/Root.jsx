@@ -87,12 +87,13 @@ export default function Root() {
             {!isUserLoggedIn && <li><Link to={'/login'}>Login</Link></li>}
             {!isUserLoggedIn && <li><Link to={'/register'}>Register</Link></li>}
             <li><Link to={'/shopcart'}>Shopping Cart</Link></li>
-            <li><Link to={'/productlistpage'}>Product List</Link></li>
-            <li><Link to={'/checkoutpage'}>Check Out</Link></li>
-            <li><Link to={'/orderconfirmationpage'}>Order Confirmation</Link></li>
-            {isUserLoggedIn && <li><Link to={'/userprofilepage'}>User Profile</Link></li>}
-            {isUserLoggedIn && userType === 'user' &&
-              <li><Link to={'/userprofilepage'}>User Profile</Link></li>}
+            {/* <li><Link to={'/productlistpage'}>Product List</Link></li> */}
+            <li><Link to={'/checkout'}>Check Out</Link></li>
+            <li><Link to={'/userTransac'}>Transactions</Link></li>
+            {/* <li><Link to={'/orderconfirmationpage'}>Order Confirmation</Link></li> */}
+            {/* {isUserLoggedIn && <li><Link to={'/userprofilepage'}>User Profile</Link></li>}
+            {/* {isUserLoggedIn && userType === 'user' &&
+              <li><Link to={'/userprofilepage'}>User Profile</Link></li>} */}
             {isUserLoggedIn && userType === 'admin' && (
               <>
                 <li><Link to={'/admindashboardpage'}>Admin Dashboard</Link></li>

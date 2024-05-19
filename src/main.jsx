@@ -10,8 +10,9 @@ import ShoppingCart from './Shopping_Cart/ShoppingCart';
 import CheckOutPage from './Shopping_Cart/CheckOutPage';
 import Checkout from './Shopping_Cart/CheckOutPage';
 import ProductListPage from './pages/CustomerPages/ProductListPage';
-import OrderConfirmationPage from './pages/CustomerPages/OrderConfirmationPage';
-import UserProfilePage from './pages/CustomerPages/UserProfilePage';
+// import OrderConfirmationPage from './pages/CustomerPages/OrderConfirmationPage';
+// import UserProfilePage from './pages/CustomerPages/UserProfilePage';
+import Transactions from './Shopping_Cart/Transactions'
 import AdminDashboardPage from './pages/AdminPages/AdminDashboardPage';
 import UserManagementPage from './pages/AdminPages/UserManagementPage';
 import ProductListAdminPage from './pages/AdminPages/ProductListAdminPage';
@@ -26,7 +27,22 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       { path: '/', element: <Home /> },
+      { path: '/shopcart', element: ( <ProtectedRoute allowedRoles={['user',  'admin']}> <ShoppingCart />  </ProtectedRoute>),},
     ],
+  },
+  { path: '/checkout', 
+    element: ( 
+      <ProtectedRoute allowedRoles={['user', 'admin']}> 
+        <Checkout /> 
+      </ProtectedRoute>
+    )
+  },
+  { path: '/userTransac', 
+    element: ( 
+      <ProtectedRoute allowedRoles={['user', 'admin']}> 
+        <Transactions /> 
+      </ProtectedRoute>
+    )
   },
   { path: '/login', element: <LoginDetails /> },
   { path: '/register', element: <RegisterDetails /> },
@@ -38,22 +54,14 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-  {
-    path: '/orderconfirmationpage',
-    element: (
-      <ProtectedRoute allowedRoles={['user', 'admin']}>
-        <OrderConfirmationPage />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: '/userprofilepage',
-    element: (
-      <ProtectedRoute allowedRoles={['user']}>
-        <UserProfilePage />
-      </ProtectedRoute>
-    ),
-  },
+  // {
+  //   path: '/userprofilepage',
+  //   element: (
+  //     <ProtectedRoute allowedRoles={['user']}>
+  //       <UserProfilePage />
+  //     </ProtectedRoute>
+  //   ),
+  // },
   {
     path: '/admindashboardpage',
     element: (
@@ -69,22 +77,6 @@ const router = createBrowserRouter([
       { path: 'orderfulfillmentpage', element: <OrderFulfillmentPage /> },
       { path: 'salesreportpage', element: <SalesReportPage /> },
     ],
-  },
-  {
-    path: '/shopcart',
-    element: (
-      <ProtectedRoute allowedRoles={['user',  'admin']}>
-        <ShoppingCart />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: '/checkoutpage',
-    element: (
-      <ProtectedRoute allowedRoles={['user', 'admin']}>
-        <Checkout />
-      </ProtectedRoute>
-    ),
   },
 ]);
 
