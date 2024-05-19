@@ -90,7 +90,7 @@ const Checkout = () => {
                 <input type="checkbox" />
                 <img className="checkoutImg" src={item.image} alt={item.name} />
                 <h3 className="checkoutItemName">{item.name}</h3>
-                <p className="checkoutItemPrice">${item.price}</p>
+                <p className="checkoutItemPrice">₱{item.price}</p>
                 <p className="checkoutItemQuantity">Quantity: {item.quantity}</p>
                 <button className="button" onClick={() => handleDeleteClick(item)}>
                   <img className="delItem" src="https://static-00.iconduck.com/assets.00/trash-bin-icon-2048x2048-duca73jv.png" alt="Delete" />

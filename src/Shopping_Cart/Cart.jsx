@@ -99,7 +99,7 @@ function Cart({ removeFromCart }) {
                     <div key={item.id} className="cartItem">
                         <div className="cartItemDetails">
                             <h3 className="cartItemName">{item.name}</h3>
-                            <p className="cartItemPrice">${item.price}</p>
+                            <p className="cartItemPrice">₱{item.price}</p>
                             <p className="cartItemQuantity">Quantity: {item.quantity}</p>
                         </div>
                         <button className="removeButton" onClick={() => removeFromCart(item.id)}>Remove</button>

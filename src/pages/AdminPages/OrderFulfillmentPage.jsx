@@ -92,7 +92,7 @@ export default function OrderFulfillmentPage() {
                 <p>Order Quantity: {item.orderQuantity}</p>
                 <p>Date Ordered: {item.dateOrdered}</p>
                 <p>Time Ordered: {item.time}</p>
-                <p>Sales: </p>
+                <p>Sales: {item.sales}</p>
                 <div className="order-buttons">
                   <button className="acceptButton" onClick={() => acceptOrder(item.transactionId)}>ACCEPT</button>
                   <button className="rejectButton" onClick={() => rejectOrder(item.transactionId)}>REJECT</button>
