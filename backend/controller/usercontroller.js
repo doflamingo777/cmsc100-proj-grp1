@@ -35,7 +35,7 @@ const getAUser = async (req, res) => {
     try {
         const emailLoggedIn = req.query.email;
 
-        console.log( emailLoggedIn)
+        // console.log( emailLoggedIn)
         const productDetails = await User.find({email: emailLoggedIn});
         // console.log(productDetails);
         res.send(productDetails);

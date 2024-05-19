@@ -7,27 +7,53 @@ function PlaceOrderTab() {
     const [cartItems, setCartItems] = useState([]);
     const [totPrice, setTotPrice] = useState([0]);
     const [showPopup, setShowPopup] = useState(false);
+    const [email, setEmail] = useState([]);
     const navigate = useNavigate();
-    console.log(cartItems)
+    // console.log(cartItems)
 
     useEffect(() => {
         // Fetch products from the server when the component mounts
         const fetchProducts = async () => {
-        try {
-            const response = await axios.get('http://localhost:3000/getAllCheckOut');
-            // console.log(response);
-            setCartItems(response.data); // Update state with products data
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-        };
-        fetchProducts();
-    },[]); // Empty dependency array ensures the effect runs only once on component mount
+          try {
+            // Fetch all products
+            const response = await axios.get('http://localhost:3000/getAllProduct');
+            const products = response.data;
+      
+            // Fetch user details
+            const responseUser = await axios.get(`http://localhost:3000/getAUser?email=${localStorage.getItem('email')}`);
+            const user = responseUser.data[0];
+            setEmail(user);
 
+            if (!user) {
+              throw new Error('User not found');
+            }
+            
+            //map through user's shopping cart and get detailed product information
+            const updatedCartItems = user.shopping_cart.map(cartItem => {
+              const product = products.find(product => product.id === cartItem.productId);
+      
+              if (product) {
+                //merge product details with cart item
+                return { ...product, quantity: cartItem.quantity };
+              } else {
+                //if product details are not found, keep the cart item as is
+                return cartItem;
+              }
+            });
+      
+            setCartItems(updatedCartItems); // Update state with the merged cart items
+            // console.log('Updated cart items:', updatedCartItems);
+          } catch (error) {
+            console.error('Error fetching products or user:', error);
+          }
+        };
+        
+        fetchProducts();
+      });
     // Function to calculate the total price
     const calculateTotalPrice = (items) => {
         return items.reduce((total, item) => {
-            return total + item['boughtQty'] * item['price'];
+            return total + item['quantity'] * item['price'];
         }, 0);
     };
 
@@ -49,21 +75,24 @@ function PlaceOrderTab() {
     );
 
     const resetCartItems = () => {
+        
+        const userId = email._id; 
+        console.log('here', email);
         axios
-        .post('http://localhost:3000/resetCart', { cartItems })
-        .then(() => {
-          console.log('Cart Reset');
-          setCartItems([]);
-        })
-        .catch((error) => {
-          console.log('Cart Reset Fail: ', error);
-        });
-    };
+          .post('http://localhost:3000/resetCart', { userId })
+          .then(() => {
+            console.log('Cart Reset');
+            setCartItems([]);
+          })
+          .catch((error) => {
+            console.log('Cart Reset Fail: ', error);
+          });
+      };
 
     const addOrderTransac = (products) => {
 
         const mail = localStorage.getItem('email');
-        console.log(mail)
+        // console.log('here:', mail);
 
         if (products == null || products == 0) {
             alert("Please add items in the shopping Cart.")
@@ -71,19 +100,19 @@ function PlaceOrderTab() {
         }
         
         products.forEach((product) => {
-            const { id } = product; // Extract id , price and name
-            console.log({ id  })
+            const { id, quantity } = product; // Extract id , price and name
             axios
-                .post('http://localhost:3000/addOrderTransac', { id })
+                .post('http://localhost:3000/addOrderTransac', { id, quantity, mail })
                 .then(() => {
-                    console.log('Product added successfully:', id);
+                    console.log('Product added successfully:', id, quantity, mail);
                     setShowPopup(true);
-                    resetCartItems();
+                    
                 })
                 .catch((error) => {
                     console.log('Unable to add product:', id, error);
                 });
-        });
+            });
+            resetCartItems();
     };
 
     const handlePopupClose = () => {

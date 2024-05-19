@@ -1,6 +1,7 @@
 const product = require('../models/productSchema.js');
 const cart = require('../models/cartSchema.js');
 const Product = require('../models/productSchema.js');
+const User = require('../models/userSchema.js');
 
 const getAllProduct = async (req, res) => {
     try {
@@ -147,16 +148,41 @@ const deleteProduct = async (req, res) => {
 }
 
 // delete Product from cart
+// const deleteProductCartasd = async (req, res) => {
+//     try{
+//         const deleted = await cart.deleteOne({_id: req.body.id})
+//         console.log(deleted)
+//         console.log("Delete Product")
+//     } catch(error){
+//         console.error("Error fetching product:", error.message);
+//         res.status(500).send("Internal Server Error");
+//     }
+// }
+
 const deleteProductCart = async (req, res) => {
-    try{
-        const deleted = await cart.deleteOne({_id: req.body._id})
-        console.log(deleted)
-        console.log("Delete Product")
-    } catch(error){
-        console.error("Error fetching product:", error.message);
-        res.status(500).send("Internal Server Error");
+    try {
+      const { productId, user } = req.body;
+  
+      // Check if the user exists
+      const userDocument = await User.findById(user._id);
+      if (!userDocument) {
+        return res.status(404).send('User not found');
+      }
+  
+      // Filter out the product from the shopping_cart
+      userDocument.shopping_cart = userDocument.shopping_cart.filter(
+        (item) => item.productId.toString() !== productId
+      );
+        console.log(productId);
+      // Save the updated user document
+      await userDocument.save();
+  
+      res.status(200).send('Product removed from cart successfully');
+    } catch (error) {
+      console.error("Error removing product from cart:", error.message);
+      res.status(500).send("Internal Server Error");
     }
-}
+  };
 
 const updateProductQuantities = async (req, res) => {
     try {
@@ -183,15 +209,26 @@ const updateProductQuantities = async (req, res) => {
 
 const resetCart = async (req, res) => {
     try {
-        console.log("Twin ", req.body)
-        await cart.deleteMany({});
-        console.log("reset Cart Baby", req.body)
+      const { userId } = req.body;
+  
+      // Find the user by ID
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+  
+      // Clear the shopping_cart
+      user.shopping_cart = [];
+  
+      // Save the updated user document
+      await user.save();
+  
+      res.status(200).send('Shopping cart reset successfully');
     } catch (error) {
-        console.error("shoopping.js reset Cart error:", error);
-        res.status(500).send("shoopping.js reset Cart error");
+      console.error("Error resetting cart:", error.message);
+      res.status(500).send("Internal Server Error");
     }
-}
-
+  };
 module.exports = {
     getAllProduct,
     addProduct,

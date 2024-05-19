@@ -219,8 +219,7 @@ console.log(generateTransactionId()); // e.g., "aZ", "4k", "X2"
 
 const addOrderTransac = async (req, res) => {
     try {
-        const { id } = req.body;
-
+        const { id, quantity, mail } = req.body;
         // Generate random transaction ID
         const transactionId = generateTransactionId();
 
@@ -228,9 +227,9 @@ const addOrderTransac = async (req, res) => {
         const newOrderTransaction = new ordertransactions({
             transactionId: transactionId,
             productId: id,
-            orderQuantity: 1,
+            orderQuantity: quantity,
             orderStatus: 0,
-            email: 'email@gmail.com',
+            email: mail,
             dateOrdered: new Date(),
             time: new Date().toLocaleTimeString(),
             //sales: 0,
