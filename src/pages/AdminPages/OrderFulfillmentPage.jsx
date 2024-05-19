@@ -21,7 +21,7 @@ export default function OrderFulfillmentPage() {
     try {
       // Fetch order transactions from the backend
       const response = await axios.get('http://localhost:3000/getAllOrderTransactions');
-      const filteredData = response.data.filter(item => item.orderStatus !== 1); // Filter out completed orders
+      const filteredData = response.data.filter(item => item.orderStatus !== 1 & item.orderStatus !== 2); // Filter out completed orders
       setOrderTransaction(filteredData);
     } catch (error) {
       console.error('Error fetching order transactions:', error);
@@ -36,6 +36,17 @@ export default function OrderFulfillmentPage() {
       fetchOrderTransactions(); // Refresh the list of transactions
     } catch (error) {
       console.error('Error accepting order:', error);
+    }
+  };
+
+  const rejectOrder = async (transactionId) => {
+    console.log("Rejecting transactionId: ", transactionId);
+    try {
+      const response = await axios.post('http://localhost:3000/rejectOrder', { transactionId });
+      console.log(response.data);
+      fetchOrderTransactions(); // Refresh the list of transactions
+    } catch (error) {
+      console.error('Error rejecting order:', error);
     }
   };
 
@@ -72,7 +83,7 @@ export default function OrderFulfillmentPage() {
                 <p>Time Ordered: {item.time}</p>
                 <div className="order-buttons">
                   <button className="acceptButton" onClick={() => acceptOrder(item.transactionId)}>ACCEPT</button>
-                  <button className="rejectButton">REJECT</button>
+                  <button className="rejectButton" onClick={() => rejectOrder(item.transactionId)}>REJECT</button>
                 </div>
               </li>
             </ul>
