@@ -72,10 +72,10 @@ export default function Root() {
           <span><i className='icon fa fa-envelope'></i> contact@farmtotable.com</span>
         </div>
         <div className='social-icons'>
-          <a href='https://www.instagram.com' target='_blank' rel='noopener noreferrer'><i class="fi fi-brands-instagram"></i></a>
-          <a href='https://www.facebook.com' target='_blank' rel='noopener noreferrer'><i class="fi fi-brands-youtube"></i></a>
-          <a href='https://www.facebook.com' target='_blank' rel='noopener noreferrer'><i class="fi fi-brands-facebook"></i></a>
-          <a href='https://www.twitter.com' target='_blank' rel='noopener noreferrer'><i class="fi fi-brands-twitter"></i></a>
+          <a href='https://www.instagram.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-instagram"></i></a>
+          <a href='https://www.facebook.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-youtube"></i></a>
+          <a href='https://www.facebook.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-facebook"></i></a>
+          <a href='https://www.twitter.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-twitter"></i></a>
           
         </div>
       </div>

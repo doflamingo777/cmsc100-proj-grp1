@@ -39,11 +39,11 @@ export default function ListButton({
       {isOpen && ( // Render dropdown content if toggleDropdown is true
         <ul className="dropdown-content">
           {dropdownContent.map((item, index) => (
-            <a key={index} className="dropdown-link">
+            <div key={index} className="dropdown-link">
               <Link to={item.url} className="dropdown-link-text">
                 {item.text}
               </Link>
-            </a>
+            </div>
           ))}
         </ul>
       )}
