@@ -68,10 +68,6 @@ export default function OrderFulfillmentPage() {
       {/* header */}
       <div className="page-header">
         <h1>ORDERS</h1>
-        <div className="top-buttons">
-          <button className="acceptButton">ACCEPT ALL</button>
-          <button className="rejectButton">REJECT ALL</button>
-        </div>
         <div className="searchBar">
           <input type="text" placeholder="Search a transaction" className="searchInput"></input>
           <i className="material-icons searchIcon">search</i>
