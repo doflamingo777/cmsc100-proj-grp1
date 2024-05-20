@@ -66,8 +66,12 @@ export default function TransacPage() {
                 <div className="order-buttons">
                   <button className="rejectButton" onClick={() => cancel(item.transactionId)}>CANCEL</button>
                 </div>
-                )
-                }
+                )}
+                {item.orderStatus == 1 || item.orderStatus == 2  && (
+                  <div className="order-buttons">
+                    <h4 className="rejectButton">Ready for Delivery</h4>
+                  </div>
+                )}
               </li>
             </ul>
           </div>

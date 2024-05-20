@@ -7,33 +7,86 @@ import axios from 'axios';
 // import { deleteProduct } from '../../backend/controller/shopping.js';
 
 function ShoppingCart() {
-
-    const [id, setId] = useState(['']);
-    const [name, setName] = useState(['']);
-    const [price, setPrice] = useState(['']);
-    const [image, setImage] = useState(['']);
-    const [desc, setDesc] = useState(['']);
-    const [qty, setQty] = useState(['']);
-    const [type, setType] = useState(['']);
-    
-
     const [products, setProducts] = useState([]);
     const [cartItems, setCartItems] = useState([]);
     const [email, setEmail] = useState([]);
-    // const [selectedSort, setSelectedSort] = useState('');
-  
-    // const handleSelectChange = (event) => {
-    //   setSelectedSort(event.target.value);
-    // };
-  
+    const [searchValue, setSearchValue] = useState('');
+    const [selectedSort, setSelectedSort] = useState('');
+
+    const productTypeMap = {
+      1: "Staple",
+      2: "Fruits and Vegetables",
+      3: "Livestock",
+      4: "Seafood",
+      5: "Others"
+    }
+
+    const handleSelectChange = (event) => {
+      setSelectedSort(event.target.value);
+    };
+
+    const handleSearchChange = (event) => {
+      setSearchValue(event.target.value);
+    };
+
+    const sortProducts = (products, option) => {
+      return products.sort((productA, productB) => {
+        switch (option) {
+          case 'productnameAsc':
+            return productA.name.localeCompare(productB.name);
+          case 'productnameDesc':
+            return productB.name.localeCompare(productA.name);
+          case 'producttypeAsc':
+            return (
+              productTypeMap[productA.type].localeCompare(productTypeMap[productB.type]) ||
+              productA.name.localeCompare(productB.name) //to sort it by name if ever first conditions are same
+            );
+          case 'producttypeDesc':
+            return (
+              productTypeMap[productB.type].localeCompare(productTypeMap[productA.type]) ||
+              productB.name.localeCompare(productA.name) //to sort it by name if ever first conditions are same
+            );
+          case 'productpriceAsc':
+            return (
+              productA.price - productB.price ||
+              productA.name.localeCompare(productB.name)
+            );
+          case 'productpriceDesc':
+            return (
+              productB.price - productA.price ||
+              productB.name.localeCompare(productA.name)
+            );
+          case 'productqtyAsc':
+            return (
+              productA.qty - productB.qty ||
+              productA.name.localeCompare(productB.name)
+            );
+          case 'productqtyDesc':
+            return (
+              productB.qty - productA.qty ||
+              productB.name.localeCompare(productA.name)
+            );
+          default:
+            return 0;
+        }
+      });
+    };
+
+      //filter and sorting products for searching
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const sortedProducts = sortProducts(filteredProducts, selectedSort); //this will now be the new array of products that i will map to display
+
     useEffect(() => {
       // Fetch products from the server when the component mounts
       const fetchProducts = async () => {
         try {
           const response = await axios.get('http://localhost:3000/getAllProduct');
           const responseUser = await axios.get(`http://localhost:3000/getAUser?email=${localStorage.getItem('email')}`);
-
-          setProducts(response.data); // Update state with products data
+          const sortedProducts = sortProducts(response.data, selectedSort);
+          setProducts(sortedProducts); // Update state with products data
           setEmail(responseUser.data[0]);
           // console.log(responseUser.data);
         } catch (error) {
@@ -152,10 +205,32 @@ function ShoppingCart() {
     // the whole body of the website
     return (
       <div className="appContainer">
+        <div className="page-header">
+        <h1> PRODUCT LISTT </h1>
+        <div className="searchBar">
+          <input type="text" placeholder="Search a product" className="searchInput" value={searchValue}
+            onChange={handleSearchChange}></input>
+          <i className="material-icons searchIcon">search</i>
+        </div>
+        <div className="searchBar">
+          <select id="my-select" value={selectedSort} onChange={handleSelectChange} className="searchInput">
+            <option value="">Sort by</option>
+            <option value="productnameAsc">Name ascending</option>
+            <option value="productnameDesc">Name descending</option>
+            <option value="producttypeAsc">Type ascending</option>
+            <option value="producttypeDesc">Type descending</option>
+            <option value="productpriceAsc">Price ascending</option>
+            <option value="productpriceDesc">Price descending</option>
+            <option value="productqtyAsc">Quantity ascending</option>
+            <option value="productqtyDesc">Quantity descending</option>
+          </select>
+          <i className="material-icons searchIcon">keyboard_arrow_down</i>
+        </div>
+      </div>
         <div className="main-content">
           <div className='mainCont'>
             <div className="goods">
-              {products.map(product => (
+              {sortedProducts.map(product => (
                 <Card 
                   key={product.id} 
                   product={product} 

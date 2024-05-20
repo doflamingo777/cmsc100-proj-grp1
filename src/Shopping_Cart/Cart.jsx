@@ -73,7 +73,7 @@ function Cart({ removeFromCart }) {
         <div className="mainCart">
             <h2>Shopping Cart</h2>
             <p>Total Quantity: {totalQuantity}</p>
-            <p>Total Price: {totalPrice}</p>
+            <p>Total Price: ₱ {totalPrice}</p>
             <Link to={{ pathname: "/checkout" }} onClick={Checkout(cartItems)} className="button"> Checkout </Link>
             <div className="cartItems">
                 {cartItems.map(item => (

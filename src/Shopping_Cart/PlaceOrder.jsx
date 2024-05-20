@@ -131,7 +131,7 @@ function PlaceOrderTab() {
                     <ColoredLine className="orderLine" color="gray" />
                     <div className='totPriceBar'>
                         <h5>Total: </h5> 
-                        <h5> $ {totPrice} </h5> 
+                        <h5> ₱ {totPrice} </h5> 
                     </div>
                 </div>
                 <div className="OrderButt">
