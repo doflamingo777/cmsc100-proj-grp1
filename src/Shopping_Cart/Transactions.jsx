@@ -25,20 +25,21 @@ export default function TransacPage() {
     };
 
     const cancel = async (transactionId) => {
-        console.log("Rejecting transactionId: ", transactionId);
+        console.log("Cancelling transactionId: ", transactionId);
         try {
-            const response = await axios.post('http://localhost:3000/rejectOrder', { transactionId });
+            const response = await axios.post('http://localhost:3000/cancelOrder', { transactionId });
             console.log(response.data);
             fetchOrderTransactions(); // Refresh the list of transactions
         } catch (error) {
-            console.error('Transactions.jsx Error delete:', error);
+            console.error('Transactions.jsx Error cancel:', error);
         }
     };
 
     const orderStatusMap = {
         0: "Pending",
         1: "Completed",
-        2: "Rejected"
+        2: "Rejected",
+        3: "Cancelled"
     };
 
     useEffect(() => {
