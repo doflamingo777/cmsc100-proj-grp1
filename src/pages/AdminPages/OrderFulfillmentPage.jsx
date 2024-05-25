@@ -14,14 +14,15 @@ export default function OrderFulfillmentPage() {
   const orderStatusMap = {
     0: "Pending",
     1: "Completed",
-    2: "Canceled"
+    2: "Rejected",
+    3: "Cancelled"
   };
 
   const fetchOrderTransactions = async () => {
     try {
       // Fetch order transactions from the backend
       const response = await axios.get('http://localhost:3000/getAllOrderTransactions');
-      const filteredData = response.data.filter(item => item.orderStatus !== 1 & item.orderStatus !== 2); // Filter out completed orders
+      const filteredData = response.data.filter(item => item.orderStatus !== 1 & item.orderStatus !== 2 & item.orderStatus !== 3); // Filter out completed orders
       setOrderTransaction(filteredData);
     } catch (error) {
       console.error('Error fetching order transactions:', error);

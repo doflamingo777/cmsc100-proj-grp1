@@ -1,7 +1,6 @@
 const { registerUser, loginUser, getAllUsers, deleteUser, showAdmin, getAUser, updateUserCart } = require('./controller/usercontroller');
 const { getAllProduct, addProduct, deleteProduct, addNewProduct, getAllCheckOut, deleteProductCart, getAProduct, editAProduct, getAProductForCarts, editAProductForCarts, resetCart } = require('./controller/shopping.js');
-
-const { getAllOrderTransactions, acceptOrder, rejectOrder, groupTransactions, addOrderTransac } = require('./controller/transactionController');
+const { getAllOrderTransactions, acceptOrder, rejectOrder, groupTransactions, addOrderTransac, cancelOrder } = require('./controller/transactionController');
 
 
 
@@ -33,6 +32,7 @@ const router = (app) => {
     app.get('/group-transactions', groupTransactions);
     app.post('/addOrderTransac', addOrderTransac);
     app.post('/resetCart', resetCart)
+    app.post('/cancelOrder', cancelOrder)
     
     // app.get('/getUserTrans', getUserOrderTransactions);
 };
