@@ -28,16 +28,16 @@ export default function UserManagementPage() {
           return productA.email.localeCompare(productB.email);
         case 'emailDesc':
           return productB.email.localeCompare(productA.email);
-        // // case 'productqtyAsc':
-        // //   return (
-        // //     productA.qty - productB.qty ||
-        // //     productA.name.localeCompare(productB.name)
-        // //   );
-        // // case 'productqtyDesc':
-        // //   return (
-        // //     productB.qty - productA.qty ||
-        // //     productB.name.localeCompare(productA.name)
-        // //   );
+        case 'ordersAsc':
+          return (
+            productA.shopping_cart.length - productB.shopping_cart.length ||
+            productA.firstname.localeCompare(productB.firstname)
+          );
+        case 'ordersDesc':
+          return (
+            productB.shopping_cart.length - productA.shopping_cart.length ||
+            productB.firstname.localeCompare(productA.firstname)
+          );
         default:
           return 0;
       }
@@ -111,13 +111,13 @@ export default function UserManagementPage() {
             <option value="nameDesc">Name Descending</option>
             <option value="emailAsc">Email Ascending</option>
             <option value="emailDesc">Email Descending</option>
-            <option value="orders">Number of orders</option>
+            <option value="ordersAsc">No. of Orders Ascending</option>
+            <option value="ordersDesc">No. of Orders Descending</option>
           </select>
           <i className="material-icons searchIcon">keyboard_arrow_down</i>
         </div>
         <h2 className="totalUsers"> TOTAL USERS: {users.length} </h2>
       </div>
-      <p>Selected option: {selectedSort}</p>
 
       {/* User details */}
       <div className="user-container">
@@ -126,8 +126,10 @@ export default function UserManagementPage() {
             <ul className="user-box">
               <li className="user-details">
                 <h2>{item.firstname}  {item.lastname}</h2>
-                <p className="email">{item.email}</p>
-                <p>Username: {item.username}</p>
+                <h4 className="email">{item.email}</h4>
+                <p><span>Username: </span> {item.username}</p>
+                <p><span>Mobile Number: </span> {item.phone}</p>
+                <p><span>Items in Cart: </span> {item.shopping_cart.length}</p>
               </li>
               <i className="material-icons right-icon" onClick={() => handleDeleteClick(item)}>close</i>
               <i className="material-icons left-icon">edit</i>
