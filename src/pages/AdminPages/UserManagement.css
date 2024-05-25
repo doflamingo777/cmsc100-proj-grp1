@@ -141,15 +141,32 @@ select {
     width: 300px;
 }
 
+.user-details > p {
+  display: flex;
+  margin: 0px;
+  /* text-align: left; */
+  justify-content:space-between;
+  
+}
+
+.user-details > p > span {
+  font-weight: bold;
+}
+
+
+
 .user-details > h2 {
     margin-top: 13px;
-    margin-bottom: -22px;
+    margin-bottom: 0px;
     font-size: 140%;
 }
 
 .email {
     color:#00B2EA;
-    /* font-size: 10px; */
+    margin: 0px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 
 .confirmation-pop-up {
