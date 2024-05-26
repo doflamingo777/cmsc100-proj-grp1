@@ -158,6 +158,9 @@ export default function ProductListAdminPage() {
             <th></th>
           </tr>
         </thead>
+
+        {products.length == 0 ? <h2 style={{ textAlign: 'center' }}>No products yet, add a product now!</h2> :
+
         <tbody>
           {sortedProducts.map(product => (
             <tr key={product._id}>
@@ -183,6 +186,12 @@ export default function ProductListAdminPage() {
             </tr>
           ))}
         </tbody>
+        }
+        <tfoot>
+            <tr>
+              <td className="products-footer">Showing <span>{sortedProducts.length}</span> {sortedProducts.length > 1 ? 'entries' : 'entry'}</td>
+            </tr>
+          </tfoot>
       </table>
             {/* Confirmation Pop-up */}
             {showConfirmation && (

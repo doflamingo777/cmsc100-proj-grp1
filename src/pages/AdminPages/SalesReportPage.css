@@ -34,8 +34,8 @@
   border-radius: 15px; 
   overflow: hidden; 
   box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.15);
-  margin-left: 50px;
-  margin-right: 50px;
+  margin: auto;
+  background-color: white;
 }
 
 .product-table th,
@@ -87,16 +87,9 @@
   width: 25%;
 }
 
-.product-actions {
-  color: #00B2EA;
-  width: 7%;
-}
 
-.product-actions > i{
-  margin: 6px;
-  transition: 0.3s ease;
-  cursor: pointer;
-}
+
+
 
 .product-actions > i:hover{
   color: #0077a3;

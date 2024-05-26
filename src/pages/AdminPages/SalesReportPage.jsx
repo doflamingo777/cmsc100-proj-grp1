@@ -84,7 +84,6 @@ export default function SalesReportPage() {
               <th>Sold</th>
               <th>Price</th>
               <th>Sales</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>

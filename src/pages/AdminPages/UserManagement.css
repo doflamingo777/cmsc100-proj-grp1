@@ -1,11 +1,16 @@
+
+
 .container{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #D5DBEC;
+    min-height: 100vh;
 }
 
 .page-header {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin: 0px;
 }
 
 .searchInput {
