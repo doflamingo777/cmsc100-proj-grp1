@@ -1,0 +1,88 @@
+.admin-home-container{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #D5DBEC;
+    min-height: 89vh;
+}
+
+.admin-box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    border: solid 1px black;
+    margin: 10px 5px 10px;
+    box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.15);
+    transition: 0.3s ease;
+}
+.admin-box:hover{
+    background-color:#e6f9ff ;
+}
+
+.admin-box.top-product {
+    justify-content: flex-start;
+    padding-top: 1.8rem;
+    flex-wrap: nowrap;
+    align-items: center;
+
+}
+
+.admin-box.top-user {
+    justify-content: flex-start;
+    padding-top: 1.8rem;
+    flex-wrap: nowrap;
+    align-items: center;
+
+}
+
+.low-stock-prod {
+    flex-direction: column;
+    align-content: center;
+
+}
+
+.admin-box.top-product > h3 {
+    position:absolute;
+    margin: 0px;
+    margin-top: -140px;
+    font-size: 1.1rem;
+    color: #152150;
+}
+
+.admin-box.top-user > h3 {
+    position:absolute;
+    margin: 0px;
+    margin-top: -120px;
+    font-size: 1.1rem;
+    color: #152150;
+}
+
+.admin-box.top-product > h1 {
+    margin: 0px;
+}
+
+.low-stock-prod > h4 {
+    font-size: 1.4rem;
+    margin: 0px;
+}
+
+.admin-box > h2 {
+    font-size: 2rem;
+}
+
+.admin-box > h2 > span, 
+.low-stock-prod > h4 > span,
+.low-stock-prod > p > span  {
+    color: #A0B8FF;
+}
+
+.admin-box-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.highest-prod {
+    align-content: center;
+}

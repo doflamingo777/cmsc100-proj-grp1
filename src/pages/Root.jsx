@@ -55,7 +55,7 @@ export default function Root() {
   useEffect(() => {
     if (isUserLoggedIn) {
       if (userType === 'admin') {
-        navigate('/admindashboardpage');
+        navigate('/admindashboardpage/adminhomepage');
       } else {
         navigate('/shopcart');
       }
@@ -96,7 +96,7 @@ export default function Root() {
               <li><Link to={'/userprofilepage'}>User Profile</Link></li>} */}
             {isUserLoggedIn && userType === 'admin' && (
               <>
-                <li><Link to={'/admindashboardpage'}>Admin Dashboard</Link></li>
+                <li><Link to={'/admindashboardpage/adminhomepage'}>Admin Dashboard</Link></li>
                 <li><Link to={'/admindashboardpage/usermanagementpage'}>User Management</Link></li>
                 <li><Link to={'/admindashboardpage/productlistadminpage'}>Product List Admin</Link></li>
                 <li><Link to={'/admindashboardpage/productlistadminpage/addproductpage'}>Product Add admin</Link></li>

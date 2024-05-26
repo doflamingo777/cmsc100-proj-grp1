@@ -7,7 +7,7 @@ const cart = require('../models/cartSchema.js');
 const getAllOrderTransactions = async (req, res) => {
     try {
         const orderTransactionDetails = await ordertransactions.find({}); 
-        console.log(orderTransactionDetails);
+        // console.log(orderTransactionDetails);
         res.send(orderTransactionDetails); 
     } catch (error) {
         console.error("Error fetching order transaction details:", error);
