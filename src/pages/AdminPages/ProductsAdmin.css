@@ -36,6 +36,8 @@
     border-radius: 15px; 
     overflow: hidden; 
     box-shadow: 3px 8px 8px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    margin-bottom: 0px;
   }
   
   .product-table-list th,
@@ -105,6 +107,14 @@
   /* Hover effect */
   .product-table-list tbody tr:hover {
     background-color: #f9f9f9;
+  }
+
+  .products-footer {
+    opacity: 0.5;
+  }
+
+  .products-footer > span {
+    font-weight: bold;
   }
 
 

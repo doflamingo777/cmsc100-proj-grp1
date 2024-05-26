@@ -159,7 +159,7 @@ export default function AddProductPage() {
   };
 
   return (
-    <div className="container">
+    <div className="add-prod-container">
       {/* header */}
       <div className="page-header">
         <h1>{!existingProductId ? 'ADD A PRODUCT' : `EDIT PRODUCT ${tempName}` }</h1>
