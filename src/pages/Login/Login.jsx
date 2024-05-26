@@ -64,7 +64,7 @@ export default function LoginDetails() {
       console.log(mail)
       
       if (response.data.userType === 'admin') {
-        navigate('/admindashboardpage');
+        navigate('/admindashboardpage/adminhomepage');
       } else {
 
         // navigate('/userprofilepage');

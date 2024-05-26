@@ -63,7 +63,7 @@ export default function AdminDashboardPage() {
           icon="home"
           text="HOME"
           dropdownContent={[
-            { text: "Home", url: "/admindashboardpage" },
+            { text: "Home", url: "adminhomepage" },
           ]}
           drawerOpen={drawerOpen}
         />

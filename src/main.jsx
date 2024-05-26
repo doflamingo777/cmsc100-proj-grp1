@@ -20,6 +20,7 @@ import OrderFulfillmentPage from './pages/AdminPages/OrderFulfillmentPage';
 import SalesReportPage from './pages/AdminPages/SalesReportPage';
 import AddProductPage from './pages/AdminPages/AddProductPage';
 import ProtectedRoute from './ProtectedRoute';
+import AdminHomePage from './pages/AdminPages/AdminHome';
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,7 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
+      { path: 'adminhomepage', element: <AdminHomePage /> },
       { path: 'usermanagementpage', element: <UserManagementPage /> },
       { path: 'productlistadminpage', element: <ProductListAdminPage /> },
       { path: 'productlistadminpage/addproductpage', element: <AddProductPage /> },
