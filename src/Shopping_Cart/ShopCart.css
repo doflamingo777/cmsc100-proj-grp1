@@ -336,3 +336,12 @@ button:hover {
     /* border: 2px solid green; */
     text-align: center;
 }
+
+.cartButtonNone {
+    background-color: #e94560;
+    cursor: not-allowed;
+}
+
+.cartButtonNone:hover {
+    background-color: #e94560;
+}
