@@ -129,7 +129,7 @@ export default function UserManagementPage() {
                 <h4 className="email">{item.email}</h4>
                 <p><span>Username: </span> {item.username}</p>
                 <p><span>Mobile Number: </span> {item.phone}</p>
-                <p><span>Items in Cart: </span> {item.shopping_cart.length}</p>
+                <p><span>Items in Cart: </span> {item.shopping_cart.length ? item.shopping_cart.length : 'None' }</p>
               </li>
               <i className="material-icons right-icon" onClick={() => handleDeleteClick(item)}>close</i>
               <i className="material-icons left-icon">edit</i>
