@@ -21,7 +21,19 @@ export default function AdminDashboardPage() {
 
   return (
     <>
-     
+           <div className='top-bar'>
+        <div className='contact-info'>
+          <span><i className='icon fa fa-phone'></i> +63 999 8342342</span>
+          <span><i className='icon fa fa-envelope'></i> contact@farmtotable.com</span>
+        </div>
+        <div className='social-icons'>
+          <a href='https://www.instagram.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-instagram"></i></a>
+          <a href='https://www.facebook.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-youtube"></i></a>
+          <a href='https://www.facebook.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-facebook"></i></a>
+          <a href='https://www.twitter.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-twitter"></i></a>
+          
+        </div>
+      </div>
       {/* Navbar */}
       <nav className="navbar">
         <button
@@ -31,13 +43,13 @@ export default function AdminDashboardPage() {
         >
           ☰
         </button>
+        <div className="nav-logo">Farm-to-Table</div>
 
         {/*dinagdag ni bryan for testing*/}
 
         
 
 
-        {/* <div className="navbar-logo">farm-to-table</div> */}
         <ProfileDropdown />
         
       </nav>
@@ -45,14 +57,13 @@ export default function AdminDashboardPage() {
       {/* Drawer */}
       <div className={`drawer ${drawerOpen ? "drawer-open" : "drawer-closed"}`}>
         <button className="drawer-button" onClick={toggleDrawer}>
-          ☰
+        <i className="material-icons">arrow_back_ios</i>
         </button>
         <ListButton
           icon="home"
           text="HOME"
           dropdownContent={[
-            { text: "Home", url: "/#" },
-            { text: "Dropdown Item 2", url: "#" },
+            { text: "Home", url: "/admindashboardpage" },
           ]}
           drawerOpen={drawerOpen}
         />
@@ -67,6 +78,9 @@ export default function AdminDashboardPage() {
           ]}
           drawerOpen={drawerOpen}
         />
+        <footer className={drawerOpen ? "admin-footer active" : "admin-footer"}>
+        &copy; 2024 Farm-to-Table. All rights reserved.
+      </footer>
       </div>
           
       {/* Content */}

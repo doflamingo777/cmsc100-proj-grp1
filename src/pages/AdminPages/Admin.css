@@ -27,9 +27,15 @@
     position: absolute;
     top: 0px;
     right: 0px;
-    font-size: 24px;
+    padding: 10px 10px 10px 15px;
+    margin-right: 3px;
+    font-size: 0px;
     color: white;
     background: none;
+  }
+
+  .drawer-button > i {
+    font-size: 1.2rem;
   }
 
 
@@ -60,6 +66,7 @@
     /* height: 50px; */
     color: #fff;
     margin: 0px;
+    padding: 7px 0px 7px;
 }
 
 
@@ -74,7 +81,7 @@
 
 .navbar-toggle {
     transition: 0.5s;
-    margin: 5px;
+    margin-top: -5px;
     font-size: 24px;
     background: none;
     border: none;
@@ -83,3 +90,24 @@
     
   }
   
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  color: white;
+  margin-left: 10px;
+}
+
+.admin-footer {
+  position: absolute;
+  bottom: 65px;
+  margin: 10px;
+  text-align: center;
+  opacity: 0;
+  transition: 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.admin-footer.active {
+  opacity: 0.6;
+  font-size: 0.9rem;
+}

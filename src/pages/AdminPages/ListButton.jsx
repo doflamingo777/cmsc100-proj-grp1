@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useLocation } from "react-router-dom";
 import "./ListButton.css"; // Import the CSS file
 
 export default function ListButton({
@@ -9,6 +9,7 @@ export default function ListButton({
   drawerOpen,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();       //for highlighting which button is currently the page
 
   useEffect(() => {
     //reset the local open/close state when the drawer is closed
@@ -29,7 +30,6 @@ export default function ListButton({
       >
         <i className="material-icons">{icon}</i>
         <p>{text}</p>
-
         {isOpen ? (
           <i className="material-icons arrow-down">keyboard_arrow_up</i>
         ) : (
@@ -40,9 +40,13 @@ export default function ListButton({
         <ul className="dropdown-content">
           {dropdownContent.map((item, index) => (
             <div key={index} className="dropdown-link">
-              <Link to={item.url} className="dropdown-link-text">
+              <Link to={item.url} className={`dropdown-link-text ${
+                  location.pathname.split('/').pop() === item.url ? "active" : ""
+                }`}
+              >
                 {item.text}
               </Link>
+              
             </div>
           ))}
         </ul>
