@@ -22,13 +22,12 @@ body {
     
 } */
   
-.appContainer {
+/* .appContainer {
     display: flex;
     flex-wrap: wrap;
-    /* border: 1px solid blue; */
-    justify-content: center; /* Center align flex items */
-    align-items: flex-start; /* Align items at the start of each row */
-}
+    justify-content: center;
+    align-items: flex-start;
+} */
   
   /* Container for the main content */
 .main-content {
