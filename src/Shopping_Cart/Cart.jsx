@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Checkout from './CheckOutPage';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import './ShopCart.css';
 
 function Cart({ removeFromCart }) {
 
@@ -94,7 +95,6 @@ function Cart({ removeFromCart }) {
             <p>Total Quantity: {totalQuantity}</p>
             <p>Total Price: {totalPrice}</p>
             <Link to="/checkout">Checkout</Link>
-            <Link to="/checkout" > Checkout </Link>
             <div className="cartItems">
                 {cartItems.map(item => (
                     <div key={item.id} className="cartItem">

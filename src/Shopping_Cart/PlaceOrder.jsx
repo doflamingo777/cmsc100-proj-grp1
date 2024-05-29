@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import './ShopCart.css';
 
 function PlaceOrderTab() {
 
@@ -131,7 +132,7 @@ function PlaceOrderTab() {
                     <ColoredLine className="orderLine" color="gray" />
                     <div className='totPriceBar'>
                         <h5>Total: </h5> 
-                        <h5> ₱{totPrice} </h5> 
+                        <h5> ₱ {totPrice} </h5> 
                     </div>
                 </div>
                 <div className="OrderButt">

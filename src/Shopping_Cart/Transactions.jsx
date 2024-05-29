@@ -63,6 +63,7 @@ export default function TransacPage() {
                 <p>Order Quantity: {item.orderQuantity}</p>
                 <p>Date Ordered: {item.dateOrdered}</p>
                 <p>Time Ordered: {item.time}</p>
+                <p>Mode of Payment: {item.modeOfPayment}</p>
                 {item.orderStatus == 0 && (
                 <div className="order-buttons">
                   <button className="rejectButton" onClick={() => cancel(item.transactionId)}>CANCEL</button>
