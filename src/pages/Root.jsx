@@ -52,6 +52,12 @@ export default function Root() {
   const isUserLoggedIn = !!token;
   const navigate = useNavigate();
 
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+    window.location.reload();
+  };
+
   useEffect(() => {
     if (isUserLoggedIn) {
       if (userType === 'admin') {
@@ -73,7 +79,7 @@ export default function Root() {
         </div>
         <div className='social-icons'>
           <a href='https://www.instagram.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-instagram"></i></a>
-          <a href='https://www.facebook.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-youtube"></i></a>
+          <a href='https://www.youtube.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-youtube"></i></a>
           <a href='https://www.facebook.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-facebook"></i></a>
           <a href='https://www.twitter.com' target='_blank' rel='noopener noreferrer'><i className="fi fi-brands-twitter"></i></a>
           
@@ -86,12 +92,13 @@ export default function Root() {
             <li><Link to={'/'}>Home</Link></li>
             {!isUserLoggedIn && <li><Link to={'/login'}>Login</Link></li>}
             {!isUserLoggedIn && <li><Link to={'/register'}>Register</Link></li>}
-            <li><Link to={'/shopcart'}>Shopping Cart</Link></li>
+            {isUserLoggedIn &&<li><Link to={'/shopcart'}>Shopping Cart</Link></li>}
             {/* <li><Link to={'/productlistpage'}>Product List</Link></li> */}
-            <li><Link to={'/checkout'}>Check Out</Link></li>
-            <li><Link to={'/userTransac'}>Transactions</Link></li>
+            {isUserLoggedIn && <li><Link to={'/checkout'}>Check Out</Link></li>}
+            {isUserLoggedIn && <li><Link to={'/userTransac'}>Transactions</Link></li>}
             {/* <li><Link to={'/orderconfirmationpage'}>Order Confirmation</Link></li> */}
             {isUserLoggedIn && <li><Link to={'/userprofilepage'}>User Profile</Link></li>}
+            {isUserLoggedIn && <li><button onClick={handleSignOut} className="signout-button">Sign Out</button></li>}
             {/* {isUserLoggedIn && userType === 'user' &&
               <li><Link to={'/userprofilepage'}>User Profile</Link></li>} */}
             {isUserLoggedIn && userType === 'admin' && (

@@ -10,6 +10,13 @@
 }
 
 
+.signout-button {
+
+  border: none;
+  color: inherit;
+  outline: inherit;
+  color: #f5f5f5;
+}
 
 .top-bar {
   text-align: center;

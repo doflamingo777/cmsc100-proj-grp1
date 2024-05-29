@@ -10,9 +10,8 @@ import ShoppingCart from './Shopping_Cart/ShoppingCart';
 import CheckOutPage from './Shopping_Cart/CheckOutPage';
 import Checkout from './Shopping_Cart/CheckOutPage';
 import ProductListPage from './pages/CustomerPages/ProductListPage';
-// import OrderConfirmationPage from './pages/CustomerPages/OrderConfirmationPage';
 import UserProfilePage from './pages/CustomerPages/UserProfilePage';
-import Transactions from './Shopping_Cart/Transactions'
+import Transactions from './Shopping_Cart/Transactions';
 import AdminDashboardPage from './pages/AdminPages/AdminDashboardPage';
 import UserManagementPage from './pages/AdminPages/UserManagementPage';
 import ProductListAdminPage from './pages/AdminPages/ProductListAdminPage';
@@ -28,20 +27,29 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       { path: '/', element: <Home /> },
-      { path: '/shopcart', element: ( <ProtectedRoute allowedRoles={['user',  'admin']}> <ShoppingCart />  </ProtectedRoute>),},
-      { path: '/checkout', 
-        element: ( 
-          <ProtectedRoute allowedRoles={['user', 'admin']}> 
-            <Checkout /> 
+      {
+        path: '/shopcart',
+        element: (
+          <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <ShoppingCart />
           </ProtectedRoute>
-        )
+        ),
       },
-      { path: '/userTransac', 
-        element: ( 
-          <ProtectedRoute allowedRoles={['user', 'admin']}> 
-            <Transactions /> 
+      {
+        path: '/checkout',
+        element: (
+          <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <Checkout />
           </ProtectedRoute>
-        )
+        ),
+      },
+      {
+        path: '/userTransac',
+        element: (
+          <ProtectedRoute allowedRoles={['user', 'admin']}>
+            <Transactions />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/userprofilepage',
@@ -53,7 +61,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  
   { path: '/login', element: <LoginDetails /> },
   { path: '/register', element: <RegisterDetails /> },
   {

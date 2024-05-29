@@ -2,16 +2,18 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userSchema');
 const Admin = require('../models/adminSchema.js');
+const ordertransactions = require('../models/transactionSchema');
+const Product = require('../models/productSchema');
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
 //Registration
 const registerUser = async (req, res) => {
     try {
-        const { firstname, lastname, username, phone, email, password } = req.body;
+        const { firstname, middlename, lastname, username, phone, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const userType = 'user';
-        const newUser = new User({ firstname, lastname, username, phone, email, password: hashedPassword, userType: userType});
+        const newUser = new User({ firstname, middlename, lastname, username, phone, email, password: hashedPassword, userType: userType});
         await newUser.save();
         res.status(201).json({ message: 'Registration successful' });
     } catch (error) {
@@ -109,4 +111,44 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = { loginUser, registerUser, getAllUsers, deleteUser, showAdmin, getAUser, updateUserCart };
+const updateUserProfile = async (req, res) => {
+    try {
+      const { email, firstname, lastname, middlename, phone, username, password } = req.body;
+      const updatedData = { firstname, lastname, middlename, phone, username };
+  
+      if (password) {
+        updatedData.password = await bcrypt.hash(password, 10);
+      }
+  
+      const user = await User.findOneAndUpdate({ email: email }, updatedData, { new: true });
+  
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+  
+      res.status(200).send(user);
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  };
+  
+const getUserPurchaseHistory = async (req, res) => {
+    try {
+        const email = req.query.email;
+        const transactions = await ordertransactions.find({ email: email, orderStatus: 1 });
+
+        if (!transactions) {
+            return res.status(404).send('No transactions found for this user');
+        }
+
+        res.status(200).send(transactions);
+    } catch (error) {
+        console.error('Error fetching user purchase history:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+  
+
+
+module.exports = { loginUser, registerUser, getAllUsers, deleteUser, showAdmin, getAUser, updateUserCart, updateUserProfile, getUserPurchaseHistory, };

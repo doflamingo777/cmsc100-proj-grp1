@@ -51,7 +51,7 @@ export default function LoginDetails() {
       });
       const token = response.data.token; //token is for authentication
       const userType = response.data.userType; // user type can be user or admin
-      alert('Login successful');
+   
       setEmail('');
       setPassword('');
 

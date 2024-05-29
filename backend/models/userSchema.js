@@ -8,6 +8,7 @@ const cartItemSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
     firstname: {type: String, required: true},
+    middlename:{type: String, required: false},
     lastname: { type: String, required: true},
     username: {type: String, required: true, unique: true},
     middlename:{type: String, required: false},

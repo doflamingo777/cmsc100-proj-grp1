@@ -1,0 +1,53 @@
+.profile-container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .profile-form, .profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .profile-form label, .profile-details p {
+    margin: 5px 0;
+  }
+  
+  .profile-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .profile-form button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .profile-form button[type='submit'] {
+    background-color: #252B42;
+    color: white;
+  }
+  
+  .profile-form button[type='button'] {
+    background-color: #ccc;
+  }
+  
+  .purchase-history {
+    margin-top: 20px;
+  }
+  
+  .transaction {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  

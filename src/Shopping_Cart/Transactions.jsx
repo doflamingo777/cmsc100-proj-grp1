@@ -12,7 +12,7 @@ export default function TransacPage() {
         try {
         // Fetch order transactions from the backend
         const response = await axios.get('http://localhost:3000/getAllOrderTransactions');
-
+        console.log(response)
         const responseUser = await axios.get(`http://localhost:3000/getAUser?email=${localStorage.getItem('email')}`);
         const user = responseUser.data[0];
         console.log("User Transactions.jsx: ", user);

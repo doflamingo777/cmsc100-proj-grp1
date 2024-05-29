@@ -93,6 +93,7 @@ function Cart({ removeFromCart }) {
             <h2>Shopping Cart</h2>
             <p>Total Quantity: {totalQuantity}</p>
             <p>Total Price: {totalPrice}</p>
+            <Link to="/checkout">Checkout</Link>
             <Link to="/checkout" > Checkout </Link>
             <div className="cartItems">
                 {cartItems.map(item => (
