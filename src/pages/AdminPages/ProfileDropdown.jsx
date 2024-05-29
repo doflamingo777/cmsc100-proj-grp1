@@ -28,12 +28,6 @@ const ProfileDropdown = () => {
         <h3>Department of Agriculture<br /><span>Admin</span></h3>
         <ul className='drop-down-list'>
           <li>
-          <i className="material-icons searchIcon">person</i><a href="#">My profile</a>
-          </li>
-          <li>
-          <i className="material-icons searchIcon">manage_accounts</i><a href="#">Edit profile</a>
-          </li>
-          <li>
           <i className="material-icons searchIcon" >logout</i><a onClick={handleSignOut}>Logout</a>
           </li>
         </ul>
