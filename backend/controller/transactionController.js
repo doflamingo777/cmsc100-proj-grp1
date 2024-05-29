@@ -271,6 +271,7 @@ const addOrderTransac = async (req, res) => {
             orderQuantity: quantity,
             orderStatus: 0,
             email: mail,
+            modeOfPayment: 'Cash on Delivery',
             dateOrdered: new Date(),
             time: new Date().toLocaleTimeString(),
             sales,

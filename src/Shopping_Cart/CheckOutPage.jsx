@@ -85,18 +85,21 @@ const Checkout = () => {
         <div className='buongCheckout'>
           <h1>Checkout</h1>
           <div className='checkoutItems'>
-            {cartItems.map(item => (
-              <div key={item.id} className="eachItem">
-                <input type="checkbox" />
-                <img className="checkoutImg" src={item.image} alt={item.name} />
-                <h3 className="checkoutItemName">{item.name}</h3>
-                <p className="checkoutItemPrice">₱{item.price}</p>
-                <p className="checkoutItemQuantity">Quantity: {item.quantity}</p>
-                <button className="button" onClick={() => handleDeleteClick(item)}>
-                  <img className="delItem" src="https://static-00.iconduck.com/assets.00/trash-bin-icon-2048x2048-duca73jv.png" alt="Delete" />
-                </button>
-              </div>
-            ))}
+            {cartItems.length === 0 ? (
+              <p>No Items in Cart</p>
+              ) : (
+              cartItems.map(item => (
+                <div key={item.id} className="eachItem">
+                  <img className="checkoutImg" src={item.image} alt={item.name} />
+                  <h3 className="checkoutItemName">{item.name}</h3>
+                  <p className="checkoutItemPrice">₱{item.price}</p>
+                  <p className="checkoutItemQuantity">Quantity: {item.quantity}</p>
+                  <button className="button" onClick={() => handleDeleteClick(item)}>
+                    <img className="delItem" src="https://static-00.iconduck.com/assets.00/trash-bin-icon-2048x2048-duca73jv.png" alt="Delete" />
+                  </button>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

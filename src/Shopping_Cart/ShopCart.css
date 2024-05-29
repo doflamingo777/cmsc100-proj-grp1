@@ -108,6 +108,7 @@ button:hover {
 }
 
 .mainCart {
+    font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
     border: 1px solid hsl(0, 0%, 80%);
@@ -268,9 +269,9 @@ button:hover {
     padding-right: 15px;
 }
 
-/* .orderSummary{
-    margin: 0;
-} */
+.orderSummary{
+    font-family: 'Roboto', sans-serif;
+}
 
 .orderSummText{
     font-family: 'Roboto', sans-serif;
@@ -301,6 +302,7 @@ button:hover {
     justify-content: space-between;
     padding-left: 10px;
     padding-right: 10px;
+    font-size: 20px;
     /* max-height: 10vb; */
 }
 

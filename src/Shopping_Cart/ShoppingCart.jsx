@@ -216,7 +216,6 @@ function ShoppingCart() {
     return (
       <div className="appContainer">
         <div className="page-header">
-          <h1> PRODUCT LISTT </h1>
           <div className="searchBar">
             <input type="text" placeholder="Search a product" className="searchInput" value={searchValue}
               onChange={handleSearchChange}></input>
