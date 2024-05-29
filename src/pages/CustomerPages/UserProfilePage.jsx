@@ -102,6 +102,7 @@ export default function UserProfile() {
             <p>Status: {orderStatusMap[transaction.orderStatus]}</p>
             <p>Date: {new Date(transaction.dateOrdered).toLocaleDateString()}</p>
             <p>Time: {transaction.time}</p>
+            <p>Mode of Payment: {transaction.modeOfPayment}</p>
           </div>
         ))}
       </div>
