@@ -75,7 +75,7 @@ function Cart({ removeFromCart }) {
     
         const newTotalQuantity = cartItems.reduce((total, item) => {
             // console.log("item.quantity:", 1);
-            return total + 1;
+            return total + (1 * item.quantity);
         }, 0);
     
         const newTotalPrice = cartItems.reduce((total, item) => {

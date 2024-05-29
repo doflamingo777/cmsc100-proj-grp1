@@ -132,7 +132,6 @@ export default function UserManagementPage() {
                 <p><span>Items in Cart: </span> {item.shopping_cart.length ? item.shopping_cart.length : 'None' }</p>
               </li>
               <i className="material-icons right-icon" onClick={() => handleDeleteClick(item)}>close</i>
-              <i className="material-icons left-icon">edit</i>
             </ul>
           </div>
         ))}
