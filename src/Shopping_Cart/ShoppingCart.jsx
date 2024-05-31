@@ -142,7 +142,7 @@ function ShoppingCart() {
     };
 
     const removeFromCart = (productId) => {
-      console.log('AHJAHAHAHAHAHAHHA',cartItems)
+      //console.log('AHJAHAHAHAHAHAHHA',cartItems)
       console.log("removeFrmCart: ", productId)
       setCartItems(cartItems.filter(item => item.id !== productId));
     };

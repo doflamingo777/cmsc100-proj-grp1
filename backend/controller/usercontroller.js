@@ -33,7 +33,7 @@ const getAllUsers = async (req, res) => {
 };
 
 //find a product using it's object ID
-const getAUser = async (req, res) => {
+const getAUserInfo = async (req, res) => {
     try {
       const emailLoggedIn = req.query.email;
       const userDetails = await User.findOne({ email: emailLoggedIn }).select('-password'); // Exclude the password
@@ -43,6 +43,21 @@ const getAUser = async (req, res) => {
       res.status(500).send("Internal Server Error");
     }
   };
+
+
+  const getAUser = async (req, res) => {
+    try {
+        const emailLoggedIn = req.query.email;
+
+        // console.log( emailLoggedIn)
+        const productDetails = await User.find({email: emailLoggedIn});
+        // console.log(productDetails);
+        res.send(productDetails);
+    }catch(error) {
+        console.error("Error fetching product details:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
   
 
 const updateUserCart = async (req, res) => {
@@ -149,4 +164,4 @@ const getUserPurchaseHistory = async (req, res) => {
   
 
 
-module.exports = { loginUser, registerUser, getAllUsers, deleteUser, showAdmin, getAUser, updateUserCart, updateUserProfile, getUserPurchaseHistory, };
+module.exports = { loginUser, registerUser, getAllUsers, deleteUser, showAdmin, getAUser, updateUserCart, updateUserProfile, getUserPurchaseHistory, getAUserInfo};

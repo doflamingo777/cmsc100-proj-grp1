@@ -67,13 +67,13 @@ export default function OrderFulfillmentPage() {
   return (
     <div className="container">
       {/* header */}
-      <div className="page-header">
+      {/* <div className="page-header">
         <h1>ORDERS</h1>
         <div className="searchBar">
           <input type="text" placeholder="Search a transaction" className="searchInput"></input>
           <i className="material-icons searchIcon">search</i>
         </div>
-      </div>
+      </div> */}
 
       {/* order details */}
       <div className="order-container">

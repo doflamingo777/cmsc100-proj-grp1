@@ -16,7 +16,7 @@ export default function UserProfile() {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/getAUser?email=${email}`);
+      const response = await axios.get(`http://localhost:3000/getAUserInfo?email=${email}`);
       setUser(response.data);
       setFormData({
         ...response.data,
@@ -30,9 +30,9 @@ export default function UserProfile() {
   const fetchUserPurchaseHistory = async () => {
     try {
       const response = await axios.get('http://localhost:3000/getAllOrderTransactions');
-      const responseUser = await axios.get(`http://localhost:3000/getAUser?email=${localStorage.getItem('email')}`);
+      const responseUser = await axios.get(`http://localhost:3000/getAUserInfo?email=${localStorage.getItem('email')}`);
       const user = responseUser.data;
-      console.log("User Transactions.jsx: ", user);
+      //console.log("User Transactions.jsx: ", user);
 
       const filteredData = response.data.filter(item => item.email === user.email);
       setTransactions(filteredData);
