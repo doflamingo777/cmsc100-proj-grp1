@@ -89,3 +89,10 @@
 .Back:hover {
   background-color: #b81010;
 }
+
+
+.error-message {
+  color: rgb(158, 16, 16);
+  font-weight: bold;
+  margin-bottom: 10px;
+}

@@ -14,6 +14,7 @@ export default function RegisterDetails() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); 
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function RegisterDetails() {
       const existingAdmin = admins.find(admin => admin.email === email);
 
       if (existingUser || existingAdmin) {
-        alert('Existing Email');
+        setError('Existing Email');
         return;
       }
 
@@ -57,6 +58,7 @@ export default function RegisterDetails() {
       setPhone('');
       setEmail('');
       setPassword('');
+      setError(''); // Clear error message on successful registration
       fetchUsers();
       navigate('/login');
     } catch (error) {
@@ -139,6 +141,7 @@ export default function RegisterDetails() {
               onChange={(e) => setPassword(e.target.value)}
               required
             /><br/>
+            {error && <div className='error-message'>{error}</div>}
             <button type='submit'>Register</button>
           </form>
         </div>
