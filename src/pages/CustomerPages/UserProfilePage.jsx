@@ -17,8 +17,11 @@ export default function UserProfile() {
   const fetchUserProfile = async () => {
     try {
       const response = await axios.get(`http://localhost:3000/getAUser?email=${email}`);
-      setUser(response.data[0]);
-      setFormData(response.data[0]);
+      setUser(response.data);
+      setFormData({
+        ...response.data,
+        password: '' // Ensure password is not pre-filled
+      });
     } catch (error) {
       console.error('Error fetching user profile:', error);
     }
@@ -27,11 +30,10 @@ export default function UserProfile() {
   const fetchUserPurchaseHistory = async () => {
     try {
       const response = await axios.get('http://localhost:3000/getAllOrderTransactions');
-     
       const responseUser = await axios.get(`http://localhost:3000/getAUser?email=${localStorage.getItem('email')}`);
-      const user = responseUser.data[0];
+      const user = responseUser.data;
       console.log("User Transactions.jsx: ", user);
-   
+
       const filteredData = response.data.filter(item => item.email === user.email);
       setTransactions(filteredData);
     } catch (error) {

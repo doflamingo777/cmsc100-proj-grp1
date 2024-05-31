@@ -9,11 +9,13 @@ export default function LoginDetails() {
     navigate('/');
     window.location.reload();
   };
+
   // login details
   const [users, setUsers] = useState([]);
   const [admins, setAdmin] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); // state to manage error messages
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,9 +43,10 @@ export default function LoginDetails() {
     const existingAdmin = admins.find(admin => admin.email === email);
 
     if (!existingUser && !existingAdmin) {
-      alert('Email does not exist');
+      setError('Email does not exist');
       return;
     }
+
     try {
       const response = await axios.post('http://localhost:3000/login', {
         email,
@@ -51,7 +54,7 @@ export default function LoginDetails() {
       });
       const token = response.data.token; //token is for authentication
       const userType = response.data.userType; // user type can be user or admin
-   
+      setError(''); // clear error message on successful login
       setEmail('');
       setPassword('');
 
@@ -59,33 +62,30 @@ export default function LoginDetails() {
       localStorage.setItem('userType', userType);
       localStorage.setItem('email', email); //set current user email
       
-    
-      const mail = localStorage.getItem('email');
-      console.log(mail)
-      
       if (response.data.userType === 'admin') {
         navigate('/admindashboardpage/adminhomepage');
       } else {
-
-        // navigate('/userprofilepage');
         navigate('/shopcart');
       }
-      window.location.reload()
-      
-
+      window.location.reload();
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setError('Incorrect password');
+      } else {
+        setError('Login failed. Please try again.');
+      }
       console.log('Login Error:', error);
     }
   };
 
   return (
-    
     <div className='login-container'>
-    <button className='Back' onClick={handleBack}>Back</button>
+      <button className='Back' onClick={handleBack}>Back</button>
       <div className='forms-container'>
         <form className='login-form' onSubmit={handleLogin}>
           <h1>Login</h1>
           <p>Welcome to Login Page</p>
+          
           <label>Email Address</label>
           <input
             type='email'
@@ -104,14 +104,13 @@ export default function LoginDetails() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           /><br />
+          {error && <div className='error-message'>{error}</div>} 
           <button className='color-red' type='submit'>Login</button>
-          
         </form>
         <div className="login-footer">
-        Not Yet Registered? <a href='/register'> Register</a>
+          Not Yet Registered? <a href='/register'> Register</a>
+        </div>
       </div>
-      </div>
-      
     </div>
   );
 }
